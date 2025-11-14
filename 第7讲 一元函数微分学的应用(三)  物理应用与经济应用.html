@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第7讲 一元函数微分学的应用(三)  ——  物理应用与经济应用</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第7讲 一元函数微分学的应用(三)  ——  物理应用与经济应用</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">一元函数微分学的应用(三)<br>物理应用与经济应用</div>
+                        <div class="mindmap-node node-1">
+                            <h3>物理应用</h3>
+                            <ul>
+                                <li><strong>相关变化率</strong></li>
+                                <li>变化率关系</li>
+                                <li><strong>运动学应用</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>经济应用</h3>
+                            <ul>
+                                <li><strong>边际分析</strong></li>
+                                <li>弹性分析</li>
+                                <li><strong>最优化问题</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>核心概念</h3>
+                            <ul>
+                                <li><strong>边际函数</strong></li>
+                                <li>需求弹性</li>
+                                <li><strong>相关变化率</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>解题方法</h3>
+                            <ul>
+                                <li><strong>边际分析法</strong></li>
+                                <li>弹性分析法</li>
+                                <li><strong>变化率求解</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>注意事项</h3>
+                            <ul>
+                                <li><strong>易错点</strong></li>
+                                <li>经济意义</li>
+                                <li><strong>公式应用</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>重要公式</h3>
+                            <ul>
+                                <li><strong>边际函数</strong></li>
+                                <li>需求弹性</li>
+                                <li><strong>利润最大化</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、核心概念</h2>
+                
+                <h3>1. 物理应用（仅数学一、数学二）</h3>
+                <p><strong>相关变化率问题</strong></p>
+                <p><strong>基本概念：</strong></p>
+                <div class="example">
+                    相关变化率：两个或多个变量之间的变化率有关系
+                </div>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    建立相关变量方程 → 求导找出相关变化率 → 通过已知变化率求未知变化率
+                </div>
+                <p><strong>典型例题：</strong></p>
+                <div class="example">
+                    位移对时间的变化率（速度）<br>
+                    速度对时间的变化率（加速度）
+                </div>
+                
+                <h3>2. 经济应用（仅数学三）</h3>
+                <p><strong>(1) 边际函数与边际分析</strong></p>
+                <div class="formula">
+                    边际成本：\(MC(Q) = C'(Q)\)<br>
+                    边际收益：\(MR(Q) = R'(Q)\)<br>
+                    边际利润：\(ML(Q) = L'(Q) = MR(Q) - MC(Q)\)
+                </div>
+                <p><strong>边际分析的经济意义：</strong></p>
+                <div class="example">
+                    边际利润大于0：增加产量可以增加利润<br>
+                    边际利润小于0：减少产量可以增加利润<br>
+                    边际利润等于0：利润达到最大值
+                </div>
+                
+                <p><strong>(2) 弹性函数与弹性分析</strong></p>
+                <div class="formula">
+                    需求弹性：\(\eta = - \frac{p}{Q} \cdot \frac{dQ}{dp}\)
+                </div>
+                <p><strong>弹性分析：</strong></p>
+                <div class="example">
+                    \(\eta > 1\)：需求富有弹性，价格下降会增加总收益<br>
+                    \(\eta = 1\)：需求单位弹性，价格变化不影响总收益<br>
+                    \(\eta < 1\)：需求缺乏弹性，价格下降会减少总收益
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、常见题型及解题思路</h2>
+                
+                <h3>1. 经济应用问题（边际分析）</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 根据题目条件，写出成本函数、收益函数、利润函数<br>
+                    2. 求出边际利润函数<br>
+                    3. 代入条件求解
+                </div>
+                <p><strong>例：</strong>设生产某商品的固定成本为60000元，可变成本为20元/件，价格函数为\(p = 60 - Q/1000\)（\(p\)是单价，单位：元；\(Q\)是销量，单位：件）。已知产销平衡，求：</p>
+                <div class="example">
+                    (1) 该商品的边际利润函数；<br>
+                    (2) 当\(p = 50\)元时的边际利润，并解释其经济意义；<br>
+                    (3) 使得利润最大的单价\(p\)。
+                </div>
+                <p><strong>解题步骤：</strong></p>
+                <div class="step">
+                    <strong>成本函数：</strong>\(C(Q) = 60000 + 20Q\)
+                </div>
+                <div class="step">
+                    <strong>收益函数：</strong>\(R(Q) = pQ = (60 - Q/1000)Q = 60Q - Q^2/1000\)
+                </div>
+                <div class="step">
+                    <strong>利润函数：</strong>\(L(Q) = R(Q) - C(Q) = -Q^2/1000 + 40Q - 60000\)
+                </div>
+                <div class="step">
+                    <strong>边际利润函数：</strong>\(L'(Q) = -Q/500 + 40\)
+                </div>
+                <div class="step">
+                    <strong>当\(p = 50\)元时：</strong><br>
+                    \(50 = 60 - Q/1000 \Rightarrow Q = 10000\)<br>
+                    \(L'(10000) = -10000/500 + 40 = 20\)元
+                </div>
+                <div class="step">
+                    <strong>经济意义：</strong>销售第10001件商品所得利润为20元
+                </div>
+                <div class="step">
+                    <strong>利润最大时：</strong><br>
+                    令\(L'(Q) = 0 \Rightarrow -Q/500 + 40 = 0 \Rightarrow Q = 20000\)<br>
+                    代入价格函数：\(p = 60 - 20000/1000 = 40\)元
+                </div>
+                
+                <h3>2. 弹性分析问题</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 写出需求函数\(Q = Q(p)\)<br>
+                    2. 计算需求弹性\(\eta = - \frac{p}{Q} \cdot \frac{dQ}{dp}\)<br>
+                    3. 根据弹性大小判断价格变动对总收益的影响
+                </div>
+                <p><strong>例：</strong>设某商品需求量\(Q\)是价格\(p\)的单调减少函数：\(Q = Q(p)\)，其中需求弹性\(\eta = \frac{2p^2}{22 - p^2} > 0\)。设\(R = R(p)\)为总收益函数，证明：\(\frac{dR}{dp} = Q(1 - \eta)\)</p>
+                <p><strong>解题步骤：</strong></p>
+                <div class="step">
+                    <strong>总收益：</strong>\(R = pQ\)
+                </div>
+                <div class="step">
+                    <strong>求导：</strong>\(\frac{dR}{dp} = Q + p\frac{dQ}{dp}\)
+                </div>
+                <div class="step">
+                    <strong>由需求弹性：</strong>\(\eta = - \frac{p}{Q}\frac{dQ}{dp}\)，可得\(p\frac{dQ}{dp} = -\eta Q\)
+                </div>
+                <div class="step">
+                    <strong>代入得：</strong>\(\frac{dR}{dp} = Q - \eta Q = Q(1 - \eta)\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、易错点与注意事项</h2>
+                
+                <h3>1. 边际函数的定义</h3>
+                <div class="example">
+                    边际成本是成本函数对产量的导数，不是平均成本<br>
+                    边际收益是收益函数对产量的导数，不是平均收益
+                </div>
+                
+                <h3>2. 经济意义的理解</h3>
+                <div class="example">
+                    边际利润大于0，增加产量可增加利润<br>
+                    边际利润小于0，减少产量可增加利润<br>
+                    边际利润等于0，利润达到最大值
+                </div>
+                
+                <h3>3. 需求弹性与总收益的关系</h3>
+                <div class="example">
+                    需求富有弹性（\(\eta > 1\)）：价格下降 → 总收益增加<br>
+                    需求缺乏弹性（\(\eta < 1\)）：价格下降 → 总收益减少<br>
+                    需求单位弹性（\(\eta = 1\)）：价格变动 → 总收益不变
+                </div>
+                
+                <h3>4. 相关变化率问题</h3>
+                <div class="example">
+                    建立相关变量方程是关键<br>
+                    求导时要正确应用链式法则<br>
+                    需要明确已知变化率和未知变化率
+                </div>
+                
+                <h3>5. 价格函数与需求函数的关系</h3>
+                <div class="example">
+                    价格函数\(p = p(Q)\)：价格是销量的函数<br>
+                    需求函数\(Q = Q(p)\)：销量是价格的函数<br>
+                    两者互为反函数
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>五、重要公式汇总</h2>
+                
+                <div class="formula">
+                    1. 边际函数：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(MC(Q) = C'(Q)\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(MR(Q) = R'(Q)\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(ML(Q) = L'(Q) = MR(Q) - MC(Q)\)
+                </div>
+                <div class="formula">
+                    2. 需求弹性：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\eta = - \frac{p}{Q} \cdot \frac{dQ}{dp}\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;总收益\(R = pQ\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\frac{dR}{dp} = Q(1 - \eta)\)
+                </div>
+                <div class="formula">
+                    3. 利润最大化条件：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;令\(ML(Q) = 0\)，即\(MR(Q) = MC(Q)\)
+                </div>
+                <div class="formula">
+                    4. 相关变化率问题：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;建立相关变量方程<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;求导找出相关变化率<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;通过已知变化率求未知变化率
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>六、典型例题解析</h2>
+                
+                <h3>例1：边际利润问题</h3>
+                <p><strong>题目：</strong>设生产某商品的固定成本为60000元，可变成本为20元/件，价格函数为\(p = 60 - Q/1000\)（\(p\)是单价，单位：元；\(Q\)是销量，单位：件）。已知产销平衡，求：</p>
+                <div class="example">
+                    (1) 该商品的边际利润函数；<br>
+                    (2) 当\(p = 50\)元时的边际利润，并解释其经济意义；<br>
+                    (3) 使得利润最大的单价\(p\)。
+                </div>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>成本函数：</strong>\(C(Q) = 60000 + 20Q\)
+                </div>
+                <div class="step">
+                    <strong>收益函数：</strong>\(R(Q) = pQ = (60 - Q/1000)Q = 60Q - Q^2/1000\)
+                </div>
+                <div class="step">
+                    <strong>利润函数：</strong>\(L(Q) = R(Q) - C(Q) = -Q^2/1000 + 40Q - 60000\)
+                </div>
+                <div class="step">
+                    <strong>边际利润函数：</strong>\(L'(Q) = -Q/500 + 40\)
+                </div>
+                <div class="step">
+                    <strong>当\(p = 50\)时：</strong>\(50 = 60 - Q/1000 \Rightarrow Q = 10000\)<br>
+                    \(L'(10000) = -10000/500 + 40 = 20\)元
+                </div>
+                <div class="step">
+                    <strong>经济意义：</strong>销售第10001件商品所得利润为20元
+                </div>
+                <div class="step">
+                    <strong>利润最大时：</strong>\(L'(Q) = 0 \Rightarrow Q = 20000\)<br>
+                    \(p = 60 - 20000/1000 = 40\)元
+                </div>
+                
+                <h3>例2：需求弹性问题</h3>
+                <p><strong>题目：</strong>设某商品需求量\(Q\)是价格\(p\)的单调减少函数：\(Q = Q(p)\)，其中需求弹性\(\eta = \frac{2p^2}{22 - p^2} > 0\)。设\(R = R(p)\)为总收益函数，证明：\(\frac{dR}{dp} = Q(1 - \eta)\)</p>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>总收益：</strong>\(R = pQ\)
+                </div>
+                <div class="step">
+                    <strong>求导：</strong>\(\frac{dR}{dp} = Q + p\frac{dQ}{dp}\)
+                </div>
+                <div class="step">
+                    <strong>由需求弹性定义：</strong>\(\eta = - \frac{p}{Q}\frac{dQ}{dp} \Rightarrow p\frac{dQ}{dp} = -\eta Q\)
+                </div>
+                <div class="step">
+                    <strong>代入得：</strong>\(\frac{dR}{dp} = Q - \eta Q = Q(1 - \eta)\)
+                </div>
+                
+                <div class="highlight">
+                    以上是第7讲"一元函数微分学的应用(三)——物理应用与经济应用"的核心知识要点和做题思路，掌握这些内容可有效解决物理应用与经济应用相关问题。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第七讲
+        </footer>
+    </div>
+</body>
+</html>

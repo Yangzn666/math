@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第17讲 多元函数积分学的预备知识</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第17讲 多元函数积分学的预备知识</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">多元函数积分学<br>核心概念与解题方法</div>
+                        <div class="mindmap-node node-1">
+                            <h3>核心概念</h3>
+                            <ul>
+                                <li><strong>空间曲线与曲面</strong></li>
+                                <li>切线与法平面</li>
+                                <li><strong>切平面与法线</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>计算方法</h3>
+                            <ul>
+                                <li><strong>方向导数</strong></li>
+                                <li>梯度</li>
+                                <li><strong>散度与旋度</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>解题思路</h3>
+                            <ul>
+                                <li><strong>切线与法平面</strong></li>
+                                <li>切平面与法线</li>
+                                <li><strong>方向导数与梯度</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>注意事项</h3>
+                            <ul>
+                                <li><strong>空间曲线表示</strong></li>
+                                <li>切平面与法线</li>
+                                <li><strong>旋转曲面方程</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>重要公式</h3>
+                            <ul>
+                                <li><strong>切线与法平面</strong></li>
+                                <li>切平面与法线</li>
+                                <li><strong>方向导数</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>典型例题</h3>
+                            <ul>
+                                <li><strong>切线与法平面</strong></li>
+                                <li>切平面与法线</li>
+                                <li><strong>方向导数</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、核心概念</h2>
+                
+                <h3>1. 空间曲线与曲面方程</h3>
+                <p><strong>空间曲线：</strong></p>
+                <div class="formula">
+                    参数方程：x = x(t), y = y(t), z = z(t)<br>
+                    一般方程：F(x,y,z) = 0, G(x,y,z) = 0（两曲面的交线）
+                </div>
+                
+                <p><strong>空间曲面：</strong></p>
+                <div class="formula">
+                    显式方程：z = f(x,y)<br>
+                    一般方程：F(x,y,z) = 0<br>
+                    柱面：二次曲面，如椭圆柱面、双曲柱面、抛物柱面<br>
+                    椭圆柱面：\(\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1\)<br>
+                    双曲柱面：\(\frac{x^2}{a^2} - \frac{y^2}{b^2} = 1\)<br>
+                    抛物柱面：y = ax²<br>
+                    旋转曲面：曲线绕定直线旋转一周形成的曲面
+                </div>
+                
+                <h3>2. 曲线切线与法平面</h3>
+                <p><strong>参数方程曲线：</strong>x = x(t), y = y(t), z = z(t)</p>
+                <div class="formula">
+                    切线方向向量：\((\frac{dx}{dt}, \frac{dy}{dt}, \frac{dz}{dt})\)<br>
+                    切线方程：\(\frac{x-x_0}{dx/dt} = \frac{y-y_0}{dy/dt} = \frac{z-z_0}{dz/dt}\)<br>
+                    法平面方程：\(\frac{dx}{dt}(x-x_0) + \frac{dy}{dt}(y-y_0) + \frac{dz}{dt}(z-z_0) = 0\)
+                </div>
+                
+                <p><strong>一般方程曲线：</strong>F(x,y,z) = 0, G(x,y,z) = 0</p>
+                <div class="formula">
+                    切线方向向量：\((F_yG_z - F_zG_y, F_zG_x - F_xG_z, F_xG_y - F_yG_x)\)<br>
+                    切线方程：\(\frac{x-x_0}{F_yG_z - F_zG_y} = \frac{y-y_0}{F_zG_x - F_xG_z} = \frac{z-z_0}{F_xG_y - F_yG_x}\)<br>
+                    法平面方程：\((F_yG_z - F_zG_y)(x-x_0) + (F_zG_x - F_xG_z)(y-y_0) + (F_xG_y - F_yG_x)(z-z_0) = 0\)
+                </div>
+                
+                <h3>3. 曲面切平面与法线</h3>
+                <p><strong>显式曲面：</strong>z = f(x,y)</p>
+                <div class="formula">
+                    法向量：\((-f_x, -f_y, 1)\) 或 \((f_x, f_y, -1)\)<br>
+                    切平面方程：\(z - z_0 = f_x(x_0,y_0)(x-x_0) + f_y(x_0,y_0)(y-y_0)\)<br>
+                    法线方程：\(\frac{x-x_0}{f_x} = \frac{y-y_0}{f_y} = \frac{z-z_0}{-1}\)
+                </div>
+                
+                <p><strong>一般曲面：</strong>F(x,y,z) = 0</p>
+                <div class="formula">
+                    法向量：\((F_x, F_y, F_z)\)<br>
+                    切平面方程：\(F_x(x_0,y_0,z_0)(x-x_0) + F_y(x_0,y_0,z_0)(y-y_0) + F_z(x_0,y_0,z_0)(z-z_0) = 0\)<br>
+                    法线方程：\(\frac{x-x_0}{F_x} = \frac{y-y_0}{F_y} = \frac{z-z_0}{F_z}\)
+                </div>
+                
+                <h3>4. 方向导数与梯度</h3>
+                <div class="formula">
+                    梯度向量：\(\nabla f = (f_x, f_y, f_z)\)<br>
+                    方向导数：\(D_u f = \nabla f \cdot u\)<br>
+                    其中u是单位方向向量，θ是\(\nabla f\)与u的夹角<br>
+                    \(D_u f = \nabla f \cos\theta\)
+                </div>
+                
+                <p><strong>梯度的性质：</strong></p>
+                <div class="example">
+                    梯度方向是函数值增加最快的方向<br>
+                    梯度大小是函数值增加的最快速率
+                </div>
+                
+                <h3>5. 散度与旋度</h3>
+                <p><strong>散度（div F）：</strong>标量</p>
+                <div class="formula">
+                    div F = \(\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}\)<br>
+                    表示向量场在某点的发散程度
+                </div>
+                
+                <p><strong>旋度（rot F）：</strong>向量</p>
+                <div class="formula">
+                    rot F = \((\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}, \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}, \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y})\)<br>
+                    表示向量场在某点的旋转程度
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、常见题型及解题思路</h2>
+                
+                <h3>1. 求空间曲线的切线与法平面方程</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定曲线的表示形式（参数方程或一般方程）<br>
+                    2. 求出切线方向向量<br>
+                    3. 代入切线方程和法平面方程
+                </div>
+                <p><strong>例17.1：求曲线x = t, y = t², z = t³在点(1,1,1)处的切线与法平面方程</strong></p>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 参数方程：x = t, y = t², z = t³<br>
+                    2. 切线方向向量：\((\frac{dx}{dt}, \frac{dy}{dt}, \frac{dz}{dt}) = (1, 2t, 3t^2)\)<br>
+                    3. 在点(1,1,1)处，t = 1，方向向量为(1, 2, 3)<br>
+                    4. 切线方程：\(\frac{x-1}{1} = \frac{y-1}{2} = \frac{z-1}{3}\)<br>
+                    5. 法平面方程：\(1\cdot(x-1) + 2\cdot(y-1) + 3\cdot(z-1) = 0 \Rightarrow x + 2y + 3z = 6\)
+                </div>
+                
+                <h3>2. 求空间曲面的切平面与法线方程</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定曲面的表示形式（显式或一般方程）<br>
+                    2. 求出法向量<br>
+                    3. 代入切平面方程和法线方程
+                </div>
+                <p><strong>例17.2：求曲面z = x² + y²在点(1,1,2)处的切平面与法线方程</strong></p>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 显式曲面：z = f(x,y) = x² + y²<br>
+                    2. 法向量：\((-f_x, -f_y, 1) = (-2x, -2y, 1)\)<br>
+                    3. 在点(1,1,2)处，法向量为(-2, -2, 1)<br>
+                    4. 切平面方程：\(-2(x-1) - 2(y-1) + 1(z-2) = 0 \Rightarrow -2x - 2y + z = -2\)<br>
+                    5. 法线方程：\(\frac{x-1}{-2} = \frac{y-1}{-2} = \frac{z-2}{1}\)
+                </div>
+                
+                <h3>3. 求方向导数和梯度</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 求出梯度向量\(\nabla f\)<br>
+                    2. 确定单位方向向量u<br>
+                    3. 计算方向导数\(D_u f = \nabla f \cdot u\)
+                </div>
+                <p><strong>例17.3：求函数f(x,y,z) = x² + y² + z²在点(1,1,1)处沿向量v = (1,2,3)的方向导数</strong></p>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 梯度向量：\(\nabla f = (2x, 2y, 2z)\)<br>
+                    2. 在点(1,1,1)处，\(\nabla f = (2, 2, 2)\)<br>
+                    3. 单位方向向量u = \(\frac{v}{|v|} = \frac{(1,2,3)}{\sqrt{1+4+9}} = \frac{(1,2,3)}{\sqrt{14}}\)<br>
+                    4. 方向导数：\(D_u f = \nabla f \cdot u = (2,2,2)\cdot\frac{(1,2,3)}{\sqrt{14}} = \frac{2+4+6}{\sqrt{14}} = \frac{12}{\sqrt{14}}\)
+                </div>
+                
+                <h3>4. 求散度与旋度</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定向量场F = (P, Q, R)<br>
+                    2. 求出各偏导数<br>
+                    3. 代入散度和旋度公式
+                </div>
+                <p><strong>例17.4：求向量场F = (x², y², z²)的散度与旋度</strong></p>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. P = x², Q = y², R = z²<br>
+                    2. 散度：div F = \(\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z} = 2x + 2y + 2z\)<br>
+                    3. 旋度：rot F = \((\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}, \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}, \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y}) = (0-0, 0-0, 0-0) = (0, 0, 0)\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、易错点与注意事项</h2>
+                
+                <h3>1. 空间曲线的表示</h3>
+                <div class="example">
+                    参数方程和一般方程的转换<br>
+                    切线方向向量的求法，特别是一般方程曲线的切线方向向量
+                </div>
+                
+                <h3>2. 曲面的切平面与法线</h3>
+                <div class="example">
+                    显式曲面和一般曲面的法向量求法不同<br>
+                    显式曲面z = f(x,y)的法向量为(-fₓ, -fᵧ, 1)或(fₓ, fᵧ, -1)，注意符号
+                </div>
+                
+                <h3>3. 方向导数与梯度</h3>
+                <div class="example">
+                    梯度向量是函数的偏导数组成的向量<br>
+                    方向导数需要单位方向向量，不能直接用原向量
+                </div>
+                
+                <h3>4. 散度与旋度</h3>
+                <div class="example">
+                    散度是标量，旋度是向量<br>
+                    旋度的计算要注意偏导数的顺序
+                </div>
+                
+                <h3>5. 旋转曲面方程的求法</h3>
+                <div class="example">
+                    旋转曲面方程的求法：在母线上任取一点，过该点作纬圆，求出纬圆上任意点的坐标满足的条件
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>五、重要公式汇总</h2>
+                
+                <div class="formula">
+                    1. 空间曲线的切线与法平面：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;切线方向向量：\((\frac{dx}{dt}, \frac{dy}{dt}, \frac{dz}{dt})\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;切线方程：\(\frac{x-x_0}{dx/dt} = \frac{y-y_0}{dy/dt} = \frac{z-z_0}{dz/dt}\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;法平面方程：\(\frac{dx}{dt}(x-x_0) + \frac{dy}{dt}(y-y_0) + \frac{dz}{dt}(z-z_0) = 0\)
+                </div>
+                <div class="formula">
+                    2. 空间曲面的切平面与法线：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;显式曲面：z = f(x,y)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;切平面方程：\(z - z_0 = f_x(x_0,y_0)(x-x_0) + f_y(x_0,y_0)(y-y_0)\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;法线方程：\(\frac{x-x_0}{f_x} = \frac{y-y_0}{f_y} = \frac{z-z_0}{-1}\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;一般曲面：F(x,y,z) = 0<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;切平面方程：\(F_x(x_0,y_0,z_0)(x-x_0) + F_y(x_0,y_0,z_0)(y-y_0) + F_z(x_0,y_0,z_0)(z-z_0) = 0\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;法线方程：\(\frac{x-x_0}{F_x} = \frac{y-y_0}{F_y} = \frac{z-z_0}{F_z}\)
+                </div>
+                <div class="formula">
+                    3. 方向导数与梯度：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;梯度向量：\(\nabla f = (f_x, f_y, f_z)\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;方向导数：\(D_u f = \nabla f \cdot u\)
+                </div>
+                <div class="formula">
+                    4. 散度与旋度：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;散度：div F = \(\frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z}\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;旋度：rot F = \((\frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z}, \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x}, \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y})\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>六、典型例题解析</h2>
+                
+                <h3>例1：求由过点(0,-1,1)与点(0,0,0)的直线L绕z轴旋转一周所得的旋转曲面位于z≥0的部分，其方程为z²=2x，求该旋转曲面与平面z=0的交线在xOy面上的投影曲线方程</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 旋转曲面方程：z² = 2x<br>
+                    2. 与平面z=0的交线：z=0, z²=2x ⇒ x=0<br>
+                    3. 交线在xOy面上的投影：x=0, z=0<br>
+                    4. 但题目中要求的是"交线在xOy面上的投影曲线方程"，xOy面上z=0，所以投影曲线方程为x=0
+                </div>
+                
+                <h3>例2：求曲线y² - (z-1)² = 1, x=0绕z轴旋转一周而成的旋转曲面的方程</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 曲线：y² - (z-1)² = 1, x=0<br>
+                    2. 绕z轴旋转，纬圆上任意点P(x,y,z)满足x² + y² = y₀²<br>
+                    3. 由曲线方程知：y₀² = 1 + (z-1)²<br>
+                    4. 所以旋转曲面方程：x² + y² = 1 + (z-1)² ⇒ x² + y² - (z-1)² = 1
+                </div>
+                
+                <h3>例3：设F(x,y,z) = xy - zlny + eˣ - 1，求在点(0,1,1)处的隐函数存在性</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 计算偏导数：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Fₓ = y + eˣ<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Fᵧ = x - z/y<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;F_z = -lny + eᶻ<br>
+                    2. 在点(0,1,1)处：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Fₓ(0,1,1) = 1 + 1 = 2 ≠ 0<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;Fᵧ(0,1,1) = 0 - 1/1 = -1 ≠ 0<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;F_z(0,1,1) = -ln1 + e¹ = 1 ≠ 0<br>
+                    3. 因此，在点(0,1,1)的某一个邻域内，存在连续且具有连续偏导数的隐函数x=x(y,z)、y=y(x,z)和z=z(x,y)
+                </div>
+                
+                <div class="highlight">
+                    以上是第17讲"多元函数积分学的预备知识(仅数学一)"的核心知识要点和做题思路，掌握这些内容可有效解决多元函数积分学预备知识相关问题。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第十七讲
+        </footer>
+    </div>
+</body>
+</html>

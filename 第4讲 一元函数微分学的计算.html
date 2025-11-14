@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第4讲 一元函数微分学的计算</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第4讲 一元函数微分学的计算</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">一元函数微分学<br>导数的计算与应用</div>
+                        <div class="mindmap-node node-1">
+                            <h3>核心概念</h3>
+                            <ul>
+                                <li><strong>基本求导公式</strong></li>
+                                <li>四则运算法则</li>
+                                <li><strong>复合函数法则</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>高阶导数</h3>
+                            <ul>
+                                <li><strong>二阶导数</strong></li>
+                                <li>n阶导数</li>
+                                <li><strong>莱布尼茨公式</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>常见题型</h3>
+                            <ul>
+                                <li><strong>复合函数求导</strong></li>
+                                <li>分段函数求导</li>
+                                <li><strong>隐函数求导</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>解题方法</h3>
+                            <ul>
+                                <li><strong>参数方程求导</strong></li>
+                                <li>反函数求导</li>
+                                <li><strong>对数求导法</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>注意事项</h3>
+                            <ul>
+                                <li><strong>易错点</strong></li>
+                                <li>常见陷阱</li>
+                                <li>解题技巧</li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>重要公式</h3>
+                            <ul>
+                                <li><strong>链式法则</strong></li>
+                                <li>微分形式</li>
+                                <li><strong>求导公式</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、核心概念</h2>
+                
+                <h3>1. 基本求导公式（必须熟记）</h3>
+                <table>
+                    <tr>
+                        <th>函数</th>
+                        <th>导数</th>
+                    </tr>
+                    <tr>
+                        <td>\(x^n\)</td>
+                        <td>\(nx^{n-1}\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(\sin x\)</td>
+                        <td>\(\cos x\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(\cos x\)</td>
+                        <td>\(-\sin x\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(e^x\)</td>
+                        <td>\(e^x\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(\ln x\)</td>
+                        <td>\(\frac{1}{x}\)</td>
+                    </tr>
+                    <tr>
+                        <td>\(a^x\)</td>
+                        <td>\(a^x \ln a\)</td>
+                    </tr>
+                </table>
+                
+                <h3>2. 导数的四则运算法则</h3>
+                <p><strong>加减法则：</strong></p>
+                <div class="formula">
+                    \((u \pm v)' = u' \pm v'\)
+                </div>
+                <p><strong>乘法法则：</strong></p>
+                <div class="formula">
+                    \((uv)' = u'v + uv'\)
+                </div>
+                <p><strong>除法法则：</strong></p>
+                <div class="formula">
+                    \(\left(\frac{u}{v}\right)' = \frac{u'v - uv'}{v^2}\)
+                </div>
+                
+                <h3>3. 复合函数求导法则（链式法则）</h3>
+                <div class="formula">
+                    \((f(g(x)))' = f'(g(x)) \cdot g'(x)\)
+                </div>
+                <p><strong>一阶微分形式不变性：</strong></p>
+                <div class="formula">
+                    \(d[f(u)] = f'(u)\, du\)
+                </div>
+                
+                <h3>4. 高阶导数</h3>
+                <p><strong>二阶导数：</strong></p>
+                <div class="formula">
+                    \(f''(x) = (f'(x))'\)
+                </div>
+                <p><strong>n阶导数：</strong></p>
+                <div class="formula">
+                    \(f^{(n)}(x) = (f^{(n-1)}(x))'\)
+                </div>
+                <p><strong>莱布尼茨公式：</strong></p>
+                <div class="formula">
+                    \((uv)^{(n)} = \sum_{k=0}^{n} C_n^k u^{(k)} v^{(n-k)}\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、常见题型及解题思路</h2>
+                
+                <h3>1. 复合函数求导</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定外层函数和内层函数<br>
+                    2. 先求外层函数对内层函数的导数<br>
+                    3. 再求内层函数对x的导数<br>
+                    4. 两部分相乘
+                </div>
+                <p><strong>例：</strong>求\(y = e^{\sin x}\)的导数</p>
+                <div class="step">
+                    <strong>外层函数：</strong>\(e^u\)，内层函数：\(u = \sin x\)
+                </div>
+                <div class="step">
+                    <strong>外层导数：</strong>\(e^u\)
+                </div>
+                <div class="step">
+                    <strong>内层导数：</strong>\(\cos x\)
+                </div>
+                <div class="step">
+                    <strong>结果：</strong>\(y' = e^{\sin x} \cdot \cos x\)
+                </div>
+                
+                <h3>2. 分段函数求导</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 判断分段点处的连续性<br>
+                    2. 对于非分段点，直接求导<br>
+                    3. 对于分段点，分别计算左右导数<br>
+                    4. 比较左右导数是否相等，确定是否可导
+                </div>
+                <p><strong>例：</strong>设\(f(x) = \begin{cases} x^2, & x \geq 1 \\ 2x-1, & x < 1 \end{cases}\)，求\(f'(x)\)</p>
+                <div class="step">
+                    <strong>在\(x=1\)处：</strong>\(f(1) = 1^2 = 1\)，左极限\(\lim_{x \to 1^-} f(x) = 2 \cdot 1 - 1 = 1\)，右极限\(\lim_{x \to 1^+} f(x) = 1^2 = 1\)，连续
+                </div>
+                <div class="step">
+                    <strong>左导数：</strong>\(f'_-(1) = \lim_{x \to 1^-} \frac{f(x) - f(1)}{x - 1} = \lim_{x \to 1^-} \frac{2x-1-1}{x-1} = 2\)
+                </div>
+                <div class="step">
+                    <strong>右导数：</strong>\(f'_+(1) = \lim_{x \to 1^+} \frac{f(x) - f(1)}{x - 1} = \lim_{x \to 1^+} \frac{x^2-1}{x-1} = 2\)
+                </div>
+                <div class="step">
+                    <strong>结论：</strong>左右导数相等，故\(f(x)\)在\(x=1\)处可导，\(f'(1) = 2\)
+                </div>
+                
+                <h3>3. 隐函数求导</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 对等式两边同时关于x求导<br>
+                    2. 将y视为x的函数，使用链式法则<br>
+                    3. 解出\(y'\)
+                </div>
+                <p><strong>例：</strong>求\(F(x,y) = x^2 + y^2 - 1 = 0\)的导数</p>
+                <div class="step">
+                    <strong>两边对x求导：</strong>\(2x + 2y \cdot y' = 0\)
+                </div>
+                <div class="step">
+                    <strong>解出\(y'\)：</strong>\(y' = -\frac{x}{y}\)
+                </div>
+                
+                <h3>4. 参数方程所确定的函数的导数</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 求\(\frac{dx}{dt}\)和\(\frac{dy}{dt}\)<br>
+                    2. \(\frac{dy}{dx} = \frac{dy/dt}{dx/dt}\)
+                </div>
+                <p><strong>例：</strong>\(x = t^2\), \(y = t^3\)，求\(\frac{dy}{dx}\)</p>
+                <div class="step">
+                    <strong>计算导数：</strong>\(\frac{dx}{dt} = 2t\), \(\frac{dy}{dt} = 3t^2\)
+                </div>
+                <div class="step">
+                    <strong>求导结果：</strong>\(\frac{dy}{dx} = \frac{3t^2}{2t} = \frac{3t}{2}\)
+                </div>
+                
+                <h3>5. 反函数的导数</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 若\(y = f(x)\)有反函数\(x = \phi(y)\)，则\(\phi'(y) = \frac{1}{f'(x)}\)<br>
+                    2. 若求反函数的二阶导数，\(\phi''(y) = -\frac{f''(x)}{[f'(x)]^3}\)
+                </div>
+                <p><strong>例：</strong>设\(y = f(x) = 3x + e^x\)有反函数\(x = \phi(y)\)，求\(\phi''(3+e)\)</p>
+                <div class="step">
+                    <strong>当\(y = 3 + e\)时：</strong>\(x = 1\)
+                </div>
+                <div class="step">
+                    <strong>计算导数：</strong>\(f'(x) = 3 + e^x\), \(f'(1) = 3 + e\)
+                </div>
+                <div class="step">
+                    <strong>计算二阶导数：</strong>\(f''(x) = e^x\), \(f''(1) = e\)
+                </div>
+                <div class="step">
+                    <strong>反函数二阶导数：</strong>\(\phi''(y) = -\frac{f''(x)}{[f'(x)]^3} = -\frac{e}{(3+e)^3}\)
+                </div>
+                <div class="step">
+                    <strong>结果：</strong>\(\phi''(3+e) = -\frac{e}{(3+e)^3}\)
+                </div>
+                
+                <h3>6. 对数求导法</h3>
+                <p><strong>适用情况：</strong>幂指函数或多个函数相乘/相除</p>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 取对数：\(\ln y = \ln[f(x)]\)<br>
+                    2. 两边对x求导<br>
+                    3. 解出\(y'\)
+                </div>
+                <p><strong>例：</strong>求\(y = x^x\)的导数</p>
+                <div class="step">
+                    <strong>取对数：</strong>\(\ln y = x \ln x\)
+                </div>
+                <div class="step">
+                    <strong>两边求导：</strong>\(\frac{y'}{y} = \ln x + x \cdot \frac{1}{x} = \ln x + 1\)
+                </div>
+                <div class="step">
+                    <strong>解出\(y'\)：</strong>\(y' = y(\ln x + 1) = x^x(\ln x + 1)\)
+                </div>
+                
+                <h3>7. 高阶导数</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 先求低阶导数<br>
+                    2. 观察规律，找出通项公式<br>
+                    3. 用数学归纳法证明通项公式
+                </div>
+                <p><strong>例：</strong>求\(f(x) = \sin x\)的n阶导数</p>
+                <div class="step">
+                    <strong>计算低阶导数：</strong>
+                </div>
+                <div class="formula">
+                    \(f'(x) = \cos x = \sin(x + \frac{\pi}{2})\)
+                </div>
+                <div class="formula">
+                    \(f''(x) = -\sin x = \sin(x + \pi)\)
+                </div>
+                <div class="formula">
+                    \(f'''(x) = -\cos x = \sin(x + \frac{3\pi}{2})\)
+                </div>
+                <div class="formula">
+                    \(f^{(4)}(x) = \sin x = \sin(x + 2\pi)\)
+                </div>
+                <div class="step">
+                    <strong>通项公式：</strong>\(f^{(n)}(x) = \sin(x + \frac{n\pi}{2})\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、易错点与注意事项</h2>
+                
+                <h3>1. 复合函数求导</h3>
+                <div class="example">
+                    必须正确识别内外层函数<br>
+                    不能忽略内层函数的导数
+                </div>
+                
+                <h3>2. 分段函数求导</h3>
+                <div class="example">
+                    在分段点处，需要分别计算左右导数<br>
+                    不能直接使用分段点处的表达式求导
+                </div>
+                
+                <h3>3. 隐函数求导</h3>
+                <div class="example">
+                    必须将y视为x的函数，使用链式法则<br>
+                    不能将y当作常数处理
+                </div>
+                
+                <h3>4. 参数方程求导</h3>
+                <div class="example">
+                    必须计算\(\frac{dx}{dt}\)和\(\frac{dy}{dt}\)<br>
+                    不能直接用\(\frac{dy}{dx} = \frac{dy/dt}{dx/dt}\)以外的方法
+                </div>
+                
+                <h3>5. 反函数求导</h3>
+                <div class="example">
+                    不能混淆\(f'(x)\)和\(\phi'(y)\)的关系<br>
+                    二阶导数的公式需要特别注意
+                </div>
+                
+                <h3>6. 对数求导法</h3>
+                <div class="example">
+                    适用于幂指函数或多个函数相乘/相除<br>
+                    不能用于简单函数的求导
+                </div>
+                
+                <h3>7. 高阶导数</h3>
+                <div class="example">
+                    高阶导数的计算需要耐心和观察力<br>
+                    莱布尼茨公式适用于两个函数乘积的高阶导数
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>五、重要公式汇总</h2>
+                
+                <div class="formula">
+                    1. 复合函数求导：\((f(g(x)))' = f'(g(x)) \cdot g'(x)\)
+                </div>
+                <div class="formula">
+                    2. 一阶微分形式不变性：\(d[f(u)] = f'(u) \, du\)
+                </div>
+                <div class="formula">
+                    3. 隐函数求导：\(F(x,y) = 0 \Rightarrow \frac{dy}{dx} = -\frac{F_x}{F_y}\)
+                </div>
+                <div class="formula">
+                    4. 参数方程求导：\(\frac{dy}{dx} = \frac{dy/dt}{dx/dt}\)
+                </div>
+                <div class="formula">
+                    5. 反函数求导：\(\phi'(y) = \frac{1}{f'(x)}\)
+                </div>
+                <div class="formula">
+                    6. 反函数二阶导数：\(\phi''(y) = -\frac{f''(x)}{[f'(x)]^3}\)
+                </div>
+                <div class="formula">
+                    7. 莱布尼茨公式：\((uv)^{(n)} = \sum_{k=0}^{n} C_n^k u^{(k)} v^{(n-k)}\)
+                </div>
+                
+                <div class="highlight">
+                    以上是第4讲"一元函数微分学的计算"的核心知识要点和做题思路，掌握这些内容可有效解决导数计算相关问题。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第四讲
+        </footer>
+    </div>
+</body>
+</html>

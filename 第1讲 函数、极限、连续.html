@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第1讲 函数、极限、连续</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第1讲 函数、极限、连续</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">高等数学第一讲<br>函数、极限、连续</div>
+                        <div class="mindmap-node node-1">
+                            <h3>函数间断点</h3>
+                            <ul>
+                                <li><strong>第一类间断点</strong></li>
+                                <li>可去间断点</li>
+                                <li>跳跃间断点</li>
+                                <li><strong>第二类间断点</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>周期函数性质</h3>
+                            <ul>
+                                <li>周期变换</li>
+                                <li>复合函数周期</li>
+                                <li>导函数周期</li>
+                                <li>积分函数周期</li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>间断点判定</h3>
+                            <ul>
+                                <li>求极限值</li>
+                                <li>判存在性</li>
+                                <li>判相等性</li>
+                                <li>与函数值比较</li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>函数性质</h3>
+                            <ul>
+                                <li>连续性</li>
+                                <li>周期性</li>
+                                <li>可导性</li>
+                                <li>可积性</li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>解题方法</h3>
+                            <ul>
+                                <li>间断点问题</li>
+                                <li>周期函数问题</li>
+                                <li>数形结合</li>
+                                <li>极限计算</li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>学习策略</h3>
+                            <ul>
+                                <li>理解概念</li>
+                                <li>典型例题</li>
+                                <li>解题技巧</li>
+                                <li>资料使用</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、知识要点</h2>
+                
+                <h3>1. 函数间断点类型</h3>
+                <p><strong>第一类间断点：</strong>左右极限都存在</p>
+                <div class="formula">\(\lim\limits_{x \to x_0} f(x)\)存在，但\(\lim\limits_{x \to x_0} f(x) \neq f(x_0)\)</div>
+                <div class="formula">\(\lim\limits_{x \to x_0^-} f(x) \neq \lim\limits_{x \to x_0^+} f(x)\)</div>
+                <p><strong>第二类间断点：</strong>至少有一个单侧极限不存在</p>
+                
+                <h3>2. 周期函数的性质</h3>
+                <div class="formula">若\(f(x)\)以\(T\)为周期，则\(f(ax+b)\)以\(\dfrac{T}{|a|}\)为周期</div>
+                <p>若\(g(x)\)是周期函数，则复合函数\(f[g(x)]\)也是周期函数</p>
+                <p>若\(f(x)\)是以\(T\)为周期的可导函数，则\(f'(x)\)也以\(T\)为周期</p>
+                <div class="formula">若\(f(x)\)是以\(T\)为周期的连续函数，则\(\int_0^x f(t)dt\)也以\(T\)为周期的条件是\(\int_0^T f(t)dt = 0\)</div>
+                
+                <h3>3. 间断点判定方法</h3>
+                <p>求分段函数的分界点的极限值</p>
+                <p>判定左右极限是否存在及是否相等</p>
+                <p>判断极限值与函数值的关系</p>
+            </div>
+            
+            <div class="section">
+                <h2>三、做题思路</h2>
+                
+                <h3>1. 间断点问题解题思路</h3>
+                <div class="step">
+                    <strong>步骤1：</strong>确定分段函数的分界点
+                </div>
+                <div class="step">
+                    <strong>步骤2：</strong>计算分界点处的左右极限
+                </div>
+                <div class="step">
+                    <strong>步骤3：</strong>比较左右极限与函数值的关系
+                </div>
+                <div class="step">
+                    <strong>步骤4：</strong>判定间断点类型
+                </div>
+                
+                <h3>2. 周期函数问题解题思路</h3>
+                <div class="step">
+                    <strong>步骤1：</strong>明确周期\(T\)的定义
+                </div>
+                <div class="step">
+                    <strong>步骤2：</strong>通过代入法验证\(f(x+T)=f(x)\)
+                </div>
+                <div class="step">
+                    <strong>步骤3：</strong>利用诱导公式简化计算
+                </div>
+                <div class="example">
+                    例如：\(\sin(x+2\pi)=\sin x\)，\(\sin(x+\pi)=-\sin x\)
+                </div>
+                <div class="step">
+                    <strong>步骤4：</strong>注意函数的变换对周期的影响
+                </div>
+                
+                <h3>3. 数形结合思想</h3>
+                <div class="quote">
+                    数无形时少直觉，形少数时难入微
+                </div>
+                <p>画出内层函数的图形，帮助分析复合函数</p>
+                <p>通过图形直观理解函数的性质和变化</p>
+            </div>
+            
+            <div class="section">
+                <h2>四、学习建议</h2>
+                
+                <h3>1. 基础知识</h3>
+                <p>学好数学第一要靠理解，要深入掌握基本概念、定理和方法</p>
+                
+                <h3>2. 典型例题</h3>
+                <p>记住典型例子，形成数学思维习惯</p>
+                <div class="example">
+                    例：\(\sin(x+\pi)=-\sin x\)，\(\sin(x+2\pi)=\sin x\)<br>
+                    例：\(f(x+2\pi)=f(x+\pi)+\sin(x+2\pi)=f(x)+\sin(x+\pi)+\sin(x+2\pi)=f(x)\)
+                </div>
+                
+                <h3>3. 学习方法</h3>
+                <p>复盘第一讲内容，熟练掌握讲过的各种概念、知识、定理、方法</p>
+                <p>通过做题逐渐提高解题能力</p>
+                
+                <h3>4. 资料使用</h3>
+                <p>精读《张宇考研数学基础30讲》</p>
+                <p>完成《张宇考研数学题源探析经典1000题》基础篇</p>
+                
+                <div class="highlight">
+                    记住：数学学习"两条腿走路"，既要掌握知识，也要提高解题能力。基础知识是解题的基石，只有基础扎实，才能在后续学习中游刃有余。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第一讲
+        </footer>
+    </div>
+</body>
+</html>

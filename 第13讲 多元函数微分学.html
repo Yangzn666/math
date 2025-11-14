@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第13讲 多元函数微分学</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第13讲 多元函数微分学</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">多元函数微分学<br>核心概念与解题方法</div>
+                        <div class="mindmap-node node-1">
+                            <h3>核心概念</h3>
+                            <ul>
+                                <li><strong>可微定义</strong></li>
+                                <li>偏导数</li>
+                                <li><strong>隐函数定理</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>函数极值</h3>
+                            <ul>
+                                <li><strong>无条件极值</strong></li>
+                                <li>条件极值</li>
+                                <li><strong>拉格朗日乘数</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>解题方法</h3>
+                            <ul>
+                                <li><strong>全微分</strong></li>
+                                <li>偏导数</li>
+                                <li><strong>极值判定</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>注意事项</h3>
+                            <ul>
+                                <li><strong>易错点</strong></li>
+                                <li>可微性</li>
+                                <li><strong>极值判定</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>重要公式</h3>
+                            <ul>
+                                <li><strong>全微分公式</strong></li>
+                                <li>隐函数求导</li>
+                                <li><strong>极值判别</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>典型例题</h3>
+                            <ul>
+                                <li><strong>全微分</strong></li>
+                                <li>隐函数</li>
+                                <li><strong>条件极值</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、核心概念</h2>
+                
+                <h3>1. 与一元函数的区别</h3>
+                <div class="formula">
+                    一元函数：可微 \(\Rightarrow\) 可导<br>
+                    二元函数：可微 \(\Rightarrow\) 偏导数存在
+                </div>
+                
+                <h3>2. 可微的定义</h3>
+                <div class="formula">
+                    若\(\Delta z = f(x+\Delta x, y+\Delta y) - f(x, y) = A\Delta x + B\Delta y + o(\rho)\)，其中\(\rho = \sqrt{\Delta x^2 + \Delta y^2}\)，则称函数\(z = f(x, y)\)在点\((x, y)\)处可微
+                </div>
+                <div class="formula">
+                    记\(dz = \frac{\partial z}{\partial x}dx + \frac{\partial z}{\partial y}dy\)
+                </div>
+                
+                <h3>3. 可微的充分条件</h3>
+                <div class="formula">
+                    若函数\(z = f(x, y)\)在点\((x, y)\)处的偏导数存在且连续，则该函数在点\((x, y)\)处可微
+                </div>
+                
+                <h3>4. 隐函数存在定理</h3>
+                <div class="formula">
+                    若\(F(x, y)\)在点\((x_0, y_0)\)处连续，且\(F_y(x_0, y_0) \neq 0\)，则存在\((x_0, y_0)\)的邻域，使得在该邻域内\(F(x, y) = 0\)确定了\(y = f(x)\)的隐函数，且\(f'(x) = -\frac{F_x}{F_y}\)
+                </div>
+                
+                <h3>5. 二元函数的极值</h3>
+                <div class="formula">
+                    无条件极值：函数在定义域内部的极值<br>
+                    条件极值：函数在约束条件下的极值
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、常见题型及解题思路</h2>
+                
+                <h3>1. 求全微分</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 计算偏导数\(\frac{\partial z}{\partial x}\)和\(\frac{\partial z}{\partial y}\)<br>
+                    2. 写出全微分\(dz = \frac{\partial z}{\partial x}dx + \frac{\partial z}{\partial y}dy\)
+                </div>
+                <p><strong>例：</strong>求\(z = x^2 + y^2\)的全微分</p>
+                <div class="formula">
+                    \(\frac{\partial z}{\partial x} = 2x, \frac{\partial z}{\partial y} = 2y\)<br>
+                    \(dz = 2x dx + 2y dy\)
+                </div>
+                
+                <h3>2. 判断可微性</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 检查偏导数是否存在<br>
+                    2. 检查偏导数是否连续<br>
+                    3. 若偏导数存在且连续，则函数可微
+                </div>
+                <p><strong>例：</strong>判断\(f(x, y) = \sqrt{x^2 + y^2}\)在\((0,0)\)处是否可微</p>
+                <div class="formula">
+                    \(\frac{\partial f}{\partial x} = \frac{x}{\sqrt{x^2 + y^2}}, \frac{\partial f}{\partial y} = \frac{y}{\sqrt{x^2 + y^2}}\)<br>
+                    在\((0,0)\)处偏导数不存在，故不可微
+                </div>
+                
+                <h3>3. 求隐函数的偏导数</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 对等式两边关于\(x\)或\(y\)求偏导<br>
+                    2. 将\(y\)视为\(x\)的函数，使用链式法则<br>
+                    3. 解出偏导数
+                </div>
+                <p><strong>例：</strong>求\(F(x, y) = x^2 + y^2 - 1 = 0\)的偏导数</p>
+                <div class="formula">
+                    两边对\(x\)求偏导：\(2x + 2y\frac{\partial y}{\partial x} = 0\)<br>
+                    \(\frac{\partial y}{\partial x} = -\frac{x}{y}\)
+                </div>
+                
+                <h3>4. 求二元函数的极值</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 求一阶偏导数，找驻点<br>
+                    2. 求二阶偏导数<br>
+                    3. 判断驻点是否为极值点<br>
+                    4. 计算极值
+                </div>
+                <p><strong>例：</strong>求\(f(x, y) = x^2 + y^2\)的极值</p>
+                <div class="formula">
+                    \(\frac{\partial f}{\partial x} = 2x, \frac{\partial f}{\partial y} = 2y\)<br>
+                    驻点：\((0, 0)\)<br>
+                    二阶偏导数：\(f_{xx} = 2, f_{xy} = 0, f_{yy} = 2\)<br>
+                    \(AC - B^2 = 2 \cdot 2 - 0^2 = 4 > 0, f_{xx} > 0\)<br>
+                    \((0, 0)\)为极小值点，极小值为0
+                </div>
+                
+                <h3>5. 求条件极值（拉格朗日乘数法）</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 构造拉格朗日函数\(L(x, y, \lambda) = f(x, y) + \lambda g(x, y)\)<br>
+                    2. 求\(L\)对\(x, y, \lambda\)的偏导数，令其为0<br>
+                    3. 解方程组，得到驻点<br>
+                    4. 判断驻点是否为极值点
+                </div>
+                <p><strong>例：</strong>求\(f(x, y) = x^2 + y^2\)在约束条件\(x + y = 1\)下的极值</p>
+                <div class="formula">
+                    构造\(L(x, y, \lambda) = x^2 + y^2 + \lambda(x + y - 1)\)<br>
+                    \(\frac{\partial L}{\partial x} = 2x + \lambda = 0\)<br>
+                    \(\frac{\partial L}{\partial y} = 2y + \lambda = 0\)<br>
+                    \(\frac{\partial L}{\partial \lambda} = x + y - 1 = 0\)<br>
+                    解得：\(x = y = \frac{1}{2}, \lambda = -1\)<br>
+                    极小值：\(f(\frac{1}{2}, \frac{1}{2}) = \frac{1}{2}\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、易错点与注意事项</h2>
+                
+                <h3>1. 可微与偏导数存在</h3>
+                <div class="example">
+                    二元函数偏导数存在不一定可微<br>
+                    可微一定偏导数存在
+                </div>
+                
+                <h3>2. 极值点与驻点</h3>
+                <div class="example">
+                    极值点一定是驻点或不可导点<br>
+                    驻点不一定是极值点
+                </div>
+                
+                <h3>3. 条件极值的求解</h3>
+                <div class="example">
+                    拉格朗日乘数法适用于约束条件为等式的情况<br>
+                    需要检查边界点
+                </div>
+                
+                <h3>4. 隐函数求导</h3>
+                <div class="example">
+                    必须将\(y\)视为\(x\)的函数，使用链式法则<br>
+                    不能将\(y\)当作常数处理
+                </div>
+                
+                <h3>5. 二元函数极值的判定</h3>
+                <div class="example">
+                    二阶导数判别法：\(AC - B^2 > 0\)时，\(A > 0\)为极小值，\(A < 0\)为极大值<br>
+                    \(AC - B^2 < 0\)时，不是极值点
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>五、重要公式汇总</h2>
+                
+                <div class="formula">
+                    1. 全微分：\(dz = \frac{\partial z}{\partial x}dx + \frac{\partial z}{\partial y}dy\)
+                </div>
+                <div class="formula">
+                    2. 隐函数求导：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\frac{dy}{dx} = -\frac{F_x}{F_y}\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\frac{dx}{dy} = -\frac{F_y}{F_x}\)
+                </div>
+                <div class="formula">
+                    3. 二元函数极值判定：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;设\(A = f_{xx}, B = f_{xy}, C = f_{yy}\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;若\(AC - B^2 > 0\)：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(A > 0\)：极小值<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;\(A < 0\)：极大值<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;若\(AC - B^2 < 0\)：不是极值点<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;若\(AC - B^2 = 0\)：无法判定
+                </div>
+                <div class="formula">
+                    4. 拉格朗日乘数法：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(L(x, y, \lambda) = f(x, y) + \lambda g(x, y)\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\frac{\partial L}{\partial x} = 0, \frac{\partial L}{\partial y} = 0, \frac{\partial L}{\partial \lambda} = 0\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>六、典型例题解析</h2>
+                
+                <h3>例1：求曲线\(y = x^2 + ax\)与直线\(y = bx\)所围区域面积的最大值和最小值（\(a \leq 0\)，\(b \geq 0\)，\(a^2 + b^2 = 1\)）</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>求交点：</strong>\(x = 0, x = b - a\)
+                </div>
+                <div class="step">
+                    <strong>面积：</strong>\(S = \int_0^{b-a} (bx - x^2 - ax) dx = \frac{(b - a)^3}{6}\)
+                </div>
+                <div class="step">
+                    <strong>转化：</strong>转化为求\((b - a)^3\)的最值，即求\(b - a\)的最值
+                </div>
+                <div class="step">
+                    <strong>拉格朗日乘数法：</strong>
+                </div>
+                <div class="formula">
+                    \(F(a, b, \lambda) = b - a + \lambda(a^2 + b^2 - 1)\)<br>
+                    \(F_a = -1 + 2\lambda a = 0, F_b = 1 + 2\lambda b = 0, F_\lambda = a^2 + b^2 - 1 = 0\)<br>
+                    解得：\(a = -\frac{1}{\sqrt{2}}, b = \frac{1}{\sqrt{2}}\)
+                </div>
+                <div class="step">
+                    <strong>最大值：</strong>\(S = \frac{(1/\sqrt{2} + 1/\sqrt{2})^3}{6} = \frac{\sqrt{2}}{3}\)
+                </div>
+                <div class="step">
+                    <strong>边界点：</strong>\(a = 0, b = 1\)时\(S = \frac{1}{6}\)；\(a = -1, b = 0\)时\(S = \frac{1}{6}\)
+                </div>
+                <div class="step">
+                    <strong>比较：</strong>最大值为\(\frac{\sqrt{2}}{3}\)，最小值为\(\frac{1}{6}\)
+                </div>
+                
+                <h3>例2：求函数\(f(x, y) = x^2 + 2y^2\)在约束条件\(x + y = 1\)下的极值</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>构造拉格朗日函数：</strong>\(L(x, y, \lambda) = x^2 + 2y^2 + \lambda(x + y - 1)\)
+                </div>
+                <div class="step">
+                    <strong>求偏导数：</strong>
+                </div>
+                <div class="formula">
+                    \(\frac{\partial L}{\partial x} = 2x + \lambda = 0\)<br>
+                    \(\frac{\partial L}{\partial y} = 4y + \lambda = 0\)<br>
+                    \(\frac{\partial L}{\partial \lambda} = x + y - 1 = 0\)
+                </div>
+                <div class="step">
+                    <strong>解方程组：</strong>
+                </div>
+                <div class="formula">
+                    \(2x + \lambda = 0\)<br>
+                    \(4y + \lambda = 0\)<br>
+                    \(x + y = 1\)<br>
+                    解得：\(x = \frac{2}{3}, y = \frac{1}{3}, \lambda = -\frac{4}{3}\)
+                </div>
+                <div class="step">
+                    <strong>极小值：</strong>\(f(\frac{2}{3}, \frac{1}{3}) = (\frac{2}{3})^2 + 2(\frac{1}{3})^2 = \frac{6}{9} = \frac{2}{3}\)
+                </div>
+                
+                <div class="highlight">
+                    以上是第13讲"多元函数微分学"的核心知识要点和做题思路，掌握这些内容可有效解决多元函数微分学相关问题。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第十三讲
+        </footer>
+    </div>
+</body>
+</html>

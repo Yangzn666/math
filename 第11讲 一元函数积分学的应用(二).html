@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第11讲 一元函数积分学的应用(二)</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第11讲 一元函数积分学的应用(二)</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">一元函数积分学的应用(二)<br>积分等式与积分不等式</div>
+                        <div class="mindmap-node node-1">
+                            <h3>核心概念</h3>
+                            <ul>
+                                <li><strong>重要结论</strong></li>
+                                <li>积分中值定理</li>
+                                <li><strong>夹逼准则</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>积分应用</h3>
+                            <ul>
+                                <li><strong>积分等式</strong></li>
+                                <li>积分不等式</li>
+                                <li><strong>极限计算</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>解题方法</h3>
+                            <ul>
+                                <li><strong>分部积分</strong></li>
+                                <li>换元法</li>
+                                <li><strong>中值定理</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>注意事项</h3>
+                            <ul>
+                                <li><strong>易错点</strong></li>
+                                <li>边界条件</li>
+                                <li><strong>函数性质</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>重要公式</h3>
+                            <ul>
+                                <li><strong>重要极限</strong></li>
+                                <li>中值定理</li>
+                                <li><strong>夹逼准则</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>典型例题</h3>
+                            <ul>
+                                <li><strong>等式证明</strong></li>
+                                <li>不等式证明</li>
+                                <li><strong>极限计算</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、核心概念</h2>
+                
+                <h3>1. 重要结论</h3>
+                <p><strong>重要极限：</strong>\(\lim_{t \to 0^+} t^a \ln t = 0 \quad (a > 0)\)</p>
+                <p><strong>证明：</strong>设\(I = \int_0^1 t^a \ln t \, dt = \lim_{\varepsilon \to 0^+} \int_\varepsilon^1 t^a \ln t \, dt\)</p>
+                <p><strong>用分部积分法：</strong>设\(u = \ln t, dv = t^a dt\)</p>
+                <div class="formula">
+                    \(du = \frac{1}{t}dt, \quad v = \frac{t^{a+1}}{a+1}\)
+                </div>
+                <div class="formula">
+                    \(I = \left[\frac{t^{a+1}}{a+1} \ln t\right]_\varepsilon^1 - \int_\varepsilon^1 \frac{t^{a+1}}{a+1} \cdot \frac{1}{t} dt\)<br>
+                    \(= 0 - \lim_{\varepsilon \to 0^+} \left[\frac{t^{a+1}}{a+1} \ln t\right]_\varepsilon^1 - \int_\varepsilon^1 \frac{t^a}{a+1} dt\)<br>
+                    \(= 0 - 0 - \left[\frac{t^{a+1}}{(a+1)^2}\right]_\varepsilon^1\)<br>
+                    \(= 0 - 0 - \left[\frac{1}{(a+1)^2} - 0\right] = -\frac{1}{(a+1)^2}\)
+                </div>
+                <p><strong>由夹逼准则得：</strong>\(\lim_{n \to \infty} \int_0^1 x^n f(x)dx = 0\)，其中\(f(x)\)在\([0,1]\)上连续</p>
+                
+                <h3>2. 积分中值定理</h3>
+                <div class="formula">
+                    若函数\(f(x)\)在区间\([a,b]\)上连续，则至少存在一点\(\xi \in [a,b]\)，使\(\int_a^b f(x)dx = f(\xi)(b-a)\)
+                </div>
+                
+                <h3>3. 夹逼准则</h3>
+                <div class="formula">
+                    若存在三个函数\(f(x), g(x), h(x)\)，使得\(f(x) \leq g(x) \leq h(x)\)，且\(\lim_{x \to x_0} f(x) = \lim_{x \to x_0} h(x) = A\)，则\(\lim_{x \to x_0} g(x) = A\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、常见题型及解题思路</h2>
+                
+                <h3>1. 证明积分等式</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 分析被积函数的性质<br>
+                    2. 选择适当的积分方法（如分部积分、换元法）<br>
+                    3. 利用已知条件进行推导<br>
+                    4. 通过恒等变形得出所需等式
+                </div>
+                <p><strong>例11.6：</strong>设\(f(x)\)的二阶导数\(f''(x)\)在\([0,1]\)上连续，且\(f(0) = f(1) = 0\)，证明：</p>
+                <div class="example">
+                    (1) \(\int_0^1 f(x)dx = -\int_0^1 x(x-1)f''(x)dx\)<br>
+                    (2) \(\int_0^1 f(x)dx \leq \frac{1}{12}\max f''(x)\)
+                </div>
+                <p><strong>解题步骤：</strong></p>
+                <div class="step">
+                    <strong>证明(1)：</strong>
+                </div>
+                <div class="formula">
+                    用两次分部积分法：<br>
+                    \(\int_0^1 f(x)dx = \int_0^1 1 \cdot f(x)dx\)<br>
+                    \(= [x f(x)]_0^1 - \int_0^1 x f'(x)dx\)<br>
+                    \(= 0 - [x f'(x)]_0^1 + \int_0^1 f'(x)dx\)<br>
+                    \(= 0 - [1 \cdot f'(1) - 0] + [f(x)]_0^1\)<br>
+                    \(= -f'(1) + 0 = -f'(1)\)
+                </div>
+                <div class="formula">
+                    另一方面：<br>
+                    \(\int_0^1 x(x-1)f''(x)dx = [x(x-1)f'(x)]_0^1 - \int_0^1 (2x-1)f'(x)dx\)<br>
+                    \(= 0 - [(x^2 - x)f'(x)]_0^1 + \int_0^1 (2x-1)f(x)dx\)<br>
+                    \(= -[0 - 0] + [x^2 - x]f(x) _0^1 - \int_0^1 (2x-1)f(x)dx\)<br>
+                    \(= 0 - [0 - 0] - \int_0^1 (2x-1)f(x)dx\)<br>
+                    \(= -\int_0^1 (2x-1)f(x)dx\)
+                </div>
+                <div class="formula">
+                    但更直接的方法是使用分部积分：<br>
+                    \(\int_0^1 x(x-1)f''(x)dx = [x(x-1)f'(x)]_0^1 - \int_0^1 (2x-1)f'(x)dx\)<br>
+                    \(= 0 - [(2x-1)f(x)]_0^1 + \int_0^1 2f(x)dx\)<br>
+                    \(= -[0 - 0] + 2\int_0^1 f(x)dx = 2\int_0^1 f(x)dx\)<br>
+                    因此，\(\int_0^1 f(x)dx = -\int_0^1 x(x-1)f''(x)dx\)
+                </div>
+                <div class="step">
+                    <strong>证明(2)：</strong>
+                </div>
+                <div class="formula">
+                    由(1)得：\(\int_0^1 f(x)dx = \int_0^1 x(x-1)f''(x)dx\)<br>
+                    由于\(x(x-1) \leq 0\)，\(x \in [0,1]\)，所以\(|x(x-1)| = x(1-x)\)<br>
+                    \(\int_0^1 x(x-1)f''(x)dx \leq \int_0^1 |x(x-1)f''(x)| dx\)<br>
+                    \(\leq \max f''(x) \int_0^1 x(1-x)dx = \max f''(x) \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = \max f''(x) \cdot \frac{1}{6}\)
+                </div>
+                <div class="formula">
+                    但实际计算得：\(\int_0^1 x(1-x)dx = \frac{1}{6}\)<br>
+                    所以\(\int_0^1 f(x)dx \leq \frac{1}{6}\max f''(x)\)
+                </div>
+                
+                <h3>2. 证明积分不等式</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 分析被积函数的性质<br>
+                    2. 选择适当的积分方法（如积分中值定理、夹逼准则）<br>
+                    3. 利用已知条件进行推导<br>
+                    4. 通过恒等变形得出所需不等式
+                </div>
+                <p><strong>例11.5：</strong>设函数\(f(x) = x - [x]\)，其中\([x]\)表示不超过\(x\)的最大整数，则\(\lim_{x \to +\infty} \frac{1}{x}\int_0^x f(t)dt = \frac{1}{2}\)</p>
+                <p><strong>解题步骤：</strong></p>
+                <div class="step">
+                    <strong>由于\(f(x)\)是周期为1的周期函数，其图像如图11-1所示</strong>
+                </div>
+                <div class="step">
+                    <strong>计算：</strong>\(\int_0^x f(t)dt = n\int_0^1 f(t)dt\)，其中\(n = [x]\)
+                </div>
+                <div class="step">
+                    <strong>每个周期内的面积为：</strong>\(\frac{1}{2}\)，所以\(\int_0^1 f(t)dt = \frac{1}{2}\)
+                </div>
+                <div class="step">
+                    <strong>当\(n \leq x < n+1\)时，有：</strong>\(\frac{n}{2} \leq \int_0^x f(t)dt < \frac{n+1}{2}\)
+                </div>
+                <div class="step">
+                    <strong>两边除以\(x\)，得：</strong>\(\frac{n/2}{x} \leq \frac{1}{x}\int_0^x f(t)dt < \frac{(n+1)/2}{x}\)
+                </div>
+                <div class="step">
+                    <strong>当\(x \to +\infty\)时，\(n \to \infty\)，\(\frac{n}{x} \to 1\)，\(\frac{n+1}{x} \to 1\)</strong>
+                </div>
+                <div class="step">
+                    <strong>由夹逼准则，得：</strong>\(\lim_{x \to +\infty} \frac{1}{x}\int_0^x f(t)dt = \frac{1}{2}\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、易错点与注意事项</h2>
+                
+                <h3>1. 积分等式的证明</h3>
+                <div class="example">
+                    需要选择适当的积分方法，如分部积分法<br>
+                    注意边界条件的处理，如\(f(0) = f(1) = 0\)
+                </div>
+                
+                <h3>2. 积分不等式的证明</h3>
+                <div class="example">
+                    要注意被积函数的符号<br>
+                    选择合适的不等式形式，如夹逼准则
+                </div>
+                
+                <h3>3. 周期函数的处理</h3>
+                <div class="example">
+                    周期函数的积分可以利用周期性简化计算<br>
+                    注意积分区间的划分
+                </div>
+                
+                <h3>4. 夹逼准则的应用</h3>
+                <div class="example">
+                    确保上下界都收敛到同一个值<br>
+                    不能只用一个不等式
+                </div>
+                
+                <h3>5. 积分中值定理的使用</h3>
+                <div class="example">
+                    必须保证函数在区间上连续<br>
+                    不能直接应用在不连续的函数上
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>五、重要公式与定理</h2>
+                
+                <div class="formula">
+                    1. 重要极限：\(\lim_{t \to 0^+} t^a \ln t = 0 \quad (a > 0)\)
+                </div>
+                <div class="formula">
+                    2. 积分中值定理：若\(f(x)\)在\([a,b]\)上连续，则存在\(\xi \in [a,b]\)，使\(\int_a^b f(x)dx = f(\xi)(b-a)\)
+                </div>
+                <div class="formula">
+                    3. 夹逼准则：若\(f(x) \leq g(x) \leq h(x)\)，且\(\lim f(x) = \lim h(x) = A\)，则\(\lim g(x) = A\)
+                </div>
+                <div class="formula">
+                    4. 分部积分法：\(\int u \, dv = uv - \int v \, du\)
+                </div>
+                <div class="formula">
+                    5. 周期函数的积分性质：若\(f(x)\)是周期为\(T\)的周期函数，则\(\int_a^{a+T} f(x)dx = \int_0^T f(x)dx\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>六、典型例题解析</h2>
+                
+                <h3>例1：设\(f(x)\)在\([0,1]\)上连续，证明\(\lim_{n \to \infty}\int_0^1 x^n f(x)dx = 0\)</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>由于\(f(x)\)在\([0,1]\)上连续，故有界，设\(|f(x)| \leq M\)</strong>
+                </div>
+                <div class="step">
+                    <strong>则：</strong>\(\left|\int_0^1 x^n f(x)dx\right| \leq \int_0^1 x^n |f(x)| dx \leq M\int_0^1 x^n dx = \frac{M}{n+1}\)
+                </div>
+                <div class="step">
+                    <strong>当\(n \to \infty\)时，\(\frac{M}{n+1} \to 0\)</strong>
+                </div>
+                <div class="step">
+                    <strong>由夹逼准则，得：</strong>\(\lim_{n \to \infty}\int_0^1 x^n f(x)dx = 0\)
+                </div>
+                
+                <h3>例2：设\(f(x)\)在\([0,2]\)上具有一阶连续导数，且\(f'(x) \geq 0\)，证明：对任意正整数\(n\)有\(\int_0^{2\pi} f(x)\sin nx \, dx \leq \frac{f(2)-f(0)}{n}\)</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>用分部积分法：</strong>
+                </div>
+                <div class="formula">
+                    \(\int_0^{2\pi} f(x)\sin nx \, dx = -\int_0^{2\pi} f(x)\frac{\cos nx}{n} dx\)
+                </div>
+                <div class="step">
+                    <strong>由于\(|\cos nx| \leq 1\)，所以：</strong>
+                </div>
+                <div class="formula">
+                    \(\int_0^{2\pi} f(x)\sin nx \, dx \leq \frac{1}{n}\int_0^{2\pi} |f'(x)\cos nx| dx\)
+                </div>
+                <div class="step">
+                    <strong>由于\(f'(x) \geq 0\)，所以：</strong>
+                </div>
+                <div class="formula">
+                    \(\leq \frac{1}{n}\int_0^{2\pi} f'(x)dx = \frac{1}{n}[f(2\pi)-f(0)]\)
+                </div>
+                <div class="step">
+                    <strong>因此：</strong>\(\int_0^{2\pi} f(x)\sin nx \, dx \leq \frac{f(2)-f(0)}{n}\)
+                </div>
+                
+                <div class="highlight">
+                    以上是第11讲"一元函数积分学的应用(二)——积分等式与积分不等式"的核心知识要点和做题思路，掌握这些内容可有效解决积分等式与积分不等式相关问题。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第十一讲
+        </footer>
+    </div>
+</body>
+</html>

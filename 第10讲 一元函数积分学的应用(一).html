@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>第10讲 一元函数积分学的应用(一)</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .mindmap-section {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            margin-bottom: 40px;
+        }
+
+        .mindmap-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 500px;
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 1px solid #eee;
+        }
+
+        .mindmap {
+            width: 100%;
+            max-width: 900px;
+            height: 460px;
+            position: relative;
+        }
+
+        .mindmap-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 25px 40px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+            font-size: 20px;
+            text-align: center;
+        }
+
+        .mindmap-node {
+            position: absolute;
+            background: #ffffff;
+            border: 3px solid #3498db;
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            min-width: 160px;
+            cursor: pointer;
+        }
+
+        .mindmap-node:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            z-index: 5;
+        }
+
+        .mindmap-node h3 {
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .mindmap-node ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .mindmap-node li {
+            color: #2c3e50;
+            margin: 8px 0;
+            font-size: 14px;
+            position: relative;
+            padding-left: 15px;
+        }
+
+        .mindmap-node li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .mindmap-connector {
+            position: absolute;
+            background: #3498db;
+            transform-origin: 0 0;
+        }
+
+        .node-1 { top: 15%; left: 20%; }
+        .node-2 { top: 15%; left: 65%; }
+        .node-3 { top: 45%; left: 5%; }
+        .node-4 { top: 45%; left: 80%; }
+        .node-5 { top: 75%; left: 20%; }
+        .node-6 { top: 75%; left: 65%; }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+        }
+
+        h3 {
+            color: #34495e;
+            font-size: 20px;
+            margin: 25px 0 15px 0;
+            font-weight: bold;
+        }
+
+        p {
+            margin: 15px 0;
+            color: #2c3e50;
+            text-align: justify;
+            text-indent: 2em;
+        }
+
+        p.no-indent {
+            text-indent: 0;
+        }
+
+        strong {
+            color: #e74c3c;
+            font-weight: 600;
+        }
+
+        .formula {
+            text-align: center;
+            margin: 25px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 18px;
+            border: 1px solid #3498db;
+            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .example {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .step {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border-left: 5px solid #3498db;
+        }
+
+        .quote {
+            text-align: center;
+            font-style: italic;
+            color: #2c3e50;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            position: relative;
+            font-weight: 500;
+        }
+
+        .quote:before, .quote:after {
+            content: '"';
+            font-size: 40px;
+            color: #3498db;
+            opacity: 0.5;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .mindmap {
+                height: 600px;
+            }
+            
+            .node-1 { top: 5%; left: 50%; transform: translateX(-50%); }
+            .node-2 { top: 25%; left: 15%; }
+            .node-3 { top: 25%; left: 75%; }
+            .node-4 { top: 50%; left: 5%; }
+            .node-5 { top: 50%; left: 85%; }
+            .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .section {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            
+            .section:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第10讲 一元函数积分学的应用(一)</h1>
+            <div class="subtitle">张宇考研数学基础30讲·高等数学分册</div>
+        </header>
+        
+        <div class="content">
+            <div class="mindmap-section">
+                <h2>一、知识结构思维导图</h2>
+                <div class="mindmap-container">
+                    <div class="mindmap">
+                        <div class="mindmap-center">一元函数积分学的应用(一)<br>几何应用</div>
+                        <div class="mindmap-node node-1">
+                            <h3>核心概念</h3>
+                            <ul>
+                                <li><strong>平面图形面积</strong></li>
+                                <li>旋转体体积</li>
+                                <li><strong>形心坐标</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-2">
+                            <h3>几何应用</h3>
+                            <ul>
+                                <li><strong>面积计算</strong></li>
+                                <li>体积计算</li>
+                                <li><strong>弧长计算</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-3">
+                            <h3>解题方法</h3>
+                            <ul>
+                                <li><strong>面积公式</strong></li>
+                                <li>体积公式</li>
+                                <li><strong>旋转体计算</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-4">
+                            <h3>注意事项</h3>
+                            <ul>
+                                <li><strong>易错点</strong></li>
+                                <li>旋转轴</li>
+                                <li><strong>积分区间</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-5">
+                            <h3>重要公式</h3>
+                            <ul>
+                                <li><strong>面积公式</strong></li>
+                                <li>体积公式</li>
+                                <li><strong>形心公式</strong></li>
+                            </ul>
+                        </div>
+                        <div class="mindmap-node node-6">
+                            <h3>典型例题</h3>
+                            <ul>
+                                <li><strong>面积计算</strong></li>
+                                <li>体积计算</li>
+                                <li><strong>特殊曲线</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>二、核心概念</h2>
+                
+                <h3>1. 平面图形的面积</h3>
+                <p><strong>直角坐标系下：</strong></p>
+                <div class="formula">
+                    由\(y = f(x), y = g(x), x = a, x = b\)围成的图形面积：<br>
+                    \(S = \int_a^b |f(x) - g(x)| dx\)
+                </div>
+                <div class="formula">
+                    由\(x = f(y), x = g(y), y = c, y = d\)围成的图形面积：<br>
+                    \(S = \int_c^d |f(y) - g(y)| dy\)
+                </div>
+                <p><strong>极坐标系下：</strong></p>
+                <div class="formula">
+                    由\(r = f(\theta), \theta = \alpha, \theta = \beta\)围成的图形面积：<br>
+                    \(S = \frac{1}{2}\int_\alpha^\beta r^2 d\theta\)
+                </div>
+                
+                <h3>2. 旋转体的体积</h3>
+                <p><strong>绕x轴旋转：</strong></p>
+                <div class="formula">
+                    \(y = f(x), a \leq x \leq b, f(x) \geq 0\)：<br>
+                    \(V = \pi\int_a^b [f(x)]^2 dx\)
+                </div>
+                <p><strong>绕y轴旋转：</strong></p>
+                <div class="formula">
+                    \(y = f(x), a \leq x \leq b, f(x) \geq 0\)：<br>
+                    \(V = 2\pi\int_a^b x f(x) dx\)
+                </div>
+                <p><strong>绕任意直线旋转：</strong></p>
+                <div class="formula">
+                    平面曲线\(L\)：\(y = f(x), a \leq x \leq b\)，且\(f(x)\)可导<br>
+                    定直线\(L_0\)：\(Ax + By + C = 0\)<br>
+                    旋转体体积：<br>
+                    \(V = \pi\int_a^b \frac{(Ax + Bf(x) + C)^2}{A^2 + B^2} dx\)
+                </div>
+                <div class="formula">
+                    特别地，当\(L_0\)为x轴(\(y=0\))：<br>
+                    \(V = \pi\int_a^b [f(x)]^2 dx\)
+                </div>
+                
+                <h3>3. 函数的平均值</h3>
+                <div class="formula">
+                    函数\(f(x)\)在\([a,b]\)上的平均值：<br>
+                    \(f_{avg} = \frac{1}{b-a}\int_a^b f(x) dx\)
+                </div>
+                
+                <h3>4. 形心坐标公式</h3>
+                <div class="formula">
+                    形心坐标\((\bar{x}, \bar{y})\)：<br>
+                    \(\bar{x} = \frac{1}{S}\int_a^b x|f(x) - g(x)| dx\)<br>
+                    \(\bar{y} = \frac{1}{S}\int_a^b \frac{f(x) + g(x)}{2}|f(x) - g(x)| dx\)
+                </div>
+                
+                <h3>5. 平面曲线的弧长</h3>
+                <div class="formula">
+                    \(y = f(x), a \leq x \leq b\)：<br>
+                    \(L = \int_a^b \sqrt{1 + (f'(x))^2} dx\)
+                </div>
+                
+                <h3>6. 旋转曲面的面积(侧面积)</h3>
+                <div class="formula">
+                    \(y = f(x), a \leq x \leq b, f(x) \geq 0\)，绕x轴旋转：<br>
+                    \(S = 2\pi\int_a^b f(x) \sqrt{1 + (f'(x))^2} dx\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>三、常见题型及解题思路</h2>
+                
+                <h3>1. 平面图形的面积计算</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定图形边界：确定上下(左右)边界函数<br>
+                    2. 确定积分区间：找到交点确定a和b<br>
+                    3. 写出面积公式：\(S = \int_a^b |\text{上边界} - \text{下边界}| dx\)<br>
+                    4. 计算积分
+                </div>
+                <p><strong>例：</strong>求\(y = x^2\)与\(y = x\)所围平面图形的面积</p>
+                <div class="step">
+                    <strong>交点：</strong>\(x^2 = x \Rightarrow x = 0, x = 1\)
+                </div>
+                <div class="step">
+                    <strong>边界：</strong>上边界：\(y = x\)，下边界：\(y = x^2\)
+                </div>
+                <div class="step">
+                    <strong>面积：</strong>\(S = \int_0^1 (x - x^2) dx = \left[\frac{x^2}{2} - \frac{x^3}{3}\right]_0^1 = \frac{1}{6}\)
+                </div>
+                
+                <h3>2. 旋转体的体积计算</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定旋转轴<br>
+                    2. 确定积分区间<br>
+                    3. 选择适当的体积公式<br>
+                    4. 计算积分
+                </div>
+                <p><strong>例：</strong>求\(y = x^2\)，\(x = 0\)，\(x = 1\)，\(y = 0\)所围图形绕x轴旋转的体积</p>
+                <div class="step">
+                    <strong>旋转轴：</strong>x轴
+                </div>
+                <div class="step">
+                    <strong>积分区间：</strong>\([0,1]\)
+                </div>
+                <div class="step">
+                    <strong>体积公式：</strong>\(V = \pi\int_0^1 (x^2)^2 dx = \pi\int_0^1 x^4 dx = \frac{\pi}{5}\)
+                </div>
+                
+                <h3>3. 利用反函数求旋转体体积</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 将\(y = f(x)\)反解为\(x = \varphi(y)\)<br>
+                    2. 确定旋转轴和积分区间<br>
+                    3. 选择适当的体积公式<br>
+                    4. 计算积分
+                </div>
+                <p><strong>例：</strong>求\(y = \sqrt{1 + x^2}\)，\(x \geq 0\)，\(y = 0\)，\(y = 2\)所围图形绕x轴旋转的体积</p>
+                <div class="step">
+                    <strong>反解：</strong>\(x = \sqrt{y^2 - 1}\)
+                </div>
+                <div class="step">
+                    <strong>旋转轴：</strong>x轴
+                </div>
+                <div class="step">
+                    <strong>积分区间：</strong>\([1,2]\)
+                </div>
+                <div class="step">
+                    <strong>体积公式：</strong>\(V = \pi\int_1^2 x^2 dy = \pi\int_1^2 (y^2 - 1) dy = \pi\left[\frac{y^3}{3} - y\right]_1^2 = \frac{4\pi}{3}\)
+                </div>
+                
+                <h3>4. 绕任意直线旋转的体积计算</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="example">
+                    1. 确定直线方程\(Ax + By + C = 0\)<br>
+                    2. 确定积分区间<br>
+                    3. 应用公式\(V = \pi\int_a^b \frac{(Ax + Bf(x) + C)^2}{A^2 + B^2} dx\)<br>
+                    4. 计算积分
+                </div>
+                <p><strong>例：</strong>求\(y = x\)，\(x = 0\)，\(x = 1\)所围图形绕直线\(y = x + 1\)旋转的体积</p>
+                <div class="step">
+                    <strong>直线方程：</strong>\(x - y + 1 = 0\)，\(A = 1\)，\(B = -1\)，\(C = 1\)
+                </div>
+                <div class="step">
+                    <strong>体积公式：</strong>\(V = \pi\int_0^1 \frac{(x - x + 1)^2}{1^2 + (-1)^2} dx = \pi\int_0^1 \frac{1}{2} dx = \frac{\pi}{2}\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>四、易错点与注意事项</h2>
+                
+                <h3>1. 旋转轴的确定</h3>
+                <div class="example">
+                    确定旋转轴是绕x轴、y轴还是其他直线<br>
+                    不同旋转轴对应不同的体积公式
+                </div>
+                
+                <h3>2. 积分区间的确定</h3>
+                <div class="example">
+                    找到图形的交点，确定积分上下限<br>
+                    注意图形在不同区间可能有不同的边界
+                </div>
+                
+                <h3>3. 绝对值的处理</h3>
+                <div class="example">
+                    在计算面积时，需要考虑上下(左右)边界函数的大小关系<br>
+                    通常使用绝对值来处理，避免负面积
+                </div>
+                
+                <h3>4. 反函数的求解</h3>
+                <div class="example">
+                    有时需要将\(y = f(x)\)反解为\(x = \varphi(y)\)<br>
+                    确保反解正确，注意定义域和值域
+                </div>
+                
+                <h3>5. 绕任意直线旋转的公式应用</h3>
+                <div class="example">
+                    不能直接套用绕坐标轴的公式<br>
+                    必须使用绕任意直线的通用公式
+                </div>
+                
+                <h3>6. 特殊曲线的处理</h3>
+                <div class="example">
+                    伯努利双纽线等特殊曲线需要利用对称性简化计算<br>
+                    振荡曲线需要处理绝对值，考虑振荡部分
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>五、重要公式汇总</h2>
+                
+                <div class="formula">
+                    1. 平面图形面积：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;直角坐标系：\(S = \int_a^b |f(x) - g(x)| dx\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;极坐标系：\(S = \frac{1}{2}\int_\alpha^\beta r^2 d\theta\)
+                </div>
+                <div class="formula">
+                    2. 旋转体体积：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;绕x轴：\(V = \pi\int_a^b [f(x)]^2 dx\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;绕y轴：\(V = 2\pi\int_a^b x f(x) dx\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;绕任意直线：\(V = \pi\int_a^b \frac{(Ax + Bf(x) + C)^2}{A^2 + B^2} dx\)
+                </div>
+                <div class="formula">
+                    3. 函数的平均值：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(f_{avg} = \frac{1}{b-a}\int_a^b f(x) dx\)
+                </div>
+                <div class="formula">
+                    4. 形心坐标：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\bar{x} = \frac{1}{S}\int_a^b x|f(x) - g(x)| dx\)<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(\bar{y} = \frac{1}{S}\int_a^b \frac{f(x) + g(x)}{2}|f(x) - g(x)| dx\)
+                </div>
+                <div class="formula">
+                    5. 平面曲线的弧长：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(L = \int_a^b \sqrt{1 + (f'(x))^2} dx\)
+                </div>
+                <div class="formula">
+                    6. 旋转曲面的面积：<br>
+                    &nbsp;&nbsp;&nbsp;&nbsp;\(S = 2\pi\int_a^b f(x) \sqrt{1 + (f'(x))^2} dx\)
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>六、典型例题解析</h2>
+                
+                <h3>例1：求\(y = e^{-x} \sin x(x \geq 0)\)与x轴所围平面图形的面积</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>确定交点：</strong>\(e^{-x} \sin x = 0 \Rightarrow x = k\pi, k = 0,1,2,...\)
+                </div>
+                <div class="step">
+                    <strong>确定积分区间：</strong>\([k\pi, (k+1)\pi]\)
+                </div>
+                <div class="step">
+                    <strong>写出面积公式：</strong>\(S = \sum_{k=0}^{\infty} \int_{k\pi}^{(k+1)\pi} e^{-x} \sin x dx\)
+                </div>
+                <div class="step">
+                    <strong>处理绝对值：</strong>由于\(\sin x\)在\([k\pi, (k+1)\pi]\)上符号交替，\(|\sin x| = \sin x\)当k为偶数，\(|\sin x| = -\sin x\)当k为奇数
+                </div>
+                <div class="step">
+                    <strong>计算：</strong>\(S = \sum_{k=0}^{\infty} (-1)^k \int_{k\pi}^{(k+1)\pi} e^{-x} \sin x dx\)<br>
+                    \(= \sum_{k=0}^{\infty} (-1)^k \left[e^{-x} \frac{-\cos x - \sin x}{2}\right]_{k\pi}^{(k+1)\pi}\)<br>
+                    \(= \frac{1}{2}\sum_{k=0}^{\infty} (-1)^k e^{-k\pi} [(-1)^{k+1} - (-1)^k]\)<br>
+                    \(= \frac{1}{2}\sum_{k=0}^{\infty} e^{-k\pi}\)<br>
+                    \(= \frac{1}{2} \cdot \frac{1}{1 - e^{-\pi}}\)
+                </div>
+                
+                <h3>例2：求伯努利双纽线\(r^2 = a^2 \cos 2\theta\)围成的图形的面积</h3>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>画图：</strong>利用对称性，图形在第一象限和第四象限对称
+                </div>
+                <div class="step">
+                    <strong>确定积分区间：</strong>\(\theta \in [-\frac{\pi}{4}, \frac{\pi}{4}]\)
+                </div>
+                <div class="step">
+                    <strong>写出面积公式：</strong>\(S = 4 \cdot \frac{1}{2}\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}} r^2 d\theta = 2\int_{-\frac{\pi}{4}}^{\frac{\pi}{4}} a^2 \cos 2\theta d\theta\)
+                </div>
+                <div class="step">
+                    <strong>计算：</strong>\(S = 2a^2 \int_{-\frac{\pi}{4}}^{\frac{\pi}{4}} \cos 2\theta d\theta = 2a^2 \left[\frac{\sin 2\theta}{2}\right]_{-\frac{\pi}{4}}^{\frac{\pi}{4}} = a^2 (\sin(\frac{\pi}{2}) - \sin(-\frac{\pi}{2})) = a^2\)
+                </div>
+                
+                <div class="highlight">
+                    以上是第10讲"一元函数积分学的应用(一)几何应用"的核心知识要点和做题思路，掌握这些内容可有效解决几何应用相关问题。
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            张宇考研数学 · 高等数学基础第十讲
+        </footer>
+    </div>
+</body>
+</html>

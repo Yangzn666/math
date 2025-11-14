@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>张宇考研数学基础30讲·高等数学分册</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .chapters-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .chapters-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            border-color: #3498db;
+        }
+
+        .chapter-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: bold;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .chapter-card ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .chapter-card li {
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .chapter-card li:before {
+            content: "▶";
+            color: #e74c3c;
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        .chapter-link {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: block;
+        }
+
+        .chapter-link:hover {
+            color: #3498db;
+            transform: translateX(5px);
+        }
+
+        .chapter-number {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        .highlight-section {
+            background: linear-gradient(120deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin: 25px 0;
+            text-align: center;
+            font-weight: 500;
+            color: #2c3e50;
+            border: 2px dashed #3498db;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            
+            .container {
+                box-shadow: none;
+                border-radius: 0;
+            }
+            
+            .chapter-card:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>张宇考研数学基础30讲</h1>
+            <div class="subtitle">高等数学分册 · 完整课程体系</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>课程简介</h2>
+                <p>本课程是张宇老师为考研数学基础阶段精心打造的系统性教学内容，涵盖了高等数学的核心知识点和解题方法。通过18个专题讲解，帮助学生建立扎实的数学基础，掌握解题技巧，为后续深入学习和考试做好充分准备。</p>
+            </div>
+            
+            <div class="highlight-section">
+                点击下方章节链接，进入各讲详细内容学习
+            </div>
+            
+            <div class="chapters-container">
+                <div class="chapter-card">
+                    <h3>第一部分：函数、极限与连续</h3>
+                    <ul>
+                        <li>
+                            <a href="第1讲 函数、极限、连续.html" class="chapter-link">
+                                <span class="chapter-number">1</span> 函数、极限、连续
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第2讲 数列极限.html" class="chapter-link">
+                                <span class="chapter-number">2</span> 数列极限
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第二部分：一元函数微分学</h3>
+                    <ul>
+                        <li>
+                            <a href="第3讲 一元函数微分学的概念.html" class="chapter-link">
+                                <span class="chapter-number">3</span> 一元函数微分学的概念
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第4讲 一元函数微分学的计算.html" class="chapter-link">
+                                <span class="chapter-number">4</span> 一元函数微分学的计算
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第5讲 一元函数微分学的应用(一)  几何应用.html" class="chapter-link">
+                                <span class="chapter-number">5</span> 一元函数微分学的应用(一) 几何应用
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第6讲 一元函数微分学的应用(二) 中值定理、微分等式与微分不等式.html" class="chapter-link">
+                                <span class="chapter-number">6</span> 一元函数微分学的应用(二) 中值定理、微分等式与微分不等式
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第7讲 一元函数微分学的应用(三)  物理应用与经济应用.html" class="chapter-link">
+                                <span class="chapter-number">7</span> 一元函数微分学的应用(三) 物理应用与经济应用
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第三部分：一元函数积分学</h3>
+                    <ul>
+                        <li>
+                            <a href="第8讲 一元函数积分学的概念与性质.html" class="chapter-link">
+                                <span class="chapter-number">8</span> 一元函数积分学的概念与性质
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第9讲 一元函数积分学的计算.html" class="chapter-link">
+                                <span class="chapter-number">9</span> 一元函数积分学的计算
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第10讲 一元函数积分学的应用(一).html" class="chapter-link">
+                                <span class="chapter-number">10</span> 一元函数积分学的应用(一)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第11讲 一元函数积分学的应用(二).html" class="chapter-link">
+                                <span class="chapter-number">11</span> 一元函数积分学的应用(二)
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第12讲 一元函数积分学的应用(三).html" class="chapter-link">
+                                <span class="chapter-number">12</span> 一元函数积分学的应用(三)
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第四部分：多元函数微分学</h3>
+                    <ul>
+                        <li>
+                            <a href="第13讲 多元函数微分学.html" class="chapter-link">
+                                <span class="chapter-number">13</span> 多元函数微分学
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第14讲 二重积分.html" class="chapter-link">
+                                <span class="chapter-number">14</span> 二重积分
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第五部分：微分方程与无穷级数</h3>
+                    <ul>
+                        <li>
+                            <a href="第15讲 微分方程.html" class="chapter-link">
+                                <span class="chapter-number">15</span> 微分方程
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第16讲 无穷级数.html" class="chapter-link">
+                                <span class="chapter-number">16</span> 无穷级数
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第六部分：多元函数积分学</h3>
+                    <ul>
+                        <li>
+                            <a href="第17讲 多元函数积分学的预备知识.html" class="chapter-link">
+                                <span class="chapter-number">17</span> 多元函数积分学的预备知识
+                            </a>
+                        </li>
+                        <li>
+                            <a href="第18讲 多元函数积分学.html" class="chapter-link">
+                                <span class="chapter-number">18</span> 多元函数积分学
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="highlight-section">
+                学习建议：按顺序学习各章节，扎实掌握基础知识后再进入下一章节
+            </div>
+        </div>
+        
+        <div class="footer">
+            张宇考研数学 · 高等数学基础课程体系
+        </div>
+    </div>
+</body>
+</html>
