@@ -2,6 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>张宇考研数学基础30讲·高等数学分册</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
@@ -18,6 +19,36 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             padding: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .intro {
+                padding: 15px;
+            }
+            
+            .highlight-section {
+                padding: 20px;
+            }
         }
 
         .container {
@@ -71,9 +102,52 @@
             margin-bottom: 40px;
         }
 
+        @media (max-width: 1024px) and (min-width: 769px) {
+            .chapters-container {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+            
+            .chapter-card {
+                padding: 20px;
+            }
+        }
+
         @media (max-width: 768px) {
             .chapters-container {
                 grid-template-columns: 1fr;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 25px 10px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            .subtitle {
+                font-size: 16px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+            
+            .chapter-card {
+                padding: 20px;
+            }
+            
+            .chapter-card h3 {
+                font-size: 18px;
             }
         }
 
@@ -101,6 +175,13 @@
             font-weight: bold;
             border-bottom: 2px solid #3498db;
             padding-bottom: 10px;
+        }
+        
+        @media (max-width: 480px) {
+            .chapter-card h3 {
+                font-size: 18px;
+                padding-bottom: 8px;
+            }
         }
 
         .chapter-card ul {
@@ -169,17 +250,58 @@
             border: 2px dashed #3498db;
         }
 
-        @media (max-width: 768px) {
-            .content {
-                padding: 20px;
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
             }
             
-            body {
-                padding: 10px;
+            .container {
+                border-radius: 8px;
+            }
+            
+            header {
+                padding: 20px 10px;
             }
             
             h1 {
-                font-size: 28px;
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .chapter-card {
+                padding: 15px;
+            }
+            
+            .chapter-card h3 {
+                font-size: 16px;
+            }
+            
+            .chapter-link {
+                font-size: 14px;
+            }
+            
+            .chapter-number {
+                width: 25px;
+                height: 25px;
+                line-height: 25px;
+                font-size: 12px;
+            }
+            
+            .highlight-section {
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 12px;
             }
         }
 
