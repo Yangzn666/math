@@ -1,0 +1,1537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第4讲 多元函数微分学 题型分类练习</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .intro {
+                padding: 15px;
+            }
+            
+            .highlight-section {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h3 {
+            color: #3498db;
+            font-size: 22px;
+            margin: 20px 0 15px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .question-content {
+            margin: 10px 0;
+        }
+
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .answer {
+            display: none;
+            padding: 20px;
+            background: #fff8e1;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .answer.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .answer h4 {
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .answer p {
+            margin: 8px 0;
+        }
+
+        .answer ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .answer li {
+            margin: 8px 0;
+        }
+
+        /* 知识点卡片样式 */
+        .knowledge-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #3498db;
+            z-index: 1000;
+            max-width: 800px;
+            width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .knowledge-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .knowledge-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .knowledge-card .formula {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .knowledge-card .tip {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .knowledge-card ul {
+            padding-left: 20px;
+        }
+
+        .knowledge-card li {
+            margin: 8px 0;
+        }
+
+        .knowledge-link {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .knowledge-link:hover {
+            color: #e74c3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .answer {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 8px;
+            }
+            
+            header {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
+            
+            .question {
+                padding: 10px;
+            }
+            
+            .answer {
+                padding: 10px;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第4讲 多元函数微分学</h1>
+            <div class="subtitle">题型分类练习 · 高等数学第四章</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>题型概览</h2>
+                <p>本讲主要涵盖多元函数微分学的基本概念、偏导数与全微分、复合函数求导法则、隐函数求导、极值与最值问题以及几何应用等内容，通过典型例题帮助同学们掌握解题方法与技巧。</p>
+                <p>相关知识点请参阅：<a href="第13讲 多元函数微分学.html" target="_blank">第13讲 多元函数微分学 讲义</a></p>
+            </div>
+
+            <!-- 一、基本概念与连续性题型 -->
+            <div class="section">
+                <h2>一、基本概念与连续性题型</h2>
+                
+                <!-- 1. 二元函数极限 -->
+                <h3 id="limit-concept">1. 二元函数极限</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题1：</div>
+                    <div class="question-content">
+                        <p>证明二元函数 \( f(x,y) = \frac{xy}{x^2+y^2} \) 在点 \( (0,0) \) 处极限不存在。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('limit-concept-card')">二元函数极限</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer1')">查看详解</button>
+                    <div id="answer1" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>要证明二元函数在某点的极限不存在，通常采用沿不同路径趋向该点时函数值不同的方法。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>考虑沿不同路径趋向点 \( (0,0) \)：</p>
+                        
+                        <p><strong>路径1：沿 \( x \) 轴趋向 \( (0,0) \)</strong></p>
+                        <p>此时 \( y = 0 \)，有：</p>
+                        <p>\( \lim_{x \to 0} f(x,0) = \lim_{x \to 0} \frac{x \cdot 0}{x^2 + 0^2} = \lim_{x \to 0} \frac{0}{x^2} = 0 \)</p>
+                        
+                        <p><strong>路径2：沿 \( y \) 轴趋向 \( (0,0) \)</strong></p>
+                        <p>此时 \( x = 0 \)，有：</p>
+                        <p>\( \lim_{y \to 0} f(0,y) = \lim_{y \to 0} \frac{0 \cdot y}{0^2 + y^2} = \lim_{y \to 0} \frac{0}{y^2} = 0 \)</p>
+                        
+                        <p><strong>路径3：沿直线 \( y = x \) 趋向 \( (0,0) \)</strong></p>
+                        <p>此时 \( y = x \)，有：</p>
+                        <p>\( \lim_{x \to 0} f(x,x) = \lim_{x \to 0} \frac{x \cdot x}{x^2 + x^2} = \lim_{x \to 0} \frac{x^2}{2x^2} = \lim_{x \to 0} \frac{1}{2} = \frac{1}{2} \)</p>
+                        
+                        <p>由于沿不同路径趋向 \( (0,0) \) 时，函数的极限值不同：</p>
+                        <p>沿 \( x \) 轴或 \( y \) 轴趋向时极限为 0，而沿 \( y = x \) 趋向时极限为 \( \frac{1}{2} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>由于沿不同路径趋向 \( (0,0) \) 时函数极限值不同，所以二元函数 \( f(x,y) = \frac{xy}{x^2+y^2} \) 在点 \( (0,0) \) 处极限不存在。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 连续性判断 -->
+                <h3 id="continuity">2. 连续性判断</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题2：</div>
+                    <div class="question-content">
+                        <p>讨论函数 \( f(x,y) = \begin{cases} 
+\frac{x^2y}{x^2+y^2}, & (x,y) \neq (0,0) \\
+0, & (x,y) = (0,0)
+\end{cases} \) 在点 \( (0,0) \) 处的连续性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('continuity-card')">连续性判断</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer2')">查看详解</button>
+                    <div id="answer2" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>判断二元函数在某点的连续性需要验证三个条件：函数在该点有定义、极限存在、极限值等于函数值。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：检查函数在点 \( (0,0) \) 是否有定义</p>
+                        <p>由函数定义知 \( f(0,0) = 0 \)，所以函数在点 \( (0,0) \) 有定义。</p>
+                        
+                        <p>第二步：计算 \( \lim_{(x,y) \to (0,0)} f(x,y) \)</p>
+                        <p>使用极坐标变换，令 \( x = r\cos\theta \)，\( y = r\sin\theta \)，当 \( (x,y) \to (0,0) \) 时，\( r \to 0^+ \)</p>
+                        <p>\( f(x,y) = \frac{x^2y}{x^2+y^2} = \frac{r^2\cos^2\theta \cdot r\sin\theta}{r^2\cos^2\theta + r^2\sin^2\theta} = \frac{r^3\cos^2\theta\sin\theta}{r^2} = r\cos^2\theta\sin\theta \)</p>
+                        <p>因此：</p>
+                        <p>\( \lim_{(x,y) \to (0,0)} f(x,y) = \lim_{r \to 0^+} r\cos^2\theta\sin\theta = 0 \)</p>
+                        <p>该极限与 \( \theta \) 无关，说明极限存在且等于 0。</p>
+                        
+                        <p>第三步：比较极限值与函数值</p>
+                        <p>\( \lim_{(x,y) \to (0,0)} f(x,y) = 0 = f(0,0) \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x,y) \) 在点 \( (0,0) \) 处连续。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 偏导数存在性 -->
+                <h3 id="partial-derivative-existence">3. 偏导数存在性</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题3：</div>
+                    <div class="question-content">
+                        <p>讨论函数 \( f(x,y) = \begin{cases} 
+\frac{xy}{\sqrt{x^2+y^2}}, & (x,y) \neq (0,0) \\
+0, & (x,y) = (0,0)
+\end{cases} \) 在点 \( (0,0) \) 处偏导数的存在性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('partial-derivative-existence-card')">偏导数存在性</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer3')">查看详解</button>
+                    <div id="answer3" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>偏导数存在性需要使用偏导数定义来判断，即检查偏导数的极限是否存在。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>根据偏导数定义：</p>
+                        <p>\( \frac{\partial f}{\partial x}(0,0) = \lim_{h \to 0} \frac{f(h,0) - f(0,0)}{h} \)</p>
+                        <p>\( \frac{\partial f}{\partial y}(0,0) = \lim_{k \to 0} \frac{f(0,k) - f(0,0)}{k} \)</p>
+                        
+                        <p>计算 \( \frac{\partial f}{\partial x}(0,0) \)：</p>
+                        <p>\( f(h,0) = \frac{h \cdot 0}{\sqrt{h^2+0^2}} = 0 \)</p>
+                        <p>\( f(0,0) = 0 \)</p>
+                        <p>所以：</p>
+                        <p>\( \frac{\partial f}{\partial x}(0,0) = \lim_{h \to 0} \frac{0 - 0}{h} = \lim_{h \to 0} 0 = 0 \)</p>
+                        
+                        <p>计算 \( \frac{\partial f}{\partial y}(0,0) \)：</p>
+                        <p>\( f(0,k) = \frac{0 \cdot k}{\sqrt{0^2+k^2}} = 0 \)</p>
+                        <p>\( f(0,0) = 0 \)</p>
+                        <p>所以：</p>
+                        <p>\( \frac{\partial f}{\partial y}(0,0) = \lim_{k \to 0} \frac{0 - 0}{k} = \lim_{k \to 0} 0 = 0 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x,y) \) 在点 \( (0,0) \) 处偏导数存在，且 \( \frac{\partial f}{\partial x}(0,0) = 0 \)，\( \frac{\partial f}{\partial y}(0,0) = 0 \)。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 二、偏导数与全微分题型 -->
+            <div class="section">
+                <h2>二、偏导数与全微分题型</h2>
+                
+                <!-- 1. 偏导数计算 -->
+                <h3 id="partial-derivative-calculation">1. 偏导数计算</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题4：</div>
+                    <div class="question-content">
+                        <p>设 \( z = x^2\sin y + y^2\cos x \)，求 \( \frac{\partial z}{\partial x} \) 和 \( \frac{\partial z}{\partial y} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('partial-derivative-calculation-card')">偏导数计算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer4')">查看详解</button>
+                    <div id="answer4" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>求偏导数时，将其他变量视为常数，按一元函数求导法则进行计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>求 \( \frac{\partial z}{\partial x} \)：</p>
+                        <p>将 \( y \) 视为常数：</p>
+                        <p>\( \frac{\partial z}{\partial x} = \frac{\partial}{\partial x}(x^2\sin y) + \frac{\partial}{\partial x}(y^2\cos x) \)</p>
+                        <p>\( = 2x\sin y + y^2(-\sin x) \)</p>
+                        <p>\( = 2x\sin y - y^2\sin x \)</p>
+                        
+                        <p>求 \( \frac{\partial z}{\partial y} \)：</p>
+                        <p>将 \( x \) 视为常数：</p>
+                        <p>\( \frac{\partial z}{\partial y} = \frac{\partial}{\partial y}(x^2\sin y) + \frac{\partial}{\partial y}(y^2\cos x) \)</p>
+                        <p>\( = x^2\cos y + 2y\cos x \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{\partial z}{\partial x} = 2x\sin y - y^2\sin x \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = x^2\cos y + 2y\cos x \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 全微分计算 -->
+                <h3 id="total-differential">2. 全微分计算</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题5：</div>
+                    <div class="question-content">
+                        <p>设 \( z = e^{xy} \)，求全微分 \( dz \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('total-differential-card')">全微分计算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer5')">查看详解</button>
+                    <div id="answer5" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>全微分的计算公式为 \( dz = \frac{\partial z}{\partial x}dx + \frac{\partial z}{\partial y}dy \)。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>首先计算偏导数：</p>
+                        <p>\( \frac{\partial z}{\partial x} = \frac{\partial}{\partial x}(e^{xy}) = e^{xy} \cdot y = ye^{xy} \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = \frac{\partial}{\partial y}(e^{xy}) = e^{xy} \cdot x = xe^{xy} \)</p>
+                        
+                        <p>因此全微分为：</p>
+                        <p>\( dz = \frac{\partial z}{\partial x}dx + \frac{\partial z}{\partial y}dy = ye^{xy}dx + xe^{xy}dy \)</p>
+                        <p>\( = e^{xy}(ydx + xdy) \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( dz = e^{xy}(ydx + xdy) \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 可微性判断 -->
+                <h3 id="differentiability">3. 可微性判断</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题6：</div>
+                    <div class="question-content">
+                        <p>讨论函数 \( f(x,y) = \begin{cases} 
+\frac{x^2y}{x^2+y^2}, & (x,y) \neq (0,0) \\
+0, & (x,y) = (0,0)
+\end{cases} \) 在点 \( (0,0) \) 处的可微性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('differentiability-card')">可微性判断</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer6')">查看详解</button>
+                    <div id="answer6" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>函数在某点可微需要满足：偏导数存在且满足可微的定义，即增量可以表示为线性主部加高阶无穷小。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：计算偏导数（已在例题2中计算过）</p>
+                        <p>\( \frac{\partial f}{\partial x}(0,0) = 0 \)，\( \frac{\partial f}{\partial y}(0,0) = 0 \)</p>
+                        
+                        <p>第二步：验证可微定义</p>
+                        <p>函数在点 \( (0,0) \) 处可微的定义是：</p>
+                        <p>\( \lim_{(\Delta x,\Delta y) \to (0,0)} \frac{f(0+\Delta x, 0+\Delta y) - f(0,0) - \frac{\partial f}{\partial x}(0,0)\Delta x - \frac{\partial f}{\partial y}(0,0)\Delta y}{\sqrt{(\Delta x)^2+(\Delta y)^2}} = 0 \)</p>
+                        
+                        <p>将已知值代入：</p>
+                        <p>\( \lim_{(\Delta x,\Delta y) \to (0,0)} \frac{f(\Delta x, \Delta y) - 0 - 0 \cdot \Delta x - 0 \cdot \Delta y}{\sqrt{(\Delta x)^2+(\Delta y)^2}} \)</p>
+                        <p>\( = \lim_{(\Delta x,\Delta y) \to (0,0)} \frac{f(\Delta x, \Delta y)}{\sqrt{(\Delta x)^2+(\Delta y)^2}} \)</p>
+                        <p>\( = \lim_{(\Delta x,\Delta y) \to (0,0)} \frac{\frac{\Delta x^2 \Delta y}{\Delta x^2+\Delta y^2}}{\sqrt{(\Delta x)^2+(\Delta y)^2}} \)</p>
+                        <p>\( = \lim_{(\Delta x,\Delta y) \to (0,0)} \frac{\Delta x^2 \Delta y}{(\Delta x^2+\Delta y^2)^{3/2}} \)</p>
+                        
+                        <p>使用极坐标变换，令 \( \Delta x = r\cos\theta \)，\( \Delta y = r\sin\theta \)：</p>
+                        <p>\( \lim_{r \to 0^+} \frac{r^2\cos^2\theta \cdot r\sin\theta}{(r^2\cos^2\theta + r^2\sin^2\theta)^{3/2}} \)</p>
+                        <p>\( = \lim_{r \to 0^+} \frac{r^3\cos^2\theta\sin\theta}{(r^2)^{3/2}} \)</p>
+                        <p>\( = \lim_{r \to 0^+} \frac{r^3\cos^2\theta\sin\theta}{r^3} \)</p>
+                        <p>\( = \lim_{r \to 0^+} \cos^2\theta\sin\theta = \cos^2\theta\sin\theta \)</p>
+                        
+                        <p>该极限值依赖于 \( \theta \)，即依赖于趋向 \( (0,0) \) 的路径，所以极限不存在或不为0。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x,y) \) 在点 \( (0,0) \) 处偏导数存在但不可微。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 三、多元复合函数求导题型 -->
+            <div class="section">
+                <h2>三、多元复合函数求导题型</h2>
+                
+                <!-- 1. 链式法则 -->
+                <h3 id="chain-rule">1. 链式法则</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题7：</div>
+                    <div class="question-content">
+                        <p>设 \( z = f(u,v) \)，其中 \( u = x^2-y^2 \)，\( v = 2xy \)，求 \( \frac{\partial z}{\partial x} \) 和 \( \frac{\partial z}{\partial y} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('chain-rule-card')">链式法则</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer7')">查看详解</button>
+                    <div id="answer7" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是典型的复合函数求导问题，需要使用链式法则。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>根据链式法则：</p>
+                        <p>\( \frac{\partial z}{\partial x} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial x} \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial y} \)</p>
+                        
+                        <p>计算各偏导数：</p>
+                        <p>\( \frac{\partial u}{\partial x} = \frac{\partial}{\partial x}(x^2-y^2) = 2x \)</p>
+                        <p>\( \frac{\partial u}{\partial y} = \frac{\partial}{\partial y}(x^2-y^2) = -2y \)</p>
+                        <p>\( \frac{\partial v}{\partial x} = \frac{\partial}{\partial x}(2xy) = 2y \)</p>
+                        <p>\( \frac{\partial v}{\partial y} = \frac{\partial}{\partial y}(2xy) = 2x \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \frac{\partial z}{\partial x} = \frac{\partial f}{\partial u} \cdot 2x + \frac{\partial f}{\partial v} \cdot 2y = 2x\frac{\partial f}{\partial u} + 2y\frac{\partial f}{\partial v} \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = \frac{\partial f}{\partial u} \cdot (-2y) + \frac{\partial f}{\partial v} \cdot 2x = -2y\frac{\partial f}{\partial u} + 2x\frac{\partial f}{\partial v} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{\partial z}{\partial x} = 2x\frac{\partial f}{\partial u} + 2y\frac{\partial f}{\partial v} \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = -2y\frac{\partial f}{\partial u} + 2x\frac{\partial f}{\partial v} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 抽象函数求导 -->
+                <h3 id="abstract-function">2. 抽象函数求导</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题8：</div>
+                    <div class="question-content">
+                        <p>设 \( z = f(x^2-y^2, xy) \)，其中 \( f(u,v) \) 具有连续偏导数，求 \( \frac{\partial^2 z}{\partial x \partial y} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('abstract-function-card')">抽象函数求导</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer8')">查看详解</button>
+                    <div id="answer8" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是抽象复合函数的高阶偏导数问题，需要先求一阶偏导数，再求二阶混合偏导数。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设 \( u = x^2-y^2 \)，\( v = xy \)，则 \( z = f(u,v) \)</p>
+                        
+                        <p>首先求一阶偏导数：</p>
+                        <p>\( \frac{\partial z}{\partial x} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial x} = f_u \cdot 2x + f_v \cdot y \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial y} = f_u \cdot (-2y) + f_v \cdot x \)</p>
+                        
+                        <p>现在求 \( \frac{\partial^2 z}{\partial x \partial y} \)：</p>
+                        <p>\( \frac{\partial^2 z}{\partial x \partial y} = \frac{\partial}{\partial y}\left(\frac{\partial z}{\partial x}\right) = \frac{\partial}{\partial y}(2xf_u + yf_v) \)</p>
+                        <p>\( = 2x\frac{\partial f_u}{\partial y} + f_v + y\frac{\partial f_v}{\partial y} \)</p>
+                        
+                        <p>计算 \( \frac{\partial f_u}{\partial y} \) 和 \( \frac{\partial f_v}{\partial y} \)：</p>
+                        <p>\( \frac{\partial f_u}{\partial y} = \frac{\partial f_u}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial f_u}{\partial v}\frac{\partial v}{\partial y} = f_{uu} \cdot (-2y) + f_{uv} \cdot x = -2yf_{uu} + xf_{uv} \)</p>
+                        <p>\( \frac{\partial f_v}{\partial y} = \frac{\partial f_v}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial f_v}{\partial v}\frac{\partial v}{\partial y} = f_{vu} \cdot (-2y) + f_{vv} \cdot x = -2yf_{vu} + xf_{vv} \)</p>
+                        
+                        <p>代入得：</p>
+                        <p>\( \frac{\partial^2 z}{\partial x \partial y} = 2x(-2yf_{uu} + xf_{uv}) + f_v + y(-2yf_{vu} + xf_{vv}) \)</p>
+                        <p>\( = -4xyf_{uu} + 2x^2f_{uv} + f_v - 2y^2f_{vu} + xyf_{vv} \)</p>
+                        
+                        <p>由于 \( f \) 具有连续偏导数，根据混合偏导数相等的定理，有 \( f_{uv} = f_{vu} \)</p>
+                        <p>所以：</p>
+                        <p>\( \frac{\partial^2 z}{\partial x \partial y} = -4xyf_{uu} + (2x^2-2y^2)f_{uv} + f_v + xyf_{vv} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{\partial^2 z}{\partial x \partial y} = -4xy\frac{\partial^2 f}{\partial u^2} + (2x^2-2y^2)\frac{\partial^2 f}{\partial u \partial v} + \frac{\partial f}{\partial v} + xy\frac{\partial^2 f}{\partial v^2} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 高阶偏导数 -->
+                <h3 id="higher-order-partial">3. 高阶偏导数</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题9：</div>
+                    <div class="question-content">
+                        <p>设 \( z = x^2y + xy^2 \)，求 \( \frac{\partial^3 z}{\partial x^2 \partial y} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('higher-order-partial-card')">高阶偏导数</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer9')">查看详解</button>
+                    <div id="answer9" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>求高阶偏导数需要逐次求导，注意求导顺序。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>给定 \( z = x^2y + xy^2 \)</p>
+                        
+                        <p>第一步：求 \( \frac{\partial z}{\partial y} \)</p>
+                        <p>\( \frac{\partial z}{\partial y} = \frac{\partial}{\partial y}(x^2y + xy^2) = x^2 + 2xy \)</p>
+                        
+                        <p>第二步：求 \( \frac{\partial^2 z}{\partial x \partial y} \)</p>
+                        <p>\( \frac{\partial^2 z}{\partial x \partial y} = \frac{\partial}{\partial x}\left(\frac{\partial z}{\partial y}\right) = \frac{\partial}{\partial x}(x^2 + 2xy) = 2x + 2y \)</p>
+                        
+                        <p>第三步：求 \( \frac{\partial^3 z}{\partial x^2 \partial y} \)</p>
+                        <p>\( \frac{\partial^3 z}{\partial x^2 \partial y} = \frac{\partial}{\partial x}\left(\frac{\partial^2 z}{\partial x \partial y}\right) = \frac{\partial}{\partial x}(2x + 2y) = 2 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{\partial^3 z}{\partial x^2 \partial y} = 2 \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 四、隐函数求导题型 -->
+            <div class="section">
+                <h2>四、隐函数求导题型</h2>
+                
+                <!-- 1. 一元隐函数求导 -->
+                <h3 id="implicit-function">1. 一元隐函数求导</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题10：</div>
+                    <div class="question-content">
+                        <p>设 \( F(x,y) = x^2 + y^2 - 1 = 0 \) 确定隐函数 \( y = y(x) \)，求 \( \frac{dy}{dx} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('implicit-function-card')">隐函数求导</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer10')">查看详解</button>
+                    <div id="answer10" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>隐函数求导有两种方法：直接法和公式法。这里使用直接法。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>在方程 \( F(x,y) = x^2 + y^2 - 1 = 0 \) 两边对 \( x \) 求导：</p>
+                        <p>\( \frac{d}{dx}(x^2 + y^2 - 1) = \frac{d}{dx}(0) \)</p>
+                        <p>\( 2x + 2y\frac{dy}{dx} = 0 \)</p>
+                        
+                        <p>解出 \( \frac{dy}{dx} \)：</p>
+                        <p>\( 2y\frac{dy}{dx} = -2x \)</p>
+                        <p>\( \frac{dy}{dx} = -\frac{x}{y} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{dy}{dx} = -\frac{x}{y} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 二元隐函数组求导 -->
+                <h3 id="implicit-function-system">2. 二元隐函数组求导</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题11：</div>
+                    <div class="question-content">
+                        <p>设方程组 \( \begin{cases} 
+F(x,y,u,v) = x^2 + y^2 + u^2 + v^2 - 1 = 0 \\
+G(x,y,u,v) = xu + yv - 1 = 0
+\end{cases} \) 确定隐函数 \( u = u(x,y) \)，\( v = v(x,y) \)，求 \( \frac{\partial u}{\partial x} \) 和 \( \frac{\partial v}{\partial x} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('implicit-function-system-card')">隐函数组求导</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer11')">查看详解</button>
+                    <div id="answer11" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>对于隐函数组，需要对方程组中的每个方程分别求导，然后解线性方程组。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>在两个方程两边对 \( x \) 求偏导：</p>
+                        <p>对第一个方程求偏导：</p>
+                        <p>\( \frac{\partial}{\partial x}(x^2 + y^2 + u^2 + v^2 - 1) = 0 \)</p>
+                        <p>\( 2x + 2u\frac{\partial u}{\partial x} + 2v\frac{\partial v}{\partial x} = 0 \)</p>
+                        <p>\( x + u\frac{\partial u}{\partial x} + v\frac{\partial v}{\partial x} = 0 \)  ——— (1)</p>
+                        
+                        <p>对第二个方程求偏导：</p>
+                        <p>\( \frac{\partial}{\partial x}(xu + yv - 1) = 0 \)</p>
+                        <p>\( u + x\frac{\partial u}{\partial x} + y\frac{\partial v}{\partial x} = 0 \)  ——— (2)</p>
+                        
+                        <p>联立方程 (1) 和 (2)：</p>
+                        <p>\( \begin{cases} 
+u\frac{\partial u}{\partial x} + v\frac{\partial v}{\partial x} = -x \\
+x\frac{\partial u}{\partial x} + y\frac{\partial v}{\partial x} = -u
+\end{cases} \)</p>
+                        
+                        <p>这是一个关于 \( \frac{\partial u}{\partial x} \) 和 \( \frac{\partial v}{\partial x} \) 的线性方程组。</p>
+                        <p>使用克拉默法则求解：</p>
+                        <p>系数矩阵的行列式：</p>
+                        <p>\( D = \begin{vmatrix} u & v \\ x & y \end{vmatrix} = uy - vx \)</p>
+                        
+                        <p>\( \frac{\partial u}{\partial x} \) 的分子行列式：</p>
+                        <p>\( D_u = \begin{vmatrix} -x & v \\ -u & y \end{vmatrix} = -xy + uv \)</p>
+                        
+                        <p>\( \frac{\partial v}{\partial x} \) 的分子行列式：</p>
+                        <p>\( D_v = \begin{vmatrix} u & -x \\ x & -u \end{vmatrix} = -u^2 + x^2 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \frac{\partial u}{\partial x} = \frac{D_u}{D} = \frac{-xy + uv}{uy - vx} \)</p>
+                        <p>\( \frac{\partial v}{\partial x} = \frac{D_v}{D} = \frac{-u^2 + x^2}{uy - vx} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{\partial u}{\partial x} = \frac{uv - xy}{uy - vx} \)</p>
+                        <p>\( \frac{\partial v}{\partial x} = \frac{x^2 - u^2}{uy - vx} \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 五、极值与最值问题题型 -->
+            <div class="section">
+                <h2>五、极值与最值问题题型</h2>
+                
+                <!-- 1. 无条件极值 -->
+                <h3 id="unconditional-extremum">1. 无条件极值</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题12：</div>
+                    <div class="question-content">
+                        <p>求函数 \( f(x,y) = x^3 - y^3 + 3x^2 + 3y^2 - 9x \) 的极值。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('unconditional-extremum-card')">无条件极值</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer12')">查看详解</button>
+                    <div id="answer12" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>求二元函数极值的步骤：求驻点、计算二阶偏导数、使用极值判别法。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：求驻点</p>
+                        <p>计算一阶偏导数：</p>
+                        <p>\( f_x = 3x^2 + 6x - 9 \)</p>
+                        <p>\( f_y = -3y^2 + 6y \)</p>
+                        
+                        <p>令 \( f_x = 0 \)，\( f_y = 0 \)：</p>
+                        <p>\( 3x^2 + 6x - 9 = 0 \)  →  \( x^2 + 2x - 3 = 0 \)  →  \( (x+3)(x-1) = 0 \)  →  \( x = -3 \) 或 \( x = 1 \)</p>
+                        <p>\( -3y^2 + 6y = 0 \)  →  \( -3y(y-2) = 0 \)  →  \( y = 0 \) 或 \( y = 2 \)</p>
+                        
+                        <p>因此驻点为：\( (-3,0) \)、\( (-3,2) \)、\( (1,0) \)、\( (1,2) \)</p>
+                        
+                        <p>第二步：计算二阶偏导数</p>
+                        <p>\( f_{xx} = 6x + 6 \)</p>
+                        <p>\( f_{yy} = -6y + 6 \)</p>
+                        <p>\( f_{xy} = 0 \)</p>
+                        
+                        <p>第三步：判断各驻点是否为极值点</p>
+                        <p>使用判别式 \( D = f_{xx}f_{yy} - (f_{xy})^2 = f_{xx}f_{yy} \)</p>
+                        
+                        <p>在点 \( (-3,0) \)：</p>
+                        <p>\( f_{xx}(-3,0) = 6(-3) + 6 = -12 < 0 \)</p>
+                        <p>\( f_{yy}(-3,0) = -6(0) + 6 = 6 > 0 \)</p>
+                        <p>\( D = (-12)(6) = -72 < 0 \)</p>
+                        <p>所以 \( (-3,0) \) 不是极值点</p>
+                        
+                        <p>在点 \( (-3,2) \)：</p>
+                        <p>\( f_{xx}(-3,2) = 6(-3) + 6 = -12 < 0 \)</p>
+                        <p>\( f_{yy}(-3,2) = -6(2) + 6 = -6 < 0 \)</p>
+                        <p>\( D = (-12)(-6) = 72 > 0 \)，且 \( f_{xx} < 0 \)</p>
+                        <p>所以 \( (-3,2) \) 是极大值点，极大值为：</p>
+                        <p>\( f(-3,2) = (-3)^3 - 2^3 + 3(-3)^2 + 3(2)^2 - 9(-3) = -27 - 8 + 27 + 12 + 27 = 31 \)</p>
+                        
+                        <p>在点 \( (1,0) \)：</p>
+                        <p>\( f_{xx}(1,0) = 6(1) + 6 = 12 > 0 \)</p>
+                        <p>\( f_{yy}(1,0) = -6(0) + 6 = 6 > 0 \)</p>
+                        <p>\( D = (12)(6) = 72 > 0 \)，且 \( f_{xx} > 0 \)</p>
+                        <p>所以 \( (1,0) \) 是极小值点，极小值为：</p>
+                        <p>\( f(1,0) = 1^3 - 0^3 + 3(1)^2 + 3(0)^2 - 9(1) = 1 + 0 + 3 + 0 - 9 = -5 \)</p>
+                        
+                        <p>在点 \( (1,2) \)：</p>
+                        <p>\( f_{xx}(1,2) = 6(1) + 6 = 12 > 0 \)</p>
+                        <p>\( f_{yy}(1,2) = -6(2) + 6 = -6 < 0 \)</p>
+                        <p>\( D = (12)(-6) = -72 < 0 \)</p>
+                        <p>所以 \( (1,2) \) 不是极值点</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x,y) \) 在点 \( (-3,2) \) 处取得极大值 31，在点 \( (1,0) \) 处取得极小值 -5。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 条件极值 -->
+                <h3 id="conditional-extremum">2. 条件极值</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题13：</div>
+                    <div class="question-content">
+                        <p>在约束条件 \( x^2 + y^2 = 1 \) 下，求函数 \( f(x,y) = x^2 + 2y^2 \) 的极值。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('conditional-extremum-card')">条件极值</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer13')">查看详解</button>
+                    <div id="answer13" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是条件极值问题，可以使用拉格朗日乘数法求解。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>构造拉格朗日函数：</p>
+                        <p>\( L(x,y,\lambda) = x^2 + 2y^2 + \lambda(1 - x^2 - y^2) \)</p>
+                        
+                        <p>求偏导数并令其为0：</p>
+                        <p>\( \frac{\partial L}{\partial x} = 2x - 2\lambda x = 0 \)  →  \( 2x(1 - \lambda) = 0 \)  ——— (1)</p>
+                        <p>\( \frac{\partial L}{\partial y} = 4y - 2\lambda y = 0 \)  →  \( 2y(2 - \lambda) = 0 \)  ——— (2)</p>
+                        <p>\( \frac{\partial L}{\partial \lambda} = 1 - x^2 - y^2 = 0 \)  →  \( x^2 + y^2 = 1 \)  ——— (3)</p>
+                        
+                        <p>从方程 (1) 和 (2) 分析解的情况：</p>
+                        <p><strong>情况1：\( x = 0 \)</strong></p>
+                        <p>由方程 (3) 得 \( y^2 = 1 \)，即 \( y = \pm 1 \)</p>
+                        <p>代入方程 (2) 得 \( 2(\pm 1)(2 - \lambda) = 0 \)，所以 \( \lambda = 2 \)</p>
+                        <p>得到两个驻点：\( (0,1) \) 和 \( (0,-1) \)</p>
+                        
+                        <p><strong>情况2：\( y = 0 \)</strong></p>
+                        <p>由方程 (3) 得 \( x^2 = 1 \)，即 \( x = \pm 1 \)</p>
+                        <p>代入方程 (1) 得 \( 2(\pm 1)(1 - \lambda) = 0 \)，所以 \( \lambda = 1 \)</p>
+                        <p>得到两个驻点：\( (1,0) \) 和 \( (-1,0) \)</p>
+                        
+                        <p><strong>情况3：\( x \neq 0 \) 且 \( y \neq 0 \)</strong></p>
+                        <p>由方程 (1) 得 \( \lambda = 1 \)</p>
+                        <p>由方程 (2) 得 \( \lambda = 2 \)</p>
+                        <p>矛盾，所以这种情况无解</p>
+                        
+                        <p>计算函数值：</p>
+                        <p>\( f(0,1) = 0^2 + 2(1)^2 = 2 \)</p>
+                        <p>\( f(0,-1) = 0^2 + 2(-1)^2 = 2 \)</p>
+                        <p>\( f(1,0) = 1^2 + 2(0)^2 = 1 \)</p>
+                        <p>\( f(-1,0) = (-1)^2 + 2(0)^2 = 1 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>在约束条件 \( x^2 + y^2 = 1 \) 下，函数 \( f(x,y) = x^2 + 2y^2 \) 的最大值为 2，最小值为 1。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 最值应用题 -->
+                <h3 id="extremum-application">3. 最值应用题</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题14：</div>
+                    <div class="question-content">
+                        <p>求函数 \( f(x,y) = x^2 + y^2 \) 在区域 \( D = \{(x,y) | x^2 + y^2 \leq 1\} \) 上的最大值和最小值。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('extremum-application-card')">最值应用题</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer14')">查看详解</button>
+                    <div id="answer14" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是在有界闭区域上求连续函数最值的问题，需要比较驻点、边界点和角点的函数值。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：在区域内部求驻点</p>
+                        <p>计算偏导数：</p>
+                        <p>\( f_x = 2x \)，\( f_y = 2y \)</p>
+                        <p>令 \( f_x = 0 \)，\( f_y = 0 \) 得驻点 \( (0,0) \)</p>
+                        <p>因为 \( 0^2 + 0^2 = 0 < 1 \)，所以点 \( (0,0) \) 在区域内部</p>
+                        <p>\( f(0,0) = 0^2 + 0^2 = 0 \)</p>
+                        
+                        <p>第二步：在区域边界上求最值</p>
+                        <p>边界为 \( x^2 + y^2 = 1 \)</p>
+                        <p>在边界上 \( f(x,y) = x^2 + y^2 = 1 \)</p>
+                        
+                        <p>第三步：比较函数值</p>
+                        <p>区域内部的驻点函数值：\( f(0,0) = 0 \)</p>
+                        <p>边界上的函数值：\( f(x,y) = 1 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x,y) = x^2 + y^2 \) 在区域 \( D \) 上的最小值为 0（在点 \( (0,0) \) 处取得），最大值为 1（在边界 \( x^2 + y^2 = 1 \) 上处处取得）。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 六、几何应用题型 -->
+            <div class="section">
+                <h2>六、几何应用题型</h2>
+                
+                <!-- 1. 空间曲线切线 -->
+                <h3 id="space-curve-tangent">1. 空间曲线切线</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题15：</div>
+                    <div class="question-content">
+                        <p>求曲线 \( \begin{cases} 
+x^2 + y^2 + z^2 = 6 \\
+x + y + z = 0
+\end{cases} \) 在点 \( (1,-2,1) \) 处的切线方程和法平面方程。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('space-curve-tangent-card')">空间曲线切线</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer15')">查看详解</button>
+                    <div id="answer15" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>空间曲线由两个曲面的交线确定，可以使用梯度向量求切向量。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设两个曲面为：</p>
+                        <p>\( F(x,y,z) = x^2 + y^2 + z^2 - 6 = 0 \)</p>
+                        <p>\( G(x,y,z) = x + y + z = 0 \)</p>
+                        
+                        <p>计算梯度向量：</p>
+                        <p>\( \nabla F = (2x, 2y, 2z) \)</p>
+                        <p>\( \nabla G = (1, 1, 1) \)</p>
+                        
+                        <p>在点 \( (1,-2,1) \) 处：</p>
+                        <p>\( \nabla F(1,-2,1) = (2, -4, 2) \)</p>
+                        <p>\( \nabla G(1,-2,1) = (1, 1, 1) \)</p>
+                        
+                        <p>曲线在该点的切向量为两个梯度向量的叉积：</p>
+                        <p>\( \vec{T} = \nabla F \times \nabla G = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ 2 & -4 & 2 \\ 1 & 1 & 1 \end{vmatrix} \)</p>
+                        <p>\( = \vec{i}((-4)(1) - (2)(1)) - \vec{j}((2)(1) - (2)(1)) + \vec{k}((2)(1) - (-4)(1)) \)</p>
+                        <p>\( = \vec{i}(-4 - 2) - \vec{j}(2 - 2) + \vec{k}(2 + 4) \)</p>
+                        <p>\( = (-6, 0, 6) \)</p>
+                        
+                        <p>可以取方向向量为 \( (-1, 0, 1) \)</p>
+                        
+                        <p>切线方程为：</p>
+                        <p>\( \frac{x-1}{-1} = \frac{y-(-2)}{0} = \frac{z-1}{1} \)</p>
+                        <p>即：</p>
+                        <p>\( \frac{x-1}{-1} = \frac{z-1}{1} \)，\( y = -2 \)</p>
+                        
+                        <p>法平面方程为：</p>
+                        <p>\( -1(x-1) + 0(y-(-2)) + 1(z-1) = 0 \)</p>
+                        <p>\( -(x-1) + (z-1) = 0 \)</p>
+                        <p>\( -x + 1 + z - 1 = 0 \)</p>
+                        <p>\( -x + z = 0 \)</p>
+                        <p>即：</p>
+                        <p>\( x - z = 0 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>切线方程：\( \frac{x-1}{-1} = \frac{z-1}{1} \)，\( y = -2 \)</p>
+                        <p>法平面方程：\( x - z = 0 \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 曲面切平面 -->
+                <h3 id="surface-tangent-plane">2. 曲面切平面</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题16：</div>
+                    <div class="question-content">
+                        <p>求曲面 \( z = x^2 + y^2 \) 在点 \( (1,1,2) \) 处的切平面方程和法线方程。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('surface-tangent-plane-card')">曲面切平面</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer16')">查看详解</button>
+                    <div id="answer16" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>求曲面的切平面和法线需要计算偏导数，然后使用切平面和法线的公式。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将曲面方程写成隐式形式：</p>
+                        <p>\( F(x,y,z) = x^2 + y^2 - z = 0 \)</p>
+                        
+                        <p>计算偏导数：</p>
+                        <p>\( F_x = 2x \)</p>
+                        <p>\( F_y = 2y \)</p>
+                        <p>\( F_z = -1 \)</p>
+                        
+                        <p>在点 \( (1,1,2) \) 处：</p>
+                        <p>\( F_x(1,1,2) = 2(1) = 2 \)</p>
+                        <p>\( F_y(1,1,2) = 2(1) = 2 \)</p>
+                        <p>\( F_z(1,1,2) = -1 \)</p>
+                        
+                        <p>切平面方程为：</p>
+                        <p>\( F_x(x_0,y_0,z_0)(x-x_0) + F_y(x_0,y_0,z_0)(y-y_0) + F_z(x_0,y_0,z_0)(z-z_0) = 0 \)</p>
+                        <p>\( 2(x-1) + 2(y-1) + (-1)(z-2) = 0 \)</p>
+                        <p>\( 2x - 2 + 2y - 2 - z + 2 = 0 \)</p>
+                        <p>\( 2x + 2y - z - 2 = 0 \)</p>
+                        <p>即：</p>
+                        <p>\( 2x + 2y - z = 2 \)</p>
+                        
+                        <p>法线方程为：</p>
+                        <p>\( \frac{x-x_0}{F_x} = \frac{y-y_0}{F_y} = \frac{z-z_0}{F_z} \)</p>
+                        <p>\( \frac{x-1}{2} = \frac{y-1}{2} = \frac{z-2}{-1} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>切平面方程：\( 2x + 2y - z = 2 \)</p>
+                        <p>法线方程：\( \frac{x-1}{2} = \frac{y-1}{2} = \frac{z-2}{-1} \)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            高等数学第四章题型分类练习 · 多元函数微分学
+        </div>
+    </div>
+    
+    <!-- 知识点卡片 -->
+    <!-- 二元函数极限卡片 -->
+    <div id="limit-concept-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('limit-concept-card')">✕</button>
+        <h4>二元函数极限</h4>
+        <p><strong>二元函数极限定义：</strong></p>
+        <p>设二元函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 的某去心邻域内有定义，如果存在常数 \( A \)，使得对于任意给定的正数 \( \varepsilon \)，总存在正数 \( \delta \)，使得当 \( 0 < \sqrt{(x-x_0)^2+(y-y_0)^2} < \delta \) 时，恒有 \( |f(x,y) - A| < \varepsilon \)，则称 \( A \) 为函数 \( f(x,y) \) 当 \( (x,y) \to (x_0,y_0) \) 时的极限。</p>
+        <div class="formula">\(\lim_{(x,y) \to (x_0,y_0)} f(x,y) = A\)</div>
+        <p><strong>极限存在性判断：</strong></p>
+        <ul>
+            <li>若沿不同路径趋向 \( (x_0,y_0) \) 时函数极限值不同，则极限不存在</li>
+            <li>若极限存在，则沿任何路径趋向时极限值都相同</li>
+            <li>常用的路径包括：沿坐标轴、沿直线、沿抛物线等</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            判断极限不存在时，通常选择简单的路径（如坐标轴、直线）进行验证。<br>
+            证明极限存在较困难，常用夹逼准则或极坐标变换。
+        </div>
+    </div>
+    
+    <!-- 连续性判断卡片 -->
+    <div id="continuity-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('continuity-card')">✕</button>
+        <h4>连续性判断</h4>
+        <p><strong>二元函数连续性定义：</strong></p>
+        <p>设二元函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 的某邻域内有定义，如果：</p>
+        <ol>
+            <li>函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 有定义</li>
+            <li>\( \lim_{(x,y) \to (x_0,y_0)} f(x,y) \) 存在</li>
+            <li>\( \lim_{(x,y) \to (x_0,y_0)} f(x,y) = f(x_0,y_0) \)</li>
+        </ol>
+        <p>则称函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处连续。</p>
+        <p><strong>连续函数的性质：</strong></p>
+        <ul>
+            <li>初等函数在其定义域内连续</li>
+            <li>连续函数的和、差、积、商（分母不为0）仍连续</li>
+            <li>连续函数的复合函数仍连续</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            分段函数在分界点处的连续性需要特别验证。<br>
+            常用极坐标变换来处理极限和连续性问题。
+        </div>
+    </div>
+    
+    <!-- 偏导数存在性卡片 -->
+    <div id="partial-derivative-existence-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('partial-derivative-existence-card')">✕</button>
+        <h4>偏导数存在性</h4>
+        <p><strong>偏导数定义：</strong></p>
+        <p>设函数 \( z = f(x,y) \) 在点 \( (x_0,y_0) \) 的某邻域内有定义，若极限：</p>
+        <div class="formula">\(\lim_{\Delta x \to 0} \frac{f(x_0+\Delta x, y_0) - f(x_0, y_0)}{\Delta x}\)</div>
+        <p>存在，则称此极限为函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处对 \( x \) 的偏导数，记作 \( f_x(x_0,y_0) \) 或 \( \frac{\partial z}{\partial x}\Big|_{(x_0,y_0)} \)。</p>
+        <p>类似可定义对 \( y \) 的偏导数。</p>
+        <p><strong>偏导数存在性判断：</strong></p>
+        <ul>
+            <li>偏导数存在 ⟺ 偏导数的极限存在</li>
+            <li>偏导数存在与函数连续性无直接关系</li>
+            <li>偏导数存在不一定可微</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            对于分段函数在分界点处的偏导数，必须使用定义来计算。<br>
+            注意偏导数与导数的区别，偏导数是固定其他变量时的导数。
+        </div>
+    </div>
+    
+    <!-- 偏导数计算卡片 -->
+    <div id="partial-derivative-calculation-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('partial-derivative-calculation-card')">✕</button>
+        <h4>偏导数计算</h4>
+        <p><strong>偏导数计算法则：</strong></p>
+        <p>计算偏导数时，将其他变量看作常数，按一元函数的求导法则进行计算。</p>
+        <p><strong>常见函数的偏导数：</strong></p>
+        <ul>
+            <li>\( \frac{\partial}{\partial x}(x^m y^n) = mx^{m-1}y^n \)</li>
+            <li>\( \frac{\partial}{\partial x}(e^{xy}) = ye^{xy} \)</li>
+            <li>\( \frac{\partial}{\partial x}(\sin(xy)) = y\cos(xy) \)</li>
+            <li>\( \frac{\partial}{\partial x}(\ln(x^2+y^2)) = \frac{2x}{x^2+y^2} \)</li>
+        </ul>
+        <p><strong>高阶偏导数：</strong></p>
+        <p>二阶偏导数有四个：</p>
+        <div class="formula">\(f_{xx} = \frac{\partial^2 f}{\partial x^2}, \quad f_{xy} = \frac{\partial^2 f}{\partial y \partial x}, \quad f_{yx} = \frac{\partial^2 f}{\partial x \partial y}, \quad f_{yy} = \frac{\partial^2 f}{\partial y^2}\)</div>
+        <p>若两个混合偏导数连续，则 \( f_{xy} = f_{yx} \)。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            求偏导数时，要正确识别哪些是变量，哪些是常数。<br>
+            求高阶偏导数时，注意求导顺序，但多数情况下可交换顺序。
+        </div>
+    </div>
+    
+    <!-- 全微分计算卡片 -->
+    <div id="total-differential-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('total-differential-card')">✕</button>
+        <h4>全微分计算</h4>
+        <p><strong>全微分定义：</strong></p>
+        <p>若函数 \( z = f(x,y) \) 在点 \( (x_0,y_0) \) 处的全增量可表示为：</p>
+        <div class="formula">\(\Delta z = A\Delta x + B\Delta y + o(\sqrt{(\Delta x)^2+(\Delta y)^2})\)</div>
+        <p>其中 \( A, B \) 与 \( \Delta x, \Delta y \) 无关，则称函数 \( f(x,y) \) 在点 \( (x_0,y_0) \) 处可微，称 \( A\Delta x + B\Delta y \) 为函数在点 \( (x_0,y_0) \) 处的全微分。</p>
+        <p><strong>全微分计算公式：</strong></p>
+        <div class="formula">\(dz = \frac{\partial z}{\partial x}dx + \frac{\partial z}{\partial y}dy\)</div>
+        <p><strong>可微的必要条件和充分条件：</strong></p>
+        <ul>
+            <li>必要条件：若函数可微，则偏导数存在</li>
+            <li>充分条件：若偏导数在点的某邻域内连续，则函数在该点可微</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            先计算偏导数，再写出全微分表达式。<br>
+            可微性需要验证定义或使用充分条件。
+        </div>
+    </div>
+    
+    <!-- 可微性判断卡片 -->
+    <div id="differentiability-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('differentiability-card')">✕</button>
+        <h4>可微性判断</h4>
+        <p><strong>可微性定义：</strong></p>
+        <p>函数 \( z = f(x,y) \) 在点 \( (x_0,y_0) \) 处可微是指：</p>
+        <div class="formula">\(\lim_{(\Delta x,\Delta y) \to (0,0)} \frac{\Delta z - f_x(x_0,y_0)\Delta x - f_y(x_0,y_0)\Delta y}{\sqrt{(\Delta x)^2+(\Delta y)^2}} = 0\)</div>
+        <p><strong>可微性判断方法：</strong></p>
+        <ul>
+            <li>利用定义直接验证</li>
+            <li>利用可微的必要条件和充分条件</li>
+            <li>利用性质：可微 ⟹ 偏导数存在且连续 ⟹ 连续</li>
+        </ul>
+        <p><strong>关系图：</strong></p>
+        <p>可微 ⟹ 偏导数存在</p>
+        <p>偏导数连续 ⟹ 可微</p>
+        <p>可微 ⟹ 连续</p>
+        <p>连续 ⇏ 偏导数存在</p>
+        <p>偏导数存在 ⇏ 连续</p>
+        <p>偏导数存在 ⇏ 可微</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            分段函数在分界点处的可微性需要用定义验证。<br>
+            偏导数连续是比可微更强的条件，更容易验证。
+        </div>
+    </div>
+    
+    <!-- 链式法则卡片 -->
+    <div id="chain-rule-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('chain-rule-card')">✕</button>
+        <h4>链式法则</h4>
+        <p><strong>复合函数求导法则：</strong></p>
+        <p>设 \( z = f(u,v) \)，\( u = u(x,y) \)，\( v = v(x,y) \)，且 \( f \)、\( u \)、\( v \) 均可微，则：</p>
+        <div class="formula">\(\frac{\partial z}{\partial x} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial x}\)</div>
+        <div class="formula">\(\frac{\partial z}{\partial y} = \frac{\partial f}{\partial u}\frac{\partial u}{\partial y} + \frac{\partial f}{\partial v}\frac{\partial v}{\partial y}\)</div>
+        <p><strong>几种常见情形：</strong></p>
+        <ul>
+            <li>\( z = f(u,v) \)，\( u = u(x) \)，\( v = v(x) \)：\( \frac{dz}{dx} = \frac{\partial f}{\partial u}\frac{du}{dx} + \frac{\partial f}{\partial v}\frac{dv}{dx} \)</li>
+            <li>\( z = f(x,y) \)，\( x = x(t) \)，\( y = y(t) \)：\( \frac{dz}{dt} = \frac{\partial f}{\partial x}\frac{dx}{dt} + \frac{\partial f}{\partial y}\frac{dy}{dt} \)</li>
+            <li>\( z = f(u) \)，\( u = u(x,y) \)：\( \frac{\partial z}{\partial x} = f'(u)\frac{\partial u}{\partial x} \)</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            画树状图有助于分析变量之间的关系。<br>
+            注意区分不同变量，正确使用偏导数符号。
+        </div>
+    </div>
+    
+    <!-- 抽象函数求导卡片 -->
+    <div id="abstract-function-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('abstract-function-card')">✕</button>
+        <h4>抽象函数求导</h4>
+        <p><strong>抽象函数求导特点：</strong></p>
+        <p>抽象函数是指未给出具体表达式的函数，通常用 \( f(u,v) \) 等表示。</p>
+        <p><strong>求导方法：</strong></p>
+        <ul>
+            <li>使用链式法则</li>
+            <li>正确标记各阶偏导数</li>
+            <li>注意混合偏导数的相等性</li>
+        </ul>
+        <p><strong>常用记号：</strong></p>
+        <div class="formula">\(f_u = \frac{\partial f}{\partial u}, \quad f_v = \frac{\partial f}{\partial v}\)</div>
+        <div class="formula">\(f_{uu} = \frac{\partial^2 f}{\partial u^2}, \quad f_{uv} = \frac{\partial^2 f}{\partial v \partial u}, \quad f_{vv} = \frac{\partial^2 f}{\partial v^2}\)</div>
+        <p><strong>混合偏导数相等定理：</strong></p>
+        <p>若 \( f_{uv} \) 和 \( f_{vu} \) 在某区域内连续，则在该区域内 \( f_{uv} = f_{vu} \)。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            仔细分析变量之间的依赖关系。<br>
+            对于高阶偏导数，注意求导顺序和记号的正确使用。
+        </div>
+    </div>
+    
+    <!-- 高阶偏导数卡片 -->
+    <div id="higher-order-partial-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('higher-order-partial-card')">✕</button>
+        <h4>高阶偏导数</h4>
+        <p><strong>高阶偏导数定义：</strong></p>
+        <p>二元函数 \( z = f(x,y) \) 的一阶偏导数 \( f_x \) 和 \( f_y \) 仍是 \( x \) 和 \( y \) 的函数，如果这两个函数的偏导数也存在，则称它们是 \( f(x,y) \) 的二阶偏导数。</p>
+        <p><strong>二阶偏导数：</strong></p>
+        <div class="formula">
+            \(f_{xx} = \frac{\partial^2 z}{\partial x^2} = \frac{\partial}{\partial x}\left(\frac{\partial z}{\partial x}\right)\)<br>
+            \(f_{xy} = \frac{\partial^2 z}{\partial y \partial x} = \frac{\partial}{\partial y}\left(\frac{\partial z}{\partial x}\right)\)<br>
+            \(f_{yx} = \frac{\partial^2 z}{\partial x \partial y} = \frac{\partial}{\partial x}\left(\frac{\partial z}{\partial y}\right)\)<br>
+            \(f_{yy} = \frac{\partial^2 z}{\partial y^2} = \frac{\partial}{\partial y}\left(\frac{\partial z}{\partial y}\right)\)
+        </div>
+        <p><strong>更高阶偏导数：</strong></p>
+        <p>类似可定义三阶、四阶等更高阶的偏导数。</p>
+        <p><strong>混合偏导数相等定理：</strong></p>
+        <p>如果函数 \( f(x,y) \) 的两个混合偏导数 \( f_{xy} \) 和 \( f_{yx} \) 在点 \( (x_0,y_0) \) 处连续，则在这点处这两个混合偏导数相等：</p>
+        <div class="formula">\(f_{xy}(x_0,y_0) = f_{yx}(x_0,y_0)\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            求高阶偏导数时，按顺序逐次求导。<br>
+            多数情况下混合偏导数可交换求导顺序。
+        </div>
+    </div>
+    
+    <!-- 隐函数求导卡片 -->
+    <div id="implicit-function-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('implicit-function-card')">✕</button>
+        <h4>隐函数求导</h4>
+        <p><strong>隐函数概念：</strong></p>
+        <p>如果变量 \( x \) 和 \( y \) 之间的关系不是由函数 \( y = f(x) \) 表示，而是由方程 \( F(x,y) = 0 \) 表示，则称由方程 \( F(x,y) = 0 \) 所确定的函数 \( y = f(x) \) 为隐函数。</p>
+        <p><strong>隐函数求导方法：</strong></p>
+        <ul>
+            <li>直接法：在方程两边同时对自变量求导，注意将因变量看作自变量的函数</li>
+            <li>公式法：若 \( F(x,y) = 0 \) 确定隐函数 \( y = f(x) \)，且 \( F_y \neq 0 \)，则：
+                <div class="formula">\(\frac{dy}{dx} = -\frac{F_x}{F_y}\)</div>
+            </li>
+        </ul>
+        <p><strong>隐函数存在定理：</strong></p>
+        <p>设函数 \( F(x,y) \) 在点 \( (x_0,y_0) \) 的某一邻域内具有连续偏导数，且 \( F(x_0,y_0) = 0 \)，\( F_y(x_0,y_0) \neq 0 \)，则方程 \( F(x,y) = 0 \) 在点 \( (x_0,y_0) \) 的某一邻域内恒能唯一确定单值连续函数 \( y = f(x) \)，它满足条件 \( y_0 = f(x_0) \)，并有连续导数：</p>
+        <div class="formula">\(\frac{dy}{dx} = -\frac{F_x}{F_y}\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            使用直接法时，注意链式法则的应用。<br>
+            使用公式法时，要验证条件，特别是分母不为零。
+        </div>
+    </div>
+    
+    <!-- 隐函数组求导卡片 -->
+    <div id="implicit-function-system-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('implicit-function-system-card')">✕</button>
+        <h4>隐函数组求导</h4>
+        <p><strong>隐函数组概念：</strong></p>
+        <p>由方程组 \( \begin{cases} F(x,y,u,v) = 0 \\ G(x,y,u,v) = 0 \end{cases} \) 确定的函数组 \( \begin{cases} u = u(x,y) \\ v = v(x,y) \end{cases} \) 称为隐函数组。</p>
+        <p><strong>隐函数组求导方法：</strong></p>
+        <p>在两个方程两边分别对自变量求偏导，得到关于 \( \frac{\partial u}{\partial x}, \frac{\partial v}{\partial x} \)（或 \( \frac{\partial u}{\partial y}, \frac{\partial v}{\partial y} \)）的线性方程组，然后求解。</p>
+        <p><strong>雅可比行列式：</strong></p>
+        <p>在使用公式法时，常用到雅可比行列式：</p>
+        <div class="formula">\(J = \frac{\partial(F,G)}{\partial(u,v)} = \begin{vmatrix} F_u & F_v \\ G_u & G_v \end{vmatrix} = F_u G_v - F_v G_u\)</div>
+        <p><strong>隐函数组存在定理：</strong></p>
+        <p>设函数 \( F(x,y,u,v) \) 和 \( G(x,y,u,v) \) 在点 \( (x_0,y_0,u_0,v_0) \) 的某一邻域内具有连续偏导数，且 \( F(x_0,y_0,u_0,v_0) = 0 \)，\( G(x_0,y_0,u_0,v_0) = 0 \)，雅可比行列式 \( J = \frac{\partial(F,G)}{\partial(u,v)} \Big|_{(x_0,y_0,u_0,v_0)} \neq 0 \)，则方程组在点 \( (x_0,y_0,u_0,v_0) \) 的某一邻域内恒能唯一确定单值连续函数组 \( u = u(x,y) \)，\( v = v(x,y) \)，它们满足条件 \( u_0 = u(x_0,y_0) \)，\( v_0 = v(x_0,y_0) \)，并有连续偏导数。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            正确列出求导后的线性方程组。<br>
+            可使用克拉默法则或消元法求解线性方程组。
+        </div>
+    </div>
+    
+    <!-- 无条件极值卡片 -->
+    <div id="unconditional-extremum-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('unconditional-extremum-card')">✕</button>
+        <h4>无条件极值</h4>
+        <p><strong>极值定义：</strong></p>
+        <p>设函数 \( z = f(x,y) \) 在点 \( (x_0,y_0) \) 的某邻域内有定义，对于该邻域内异于 \( (x_0,y_0) \) 的任何点 \( (x,y) \)：</p>
+        <ul>
+            <li>若 \( f(x,y) < f(x_0,y_0) \)，则称 \( f(x_0,y_0) \) 为极大值</li>
+            <li>若 \( f(x,y) > f(x_0,y_0) \)，则称 \( f(x_0,y_0) \) 为极小值</li>
+        </ul>
+        <p>极大值和极小值统称为极值。</p>
+        <p><strong>驻点：</strong></p>
+        <p>使一阶偏导数都为零的点称为驻点。</p>
+        <p><strong>极值存在的必要条件：</strong></p>
+        <p>若函数 \( z = f(x,y) \) 在点 \( (x_0,y_0) \) 处有极值，且在该点处偏导数存在，则有：</p>
+        <div class="formula">\(f_x(x_0,y_0) = 0, \quad f_y(x_0,y_0) = 0\)</div>
+        <p>即极值点必为驻点（对偏导数存在的函数而言）。</p>
+        <p><strong>极值的充分条件：</strong></p>
+        <p>设函数 \( z = f(x,y) \) 在点 \( (x_0,y_0) \) 的某邻域内连续且有一阶及二阶连续偏导数，又 \( f_x(x_0,y_0) = 0 \)，\( f_y(x_0,y_0) = 0 \)，令：</p>
+        <div class="formula">\(A = f_{xx}(x_0,y_0), \quad B = f_{xy}(x_0,y_0), \quad C = f_{yy}(x_0,y_0)\)</div>
+        <p>则：</p>
+        <ul>
+            <li>当 \( AC - B^2 > 0 \) 时，\( f(x_0,y_0) \) 为极值：
+                <ul>
+                    <li>若 \( A < 0 \)，则为极大值</li>
+                    <li>若 \( A > 0 \)，则为极小值</li>
+                </ul>
+            </li>
+            <li>当 \( AC - B^2 < 0 \) 时，\( f(x_0,y_0) \) 不是极值</li>
+            <li>当 \( AC - B^2 = 0 \) 时，不能确定，需另法讨论</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            求极值按"求驻点→计算二阶偏导数→判断"的步骤进行。<br>
+            注意区分极值点、驻点和最值点。
+        </div>
+    </div>
+    
+    <!-- 条件极值卡片 -->
+    <div id="conditional-extremum-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('conditional-extremum-card')">✕</button>
+        <h4>条件极值</h4>
+        <p><strong>条件极值概念：</strong></p>
+        <p>对自变量有附加条件的极值问题称为条件极值问题。</p>
+        <p><strong>拉格朗日乘数法：</strong></p>
+        <p>求函数 \( z = f(x,y) \) 在附加条件 \( \varphi(x,y) = 0 \) 下的极值：</p>
+        <ol>
+            <li>构造拉格朗日函数：
+                <div class="formula">\(L(x,y,\lambda) = f(x,y) + \lambda \varphi(x,y)\)</div>
+            </li>
+            <li>解方程组：
+                <div class="formula">\(\begin{cases} 
+                L_x = f_x + \lambda \varphi_x = 0 \\
+                L_y = f_y + \lambda \varphi_y = 0 \\
+                L_\lambda = \varphi(x,y) = 0
+                \end{cases}\)</div>
+            </li>
+            <li>判断解是否为条件极值点</li>
+        </ol>
+        <p><strong>多约束条件：</strong></p>
+        <p>对于多个约束条件 \( \varphi(x,y,z) = 0 \)，\( \psi(x,y,z) = 0 \) 等，引入多个拉格朗日乘数。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            拉格朗日乘数法是解决条件极值问题的有力工具。<br>
+            注意实际问题中往往存在最值，只需比较驻点处的函数值。
+        </div>
+    </div>
+    
+    <!-- 最值应用题卡片 -->
+    <div id="extremum-application-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('extremum-application-card')">✕</button>
+        <h4>最值应用题</h4>
+        <p><strong>最值与极值的关系：</strong></p>
+        <ul>
+            <li>最值是整体概念，极值是局部概念</li>
+            <li>最值可能是极值点或边界点处取得</li>
+            <li>在有界闭区域上连续函数必有最值</li>
+        </ul>
+        <p><strong>求最值的一般步骤：</strong></p>
+        <ol>
+            <li>求出函数在区域内部的驻点和不可导点</li>
+            <li>求出函数在区域边界上的最值</li>
+            <li>比较所有函数值，确定最大值和最小值</li>
+        </ol>
+        <p><strong>实际问题中的最值：</strong></p>
+        <p>根据问题的实际意义，有时可以直接判断最值的存在性，从而简化计算。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            在有界闭区域上求最值，不要遗漏边界点。<br>
+            实际应用题中要注意变量的实际意义和约束条件。
+        </div>
+    </div>
+    
+    <!-- 空间曲线切线卡片 -->
+    <div id="space-curve-tangent-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('space-curve-tangent-card')">✕</button>
+        <h4>空间曲线切线</h4>
+        <p><strong>参数方程表示的曲线：</strong></p>
+        <p>设空间曲线的参数方程为 \( \Gamma: \begin{cases} x = x(t) \\ y = y(t) \\ z = z(t) \end{cases} \)，则在点 \( (x_0,y_0,z_0) \) 处：</p>
+        <ul>
+            <li>切向量：\( \vec{T} = (x'(t_0), y'(t_0), z'(t_0)) \)</li>
+            <li>切线方程：\( \frac{x-x_0}{x'(t_0)} = \frac{y-y_0}{y'(t_0)} = \frac{z-z_0}{z'(t_0)} \)</li>
+            <li>法平面方程：\( x'(t_0)(x-x_0) + y'(t_0)(y-y_0) + z'(t_0)(z-z_0) = 0 \)</li>
+        </ul>
+        <p><strong>两曲面交线：</strong></p>
+        <p>设曲线 \( \Gamma \) 为两曲面 \( F(x,y,z) = 0 \) 和 \( G(x,y,z) = 0 \) 的交线，则在点 \( (x_0,y_0,z_0) \) 处：</p>
+        <ul>
+            <li>切向量：\( \vec{T} = \nabla F \times \nabla G \Big|_{(x_0,y_0,z_0)} \)</li>
+            <li>切线方程和法平面方程由切向量确定</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            正确计算切向量是关键。<br>
+            注意向量叉积的计算和方向。
+        </div>
+    </div>
+    
+    <!-- 曲面切平面卡片 -->
+    <div id="surface-tangent-plane-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('surface-tangent-plane-card')">✕</button>
+        <h4>曲面切平面</h4>
+        <p><strong>显式方程表示的曲面：</strong></p>
+        <p>设曲面方程为 \( z = f(x,y) \)，则在点 \( (x_0,y_0,z_0) \) 处：</p>
+        <ul>
+            <li>法向量：\( \vec{n} = (-f_x(x_0,y_0), -f_y(x_0,y_0), 1) \)</li>
+            <li>切平面方程：\( z - z_0 = f_x(x_0,y_0)(x - x_0) + f_y(x_0,y_0)(y - y_0) \)</li>
+            <li>法线方程：\( \frac{x-x_0}{-f_x} = \frac{y-y_0}{-f_y} = \frac{z-z_0}{1} \)</li>
+        </ul>
+        <p><strong>隐式方程表示的曲面：</strong></p>
+        <p>设曲面方程为 \( F(x,y,z) = 0 \)，则在点 \( (x_0,y_0,z_0) \) 处：</p>
+        <ul>
+            <li>法向量：\( \vec{n} = (F_x, F_y, F_z) \Big|_{(x_0,y_0,z_0)} \)</li>
+            <li>切平面方程：\( F_x(x_0,y_0,z_0)(x-x_0) + F_y(x_0,y_0,z_0)(y-y_0) + F_z(x_0,y_0,z_0)(z-z_0) = 0 \)</li>
+            <li>法线方程：\( \frac{x-x_0}{F_x} = \frac{y-y_0}{F_y} = \frac{z-z_0}{F_z} \)</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            正确计算偏导数，确定法向量。<br>
+            注意显式方程和隐式方程处理方法的差异。
+        </div>
+    </div>
+    
+    <script>
+        // 展开/折叠功能
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            const button = document.querySelector(`button[onclick="toggleAnswer('${id}')"]`);
+            
+            answer.classList.toggle('active');
+            
+            if (answer.classList.contains('active')) {
+                button.textContent = '收起详解';
+            } else {
+                button.textContent = '查看详解';
+            }
+        }
+        
+        // 显示知识点卡片
+        function showKnowledgeCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.add('active');
+        }
+        
+        // 隐藏知识点卡片
+        function hideKnowledgeCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.remove('active');
+        }
+        
+        // 点击卡片外部区域关闭卡片
+        document.addEventListener('click', function(event) {
+            const knowledgeCards = document.querySelectorAll('.knowledge-card');
+            knowledgeCards.forEach(card => {
+                if (card.classList.contains('active') && !card.contains(event.target) && 
+                    !event.target.classList.contains('knowledge-link')) {
+                    card.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -118,6 +118,22 @@
                 grid-template-columns: 1fr;
             }
             
+            .formulas-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .formula-category {
+                padding: 15px;
+            }
+            
+            /* 在小屏幕上优化公式显示 */
+            .formula-item p {
+                overflow-x: auto;
+                word-wrap: break-word;
+                white-space: nowrap;
+            }
+            
             body {
                 padding: 10px;
             }
@@ -320,6 +336,249 @@
                 transform: none;
             }
         }
+
+        /* 新增样式 */
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h2:nth-of-type(2):before { content: "📖"; }
+        h2:nth-of-type(3):before { content: "✏️"; }
+        h2:nth-of-type(4):before { content: "⚠️"; }
+        h2:nth-of-type(5):before { content: "📋"; }
+        h2:nth-of-type(6):before { content: "🔍"; }
+
+        .roadmap-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .roadmap-step {
+            flex: 1;
+            min-width: 200px;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #e74c3c;
+        }
+
+        .roadmap-step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .formulas-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .formula-category {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .formula-category h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .formula-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        /* 为公式项添加特殊处理 */
+        .formula-item p {
+            padding: 5px 0;
+            margin: 2px 0;
+            overflow-x: auto; /* 添加横向滚动条处理长公式 */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #3498db #f1f1f1; /* Firefox */
+        }
+
+        /* Webkit browsers 滚动条样式 */
+        .formula-item p::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .formula-item p::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .formula-item p::-webkit-scrollbar-thumb {
+            background: #3498db;
+            border-radius: 10px;
+        }
+
+        .formula-item p::-webkit-scrollbar-thumb:hover {
+            background: #2980b9;
+        }
+
+        .experience-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .experience-category {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #28a745;
+        }
+
+        .experience-category h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .experience-item {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .collapsible-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .feynman-guide {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feynman-guide h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+
+        .feynman-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feynman-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .feynman-step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
     </style>
 </head>
 <body>
@@ -333,6 +592,10 @@
             <div class="intro">
                 <h2>课程简介</h2>
                 <p>本课程是张宇老师为考研数学基础阶段精心打造的系统性教学内容，涵盖了高等数学的核心知识点和解题方法。通过18个专题讲解，帮助学生建立扎实的数学基础，掌握解题技巧，为后续深入学习和考试做好充分准备。</p>
+            </div>
+            
+            <div class="highlight-section">
+                <a href="习题主页.html" style="color: white; text-decoration: none; font-weight: bold;">开始章节习题练习 →</a>
             </div>
             
             <div class="highlight-section">
@@ -470,11 +733,453 @@
             <div class="highlight-section">
                 学习建议：按顺序学习各章节，扎实掌握基础知识后再进入下一章节
             </div>
+
+            <!-- 考研数一学习路线图 -->
+            <div class="section">
+                <h2>考研数学一学习路线图</h2>
+                
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法指导：如何制定考研数学一学习计划</h3>
+                    <p>考研数学一复习需要科学规划和系统学习，使用费曼学习法可以帮你更好地掌握：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>确立目标</strong>
+                            <p>明确考研数学一的考试范围和重点，制定详细的学习计划</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>教授他人</strong>
+                            <p>尝试向他人讲解每个知识点，检验自己的理解程度</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>查漏补缺</strong>
+                            <p>通过练习和测试发现薄弱环节，有针对性地加强</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>简化表达</strong>
+                            <p>用简洁明了的语言总结知识点，形成自己的知识体系</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="roadmap-container">
+                    <div class="roadmap-step">
+                        <span class="roadmap-step-number">1</span>
+                        <strong>基础阶段（3-6月）</strong>
+                        <p>目标：夯实基础，全面复习</p>
+                        <ul>
+                            <li>系统学习高等数学、线性代数、概率论与数理统计的基础知识</li>
+                            <li>理解基本概念、定理和公式</li>
+                            <li>完成教材课后习题</li>
+                            <li>建立完整的知识框架</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <span class="roadmap-step-number">2</span>
+                        <strong>强化阶段（7-9月）</strong>
+                        <p>目标：熟悉题型，提升解题能力</p>
+                        <ul>
+                            <li>大量练习各类题型</li>
+                            <li>总结解题方法和技巧</li>
+                            <li>建立错题本，定期回顾</li>
+                            <li>参加模拟考试，检验学习效果</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <span class="roadmap-step-number">3</span>
+                        <strong>提高阶段（10-11月）</strong>
+                        <p>目标：查缺补漏，综合提升</p>
+                        <ul>
+                            <li>重点攻克薄弱环节</li>
+                            <li>系统复习真题，掌握命题规律</li>
+                            <li>进行专题训练</li>
+                            <li>提高解题速度和准确率</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="roadmap-step">
+                        <span class="roadmap-step-number">4</span>
+                        <strong>冲刺阶段（12月-考试）</strong>
+                        <p>目标：保持状态，迎接考试</p>
+                        <ul>
+                            <li>回顾基础知识和重点题型</li>
+                            <li>进行全真模拟考试</li>
+                            <li>调整心态，保持良好状态</li>
+                            <li>查漏补缺，巩固知识点</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 考研数学一常用公式 -->
+            <div class="section">
+                <h2>考研数学一高等数学常用公式</h2>
+                
+                <button class="toggle-button" onclick="toggleContent('formulas-details')">展开详细内容</button>
+                <div id="formulas-details" class="collapsible-content">
+                    <div class="formulas-container">
+                        <div class="formula-category">
+                            <h3>第一章 函数、极限与连续</h3>
+                            <div class="formula-item">
+                                <strong>重要极限公式：</strong>
+                                <p>\(\lim_{x \to 0} \frac{\sin x}{x} = 1\)</p>
+                                <p>\(\lim_{x \to \infty} (1+\frac{1}{x})^x = e\)</p>
+                                <p>\(\lim_{x \to 0} (1+x)^{\frac{1}{x}} = e\)</p>
+                                <p>\(\lim_{x \to 0} \frac{e^x-1}{x} = 1\)</p>
+                                <p>\(\lim_{x \to 0} \frac{a^x-1}{x} = \ln a\)</p>
+                                <p>\(\lim_{x \to 0} \frac{\ln(1+x)}{x} = 1\)</p>
+                                <p>\(\lim_{x \to 0} \frac{(1+x)^a-1}{x} = a\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>等价无穷小：</strong>
+                                <p>\(x \to 0\)时，\(\sin x \sim \tan x \sim \arcsin x \sim \arctan x \sim x\)</p>
+                                <p>\(1-\cos x \sim \frac{1}{2}x^2\)</p>
+                                <p>\(e^x-1 \sim x\)</p>
+                                <p>\(\ln(1+x) \sim x\)</p>
+                                <p>\((1+x)^a-1 \sim ax\)</p>
+                                <p>\(\tan x - \sin x \sim \frac{1}{2}x^3\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>夹逼准则：</strong>
+                                <p>若\(\varphi(x) \leq f(x) \leq g(x)\)，且\(\lim \varphi(x) = \lim g(x) = A\)，则\(\lim f(x) = A\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第二章 一元函数微分学</h3>
+                            <div class="formula-item">
+                                <strong>基本求导公式：</strong>
+                                <p>\((C)' = 0\)</p>
+                                <p>\((x^\mu)' = \mu x^{\mu-1}\)</p>
+                                <p>\((\sin x)' = \cos x\)</p>
+                                <p>\((\cos x)' = -\sin x\)</p>
+                                <p>\((\tan x)' = \sec^2 x\)</p>
+                                <p>\((\cot x)' = -\csc^2 x\)</p>
+                                <p>\((\sec x)' = \sec x \tan x\)</p>
+                                <p>\((\csc x)' = -\csc x \cot x\)</p>
+                                <p>\((a^x)' = a^x \ln a\)</p>
+                                <p>\((e^x)' = e^x\)</p>
+                                <p>\((\log_a x)' = \frac{1}{x \ln a}\)</p>
+                                <p>\((\ln x)' = \frac{1}{x}\)</p>
+                                <p>\((\arcsin x)' = \frac{1}{\sqrt{1-x^2}}\)</p>
+                                <p>\((\arccos x)' = -\frac{1}{\sqrt{1-x^2}}\)</p>
+                                <p>\((\arctan x)' = \frac{1}{1+x^2}\)</p>
+                                <p>\((\text{arccot } x)' = -\frac{1}{1+x^2}\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>运算法则：</strong>
+                                <p>\([u(x) \pm v(x)]' = u'(x) \pm v'(x)\)</p>
+                                <p>\([Cu(x)]' = Cu'(x)\)</p>
+                                <p>\([u(x)v(x)]' = u'(x)v(x) + u(x)v'(x)\)</p>
+                                <p>\([\frac{u(x)}{v(x)}]' = \frac{u'(x)v(x) - u(x)v'(x)}{v^2(x)}\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>高阶导数：</strong>
+                                <p>\((u \pm v)^{(n)} = u^{(n)} \pm v^{(n)}\)</p>
+                                <p>\((uv)^{(n)} = \sum_{k=0}^{n} C_n^k u^{(n-k)} v^{(k)}\) (莱布尼茨公式)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>微分：</strong>
+                                <p>\(dy = f'(x)dx\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第三章 一元函数积分学</h3>
+                            <div class="formula-item">
+                                <strong>基本积分公式：</strong>
+                                <p>\(\int k dx = kx + C\)</p>
+                                <p>\(\int x^\mu dx = \frac{x^{\mu+1}}{\mu+1} + C (\mu \neq -1)\)</p>
+                                <p>\(\int \frac{1}{x} dx = \ln |x| + C\)</p>
+                                <p>\(\int a^x dx = \frac{a^x}{\ln a} + C\)</p>
+                                <p>\(\int e^x dx = e^x + C\)</p>
+                                <p>\(\int \cos x dx = \sin x + C\)</p>
+                                <p>\(\int \sin x dx = -\cos x + C\)</p>
+                                <p>\(\int \sec^2 x dx = \tan x + C\)</p>
+                                <p>\(\int \csc^2 x dx = -\cot x + C\)</p>
+                                <p>\(\int \sec x \tan x dx = \sec x + C\)</p>
+                                <p>\(\int \csc x \cot x dx = -\csc x + C\)</p>
+                                <p>\(\int \frac{1}{\sqrt{1-x^2}} dx = \arcsin x + C\)</p>
+                                <p>\(\int \frac{1}{1+x^2} dx = \arctan x + C\)</p>
+                                <p>\(\int \cosh x dx = \sinh x + C\)</p>
+                                <p>\(\int \sinh x dx = \cosh x + C\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>积分运算法则：</strong>
+                                <p>\(\int [f(x) \pm g(x)] dx = \int f(x) dx \pm \int g(x) dx\)</p>
+                                <p>\(\int kf(x) dx = k\int f(x) dx\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>定积分应用公式：</strong>
+                                <p>平面图形面积：\(A = \int_a^b [f(x)-g(x)] dx\)</p>
+                                <p>旋转体体积：\(V = \pi \int_a^b [f(x)]^2 dx\)</p>
+                                <p>曲线弧长：\(s = \int_a^b \sqrt{1+[f'(x)]^2} dx\)</p>
+                                <p>旋转曲面面积：\(S = 2\pi \int_a^b f(x)\sqrt{1+[f'(x)]^2} dx\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第四章 向量代数与空间解析几何</h3>
+                            <div class="formula-item">
+                                <strong>向量运算：</strong>
+                                <p>\(\vec{a} \cdot \vec{b} = |\vec{a}||\vec{b}|\cos\theta = a_xb_x + a_yb_y + a_zb_z\)</p>
+                                <p>\(\vec{a} \times \vec{b} = |\vec{a}||\vec{b}|\sin\theta\)</p>
+                                <p>\(\vec{a} \times \vec{b} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ a_x & a_y & a_z \\ b_x & b_y & b_z \end{vmatrix}\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>平面与直线方程：</strong>
+                                <p>平面点法式方程：\(A(x-x_0)+B(y-y_0)+C(z-z_0)=0\)</p>
+                                <p>平面一般式方程：\(Ax+By+Cz+D=0\)</p>
+                                <p>直线对称式方程：\(\frac{x-x_0}{m} = \frac{y-y_0}{n} = \frac{z-z_0}{p}\)</p>
+                                <p>直线参数式方程：\(\begin{cases} x = x_0 + mt \\ y = y_0 + nt \\ z = z_0 + pt \end{cases}\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第五章 多元函数微分学</h3>
+                            <div class="formula-item">
+                                <strong>偏导数：</strong>
+                                <p>\(z=f(x,y)\)，\(\frac{\partial z}{\partial x} = \lim_{\Delta x \to 0} \frac{f(x+\Delta x,y) - f(x,y)}{\Delta x}\)</p>
+                                <p>\(\frac{\partial z}{\partial x}\big|_{(x_0,y_0)} = f_x(x_0,y_0)\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>复合函数求导法则：</strong>
+                                <p>\(z=f(u,v), u=u(x,y), v=v(x,y)\)</p>
+                                <p>\(\frac{\partial z}{\partial x} = \frac{\partial z}{\partial u}\frac{\partial u}{\partial x} + \frac{\partial z}{\partial v}\frac{\partial v}{\partial x}\)</p>
+                                <p>\(\frac{dz}{dt} = \frac{\partial z}{\partial u}\frac{du}{dt} + \frac{\partial z}{\partial v}\frac{dv}{dt}\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>隐函数求导：</strong>
+                                <p>由\(F(x,y)=0\)确定\(y=y(x)\)：\(\frac{dy}{dx} = -\frac{F_x}{F_y}\)</p>
+                                <p>由\(F(x,y,z)=0\)确定\(z=z(x,y)\)：\(\frac{\partial z}{\partial x} = -\frac{F_x}{F_z}, \frac{\partial z}{\partial y} = -\frac{F_y}{F_z}\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>极值判定：</strong>
+                                <p>必要条件：\(f_x(x_0,y_0)=0, f_y(x_0,y_0)=0\)</p>
+                                <p>充分条件：\(AC-B^2 > 0\)且\(A < 0\)时有极大值；\(AC-B^2 > 0\)且\(A > 0\)时有极小值</p>
+                                <p>其中\(A=f_{xx}(x_0,y_0), B=f_{xy}(x_0,y_0), C=f_{yy}(x_0,y_0)\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第六章 多元函数积分学</h3>
+                            <div class="formula-item">
+                                <strong>二重积分：</strong>
+                                <p>直角坐标系：\(\iint_D f(x,y)dxdy = \int_a^b dx \int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y) dy\)</p>
+                                <p>极坐标系：\(\iint_D f(x,y)dxdy = \int_\alpha^\beta d\theta \int_{\varphi_1(\theta)}^{\varphi_2(\theta)} f(r\cos\theta, r\sin\theta)r dr\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>三重积分：</strong>
+                                <p>直角坐标系：\(\iiint_\Omega f(x,y,z)dxdydz\)</p>
+                                <p>柱面坐标系：\(\iiint_\Omega f(x,y,z)dxdydz = \iiint_\Omega f(r\cos\theta, r\sin\theta, z)rdrd\theta dz\)</p>
+                                <p>球面坐标系：\(x=r\sin\varphi\cos\theta, y=r\sin\varphi\sin\theta, z=r\cos\varphi\)</p>
+                                <p>\(\iiint_\Omega f(x,y,z)dxdydz = \iiint_\Omega f(r\sin\varphi\cos\theta, r\sin\varphi\sin\theta, r\cos\varphi)r^2\sin\varphi drd\varphi d\theta\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>曲线积分：</strong>
+                                <p>第一类曲线积分：\(\int_L f(x,y)ds = \int_\alpha^\beta f[\varphi(t),\psi(t)]\sqrt{\varphi'^2(t)+\psi'^2(t)} dt\)</p>
+                                <p>第二类曲线积分：\(\int_L P(x,y)dx + Q(x,y)dy = \int_\alpha^\beta [P(\varphi(t),\psi(t))\varphi'(t) + Q(\varphi(t),\psi(t))\psi'(t)] dt\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>曲面积分：</strong>
+                                <p>第一类曲面积分：\(\iint_\Sigma f(x,y,z)dS = \iint_D f[x,y,z(x,y)]\sqrt{1+z_x^2+z_y^2} dxdy\)</p>
+                                <p>第二类曲面积分：\(\iint_\Sigma Pdydz+Qdzdx+Rdxdy\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第七章 无穷级数</h3>
+                            <div class="formula-item">
+                                <strong>级数收敛性判别法：</strong>
+                                <p>比较判别法、比值判别法、根值判别法、莱布尼茨判别法</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>泰勒级数：</strong>
+                                <p>\(f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + \cdots\)</p>
+                                <p>\(e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots + \frac{x^n}{n!} + \cdots\)</p>
+                                <p>\(\sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots\)</p>
+                                <p>\(\cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \cdots\)</p>
+                                <p>\(\ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots\)</p>
+                                <p>\((1+x)^m = 1 + mx + \frac{m(m-1)}{2!}x^2 + \cdots\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>傅里叶级数：</strong>
+                                <p>\(f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} (a_n \cos nx + b_n \sin nx)\)</p>
+                                <p>\(a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\cos nx dx\)</p>
+                                <p>\(b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x)\sin nx dx\)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="formula-category">
+                            <h3>第八章 微分方程</h3>
+                            <div class="formula-item">
+                                <strong>一阶微分方程：</strong>
+                                <p>可分离变量：\(\frac{dy}{dx} = f(x)g(y)\)</p>
+                                <p>齐次方程：\(\frac{dy}{dx} = \varphi(\frac{y}{x})\)</p>
+                                <p>一阶线性：\(\frac{dy}{dx} + P(x)y = Q(x)\)，通解为\(y = e^{-\int P(x)dx}[\int Q(x)e^{\int P(x)dx}dx + C]\)</p>
+                                <p>伯努利方程：\(\frac{dy}{dx} + P(x)y = Q(x)y^n\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>二阶线性微分方程：</strong>
+                                <p>齐次：\(y'' + p(x)y' + q(x)y = 0\)</p>
+                                <p>非齐次：\(y'' + p(x)y' + q(x)y = f(x)\)</p>
+                                <p>常系数齐次：\(y'' + py' + qy = 0\)，特征方程\(r^2 + pr + q = 0\)</p>
+                            </div>
+                            
+                            <div class="formula-item">
+                                <strong>常系数线性微分方程：</strong>
+                                <p>\(f(x) = e^{\lambda x}P_m(x)\)型特解：\(y^* = x^k e^{\lambda x} Q_m(x)\)</p>
+                                <p>\(f(x) = e^{\lambda x}[P_l(x)\cos wx + P_n(x)\sin wx]\)型特解：\(y^* = x^k e^{\lambda x}[R^{(1)}_m(x)\cos wx + R^{(2)}_m(x)\sin wx]\)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 考研数学复习经验 -->
+            <div class="section">
+                <h2>考研数学复习经验</h2>
+                
+                <div class="experience-container">
+                    <div class="experience-category">
+                        <h3>学习方法</h3>
+                        <div class="experience-item">
+                            <strong>制定合理计划：</strong>
+                            <p>根据考试大纲和自身情况制定详细的学习计划，分阶段完成学习任务。</p>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <strong>重视基础：</strong>
+                            <p>基础是根本，要深入理解概念和定理，不能只追求解题技巧。</p>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <strong>多做练习：</strong>
+                            <p>通过大量练习巩固知识点，提高解题速度和准确率。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-category">
+                        <h3>复习技巧</h3>
+                        <div class="experience-item">
+                            <strong>错题整理：</strong>
+                            <p>建立错题本，定期回顾，避免重复犯错。</p>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <strong>真题训练：</strong>
+                            <p>系统练习历年真题，掌握命题规律和考试重点。</p>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <strong>模拟考试：</strong>
+                            <p>定期进行模拟考试，适应考试节奏，调整答题策略。</p>
+                        </div>
+                    </div>
+                    
+                    <div class="experience-category">
+                        <h3>心态调整</h3>
+                        <div class="experience-item">
+                            <strong>保持信心：</strong>
+                            <p>相信自己的努力会有回报，遇到困难不轻易放弃。</p>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <strong>劳逸结合：</strong>
+                            <p>合理安排学习和休息时间，保持良好的身心状态。</p>
+                        </div>
+                        
+                        <div class="experience-item">
+                            <strong>积极交流：</strong>
+                            <p>与同学、老师交流学习心得，互相帮助，共同进步。</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="toggle-button" onclick="toggleContent('experience-details')">展开详细内容</button>
+                <div id="experience-details" class="collapsible-content">
+                    <div class="experience-container">
+                        <div class="experience-category">
+                            <h3>高分经验分享</h3>
+                            <div class="experience-item">
+                                <strong>基础阶段：</strong>
+                                <p>认真研读教材，理解基本概念和定理，完成课后习题。不要急于做题，要注重知识点的理解和掌握。</p>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <strong>强化阶段：</strong>
+                                <p>大量练习各类题型，总结解题方法和技巧。建立错题本，定期回顾和反思。</p>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <strong>冲刺阶段：</strong>
+                                <p>系统复习真题，掌握命题规律。进行模拟考试，调整心态，保持良好的状态。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="experience-category">
+                            <h3>注意事项</h3>
+                            <div class="experience-item">
+                                <strong>避免眼高手低：</strong>
+                                <p>看懂不等于会做，要亲自动手计算每一道题。</p>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <strong>重视计算能力：</strong>
+                                <p>数学考试中计算错误很常见，要加强计算训练，提高准确率。</p>
+                            </div>
+                            
+                            <div class="experience-item">
+                                <strong>合理分配时间：</strong>
+                                <p>考试时要合理分配时间，先易后难，确保会做的题目不失分。</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="footer">
             张宇考研数学 · 高等数学基础课程体系
         </div>
     </div>
+    
+    <script>
+        // 展开/折叠功能
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = document.querySelector(`button[onclick="toggleContent('${id}')"]`);
+            
+            content.classList.toggle('active');
+            
+            if (content.classList.contains('active')) {
+                button.textContent = '收起内容';
+            } else {
+                button.textContent = '展开详细内容';
+            }
+        }
+    </script>
 </body>
 </html>

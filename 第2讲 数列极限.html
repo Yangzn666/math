@@ -5,6 +5,52 @@
     <title>第2讲 数列极限</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        // 展开/折叠功能
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = document.querySelector(`button[onclick="toggleContent('${id}')"]`);
+            
+            // 如果找不到特定按钮，则查找最近的按钮
+            if (!button) {
+                console.error('未找到切换按钮');
+                return;
+            }
+            
+            content.classList.toggle('active');
+            
+            if (content.classList.contains('active')) {
+                button.textContent = '收起内容';
+            } else {
+                button.textContent = '展开详细内容';
+            }
+            
+            // 更新学习进度
+            updateProgress();
+        }
+        
+        // 更新学习进度
+        function updateProgress() {
+            const collapsibleContents = document.querySelectorAll('.collapsible-content');
+            let activeCount = 0;
+            
+            collapsibleContents.forEach(content => {
+                if (content.classList.contains('active')) {
+                    activeCount++;
+                }
+            });
+            
+            const progressPercent = Math.round((activeCount / collapsibleContents.length) * 100);
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressText').textContent = '学习进度: ' + progressPercent + '%';
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化进度条
+            updateProgress();
+        });
+    </script>
     <style>
         * {
             margin: 0;
@@ -182,7 +228,24 @@
             padding-bottom: 15px;
             border-bottom: 3px solid #3498db;
             font-weight: bold;
+            position: relative;
+            padding-left: 40px;
         }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h2:nth-of-type(2):before { content: "📖"; }
+        h2:nth-of-type(3):before { content: "✏️"; }
+        h2:nth-of-type(4):before { content: "🔍"; }
+        h2:nth-of-type(5):before { content: "🧮"; }
+        h2:nth-of-type(6):before { content: "✅"; }
+        h2:nth-of-type(7):before { content: "⚠️"; }
+        h2:nth-of-type(8):before { content: "📋"; }
 
         h3 {
             color: #34495e;
@@ -264,6 +327,229 @@
             border: 2px dashed #3498db;
         }
 
+        /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 5px;
+        }
+
+        /* 展开/折叠按钮样式 */
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .collapsible-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 费曼学习法指导样式 */
+        .feynman-guide {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feynman-guide h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+
+        .feynman-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feynman-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .feynman-step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* 流程图样式 */
+        .flowchart-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .flowchart {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+
+        .flowchart-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .flowchart-step:last-child .flowchart-arrow {
+            display: none;
+        }
+
+        .flowchart-box {
+            flex: 1;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart-arrow {
+            padding: 0 15px;
+            font-size: 24px;
+            color: #3498db;
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .chart-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* 决策树样式 */
+        .decision-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .decision-node {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .decision-branch {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+
+        .decision-branch .decision-node {
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .decision-arrow {
+            color: #3498db;
+            font-size: 24px;
+            margin: 5px 0;
+        }
+
+        /* 提示和警告样式 */
+        .tip {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #f8d7da 0%, #f1b0b7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #dc3545;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -328,6 +614,12 @@
         </header>
         
         <div class="content">
+            <!-- 学习进度条 -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">学习进度: 0%</div>
+            
             <div class="mindmap-section">
                 <h2>一、知识结构思维导图</h2>
                 <div class="mindmap-container">
@@ -389,98 +681,304 @@
             <div class="section">
                 <h2>二、核心概念</h2>
                 
+                <!-- 费曼学习法指导 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法指导：如何学习数列极限概念</h3>
+                    <p>数列极限是高等数学的重要基础，使用费曼学习法可以帮你更好地掌握：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>确立目标</strong>
+                            <p>明确要学习的概念，比如"数列极限定义"或"收敛性"</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>教授他人</strong>
+                            <p>尝试向一个没有学过高等数学的人解释这些概念</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>查漏补缺</strong>
+                            <p>当你卡壳时，回头学习你不理解的部分</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>简化表达</strong>
+                            <p>用更简单、更直白的语言重新组织你的解释</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 数列极限问题类型决策树 -->
+                <div class="chart-container">
+                    <div class="chart-title">数列极限问题类型识别决策树</div>
+                    <div class="decision-tree">
+                        <div class="decision-node">数列极限问题</div>
+                        <div class="decision-arrow">↓</div>
+                        <div class="decision-node">判断极限存在性</div>
+                        <div class="decision-arrow">↓</div>
+                        <div class="decision-branch">
+                            <div class="decision-node">单调有界</div>
+                            <div class="decision-node">夹逼准则</div>
+                            <div class="decision-node">海涅定理</div>
+                        </div>
+                        <div class="decision-branch">
+                            <div class="decision-node">递推关系</div>
+                            <div class="decision-node">放缩法</div>
+                            <div class="decision-node">函数转化</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>1. 数列的概念</h3>
-                <p>数列是特殊的函数，可理解为自变量为正整数\(n\)的函数\(x=f(n)\)，\(n \in \mathbb{N^+}\)</p>
-                <p>常见数列类型：等差数列、等比数列、单调数列、有界数列</p>
-                <p>子列：从原数列中选取无穷多项按原顺序组成的新数列</p>
+                <button class="toggle-button" onclick="toggleContent('sequence-concept')">展开详细内容</button>
+                <div id="sequence-concept" class="collapsible-content">
+                    <p>数列是特殊的函数，可理解为自变量为正整数\(n\)的函数\(x=f(n)\)，\(n \in \mathbb{N^+}\)</p>
+                    <p>常见数列类型：等差数列、等比数列、单调数列、有界数列</p>
+                    <p>子列：从原数列中选取无穷多项按原顺序组成的新数列</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        数列可以看作是定义域为正整数的函数。<br>
+                        子列保持原数列的顺序，但项数可以是原数列的一个子集。
+                    </div>
+                </div>
                 
                 <h3>2. 数列极限的定义</h3>
-                <p>设\(\{x_n\}\)为一数列，若存在常数\(a\)，对任意\(\varepsilon>0\)，总存在正整数\(N\)，当\(n>N\)时，\( |x_n-a|<\varepsilon \)恒成立，则称\(a\)是数列\(\{x_n\}\)的极限，记为\(\lim x_n = a\)</p>
+                <button class="toggle-button" onclick="toggleContent('limit-definition')">展开详细内容</button>
+                <div id="limit-definition" class="collapsible-content">
+                    <p>设\(\{x_n\}\)为一数列，若存在常数\(a\)，对任意\(\varepsilon>0\)，总存在正整数\(N\)，当\(n>N\)时，\( |x_n-a|<\varepsilon \)恒成立，则称\(a\)是数列\(\{x_n\}\)的极限，记为\(\lim x_n = a\)</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        \(\varepsilon\)是任意给定的正数，\(N\)依赖于\(\varepsilon\)的选取。<br>
+                        定义中的"当\(n>N\)时"表示从某一项之后的所有项都满足不等式。
+                    </div>
+                </div>
                 
                 <h3>3. 数列极限与函数极限的区别</h3>
-                <div class="step">
-                    <strong>唯一性：</strong>相同
-                </div>
-                <div class="step">
-                    <strong>有界性：</strong>数列极限是全局有界，函数极限是局部有界
-                </div>
-                <div class="step">
-                    <strong>保号性：</strong>数列极限强调存在\(N\)，当\(n>N\)时才有\(x_n>0\)(或\(<0\))
+                <button class="toggle-button" onclick="toggleContent('limit-difference')">展开详细内容</button>
+                <div id="limit-difference" class="collapsible-content">
+                    <div class="step">
+                        <strong>唯一性：</strong>相同
+                    </div>
+                    <div class="step">
+                        <strong>有界性：</strong>数列极限是全局有界，函数极限是局部有界
+                    </div>
+                    <div class="step">
+                        <strong>保号性：</strong>数列极限强调存在\(N\)，当\(n>N\)时才有\(x_n>0\)(或\(<0\))
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        数列是离散的点，函数是连续的曲线。<br>
+                        数列极限的性质往往比函数极限更强。
+                    </div>
                 </div>
             </div>
             
             <div class="section">
                 <h2>三、数列极限存在的两个准则</h2>
                 
+                <!-- 准则学习费曼法 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法：数列极限存在准则学习技巧</h3>
+                    <p>数列极限存在准则是解决极限问题的重要工具，用费曼法帮你掌握：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>理解本质</strong>
+                            <p>把准则看作是判断极限存在的"工具箱"，根据条件选择合适的工具</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>对比记忆</strong>
+                            <p>将夹逼准则和单调有界准则进行对比，理解各自适用场景</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>实例演练</strong>
+                            <p>通过具体例子理解准则的应用方法和步骤</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>总结规律</strong>
+                            <p>归纳不同类型题目选择准则的规律</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>1. 夹逼准则</h3>
-                <div class="step">
-                    <strong>条件：</strong>从某项起，\(y_n \leq x_n \leq z_n\)，且\(\lim y_n = \lim z_n = a\)
-                </div>
-                <div class="step">
-                    <strong>结论：</strong>\(\lim x_n = a\)
-                </div>
-                <p><strong>常用放缩方法：</strong></p>
-                <div class="example">
-                    分母放大(分数变小)，分母缩小(分数变大)<br>
-                    利用重要不等式：\(\sin x<x\ (x>0)\)、\(e^x≥x+1\)、\(x-1≥\ln x\ (x>0)\)等<br>
-                    利用闭区间上连续函数的最大值与最小值
+                <button class="toggle-button" onclick="toggleContent('squeeze-theorem')">展开详细内容</button>
+                <div id="squeeze-theorem" class="collapsible-content">
+                    <div class="step">
+                        <strong>条件：</strong>从某项起，\(y_n \leq x_n \leq z_n\)，且\(\lim y_n = \lim z_n = a\)
+                    </div>
+                    <div class="step">
+                        <strong>结论：</strong>\(\lim x_n = a\)
+                    </div>
+                    <p><strong>常用放缩方法：</strong></p>
+                    <div class="example">
+                        分母放大(分数变小)，分母缩小(分数变大)<br>
+                        利用重要不等式：\(\sin x<x\ (x>0)\)、\(e^x≥x+1\)、\(x-1≥\ln x\ (x>0)\)等<br>
+                        利用闭区间上连续函数的最大值与最小值
+                    </div>
+                    <div class="tip">
+                        <strong>💡 解题技巧：</strong><br>
+                        关键是找到合适的上下界数列，且它们的极限相同。<br>
+                        放缩要适当，既不能过宽也不能过窄。
+                    </div>
                 </div>
                 
                 <h3>2. 单调有界准则</h3>
-                <div class="step">
-                    <strong>条件：</strong>数列\(\{x_n\}\)单调增加(减少)且有上界(下界)
-                </div>
-                <div class="step">
-                    <strong>结论：</strong>\(\lim x_n\)存在
-                </div>
-                <p><strong>证明步骤：</strong></p>
-                <div class="example">
-                    1. 证明数列单调：作差法(\(x_{n+1}-x_n\))、数学归纳法、利用函数单调性<br>
-                    2. 证明数列有界：找\(M\)使\(|x_n| \leq M\)、放缩法、基本不等式法
+                <button class="toggle-button" onclick="toggleContent('monotone-bounded')">展开详细内容</button>
+                <div id="monotone-bounded" class="collapsible-content">
+                    <div class="step">
+                        <strong>条件：</strong>数列\(\{x_n\}\)单调增加(减少)且有上界(下界)
+                    </div>
+                    <div class="step">
+                        <strong>结论：</strong>\(\lim x_n\)存在
+                    </div>
+                    <p><strong>证明步骤：</strong></p>
+                    <div class="example">
+                        1. 证明数列单调：作差法(\(x_{n+1}-x_n\))、数学归纳法、利用函数单调性<br>
+                        2. 证明数列有界：找\(M\)使\(|x_n| \leq M\)、放缩法、基本不等式法
+                    </div>
+                    <div class="tip">
+                        <strong>💡 解题技巧：</strong><br>
+                        单调增加需要有上界，单调减少需要有下界。<br>
+                        递推关系的数列常用数学归纳法证明单调性和有界性。
+                    </div>
                 </div>
             </div>
             
             <div class="section">
                 <h2>四、海涅定理(归结原则)</h2>
                 
+                <!-- 海涅定理费曼学习法 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法：海涅定理学习技巧</h3>
+                    <p>海涅定理是连接数列极限和函数极限的桥梁，用费曼法帮你掌握：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>理解本质</strong>
+                            <p>把海涅定理看作是数列极限和函数极限之间的转换工具</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>掌握转化</strong>
+                            <p>学会如何将数列极限问题转化为函数极限问题</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>应用工具</strong>
+                            <p>利用函数极限的计算方法解决数列极限问题</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>反复练习</strong>
+                            <p>通过大量练习掌握定理的应用场景和方法</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>1. 定理内容</h3>
-                <p>设\(f(x)\)在\(U(x_0,\delta)\)内有定义，则\(\lim f(x) = A\)存在→对任何\(U(x_0,\delta)\)内以\(x_0\)为极限的数列\(\{x_n\}(x_n eq x_0)\)，极限\(\lim f(x_n) = A\)存在</p>
-                <p><strong>常用转化：</strong></p>
-                <div class="example">
-                    \(x \to 0\)时，取\(x=\frac{1}{n} \to \lim f\left(\frac{1}{n}\right)=A\)<br>
-                    \(x \to +\infty\)时，取\(x=n \to \lim f(n)=A\)
+                <button class="toggle-button" onclick="toggleContent('heine-theorem')">展开详细内容</button>
+                <div id="heine-theorem" class="collapsible-content">
+                    <p>设\(f(x)\)在\(U(x_0,\delta)\)内有定义，则\(\lim f(x) = A\)存在→对任何\(U(x_0,\delta)\)内以\(x_0\)为极限的数列\(\{x_n\}(x_n eq x_0)\)，极限\(\lim f(x_n) = A\)存在</p>
+                    <p><strong>常用转化：</strong></p>
+                    <div class="example">
+                        \(x \to 0\)时，取\(x=\frac{1}{n} \to \lim f\left(\frac{1}{n}\right)=A\)<br>
+                        \(x \to +\infty\)时，取\(x=n \to \lim f(n)=A\)
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        海涅定理建立了函数极限与数列极限之间的联系。<br>
+                        通过该定理可以将数列极限问题转化为函数极限问题。
+                    </div>
                 </div>
                 
                 <h3>2. 应用价值</h3>
-                <p>将数列极限转化为函数极限，便于使用洛必达法则、泰勒公式、等价无穷小代换等工具</p>
-                <div class="formula">
-                    例：\(\lim\left(\frac{\ln n}{n}\right)=\lim\left(\frac{\ln x}{x}\right)=0 \quad (x \to +\infty)\)
+                <button class="toggle-button" onclick="toggleContent('heine-application')">展开详细内容</button>
+                <div id="heine-application" class="collapsible-content">
+                    <p>将数列极限转化为函数极限，便于使用洛必达法则、泰勒公式、等价无穷小代换等工具</p>
+                    <div class="formula">
+                        例：\(\lim\left(\frac{\ln n}{n}\right)=\lim\left(\frac{\ln x}{x}\right)=0 \quad (x \to +\infty)\)
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        适用于无法直接求解的数列极限问题。<br>
+                        转化后可以使用函数极限的各种计算方法。
+                    </div>
                 </div>
             </div>
             
             <div class="section">
                 <h2>五、收敛数列的性质</h2>
                 
+                <!-- 收敛性质费曼学习法 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法：收敛数列性质学习技巧</h3>
+                    <p>收敛数列的性质是解决极限问题的基础，用费曼法帮你掌握：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>理解概念</strong>
+                            <p>深入理解唯一性、有界性、保号性等基本性质的含义</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>对比分析</strong>
+                            <p>将数列极限的性质与函数极限的性质进行对比</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>实例验证</strong>
+                            <p>通过具体例子验证各性质的正确性</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>应用实践</strong>
+                            <p>在解题中灵活运用这些性质</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>1. 基本性质</h3>
-                <div class="step">
-                    <strong>唯一性：</strong>若极限存在，唯一
-                </div>
-                <div class="step">
-                    <strong>有界性：</strong>若极限存在，数列有界
-                </div>
-                <div class="step">
-                    <strong>保号性：</strong>若\(\lim x_n = a > 0\)，则存在\(N>0\)，当\(n>N\)时，\(x_n>0\)
+                <button class="toggle-button" onclick="toggleContent('basic-properties')">展开详细内容</button>
+                <div id="basic-properties" class="collapsible-content">
+                    <div class="step">
+                        <strong>唯一性：</strong>若极限存在，唯一
+                    </div>
+                    <div class="step">
+                        <strong>有界性：</strong>若极限存在，数列有界
+                    </div>
+                    <div class="step">
+                        <strong>保号性：</strong>若\(\lim x_n = a > 0\)，则存在\(N>0\)，当\(n>N\)时，\(x_n>0\)
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        唯一性是极限的基本特征。<br>
+                        有界性是收敛的必要条件但不是充分条件。<br>
+                        保号性说明极限的符号会在某一项之后保持不变。
+                    </div>
                 </div>
                 
                 <h3>2. 极限四则运算</h3>
-                <div class="formula">
-                    \(\lim(x_n \pm y_n) = \lim x_n \pm \lim y_n\)
-                </div>
-                <div class="formula">
-                    \(\lim(x_n y_n) = \lim x_n \cdot \lim y_n\)
-                </div>
-                <div class="formula">
-                    若\(\lim y_n \neq 0\)，则\(\lim\left(\frac{x_n}{y_n}\right) = \frac{\lim x_n}{\lim y_n}\)
+                <button class="toggle-button" onclick="toggleContent('limit-operations')">展开详细内容</button>
+                <div id="limit-operations" class="collapsible-content">
+                    <div class="formula">
+                        \(\lim(x_n \pm y_n) = \lim x_n \pm \lim y_n\)
+                    </div>
+                    <div class="formula">
+                        \(\lim(x_n y_n) = \lim x_n \cdot \lim y_n\)
+                    </div>
+                    <div class="formula">
+                        若\(\lim y_n \neq 0\)，则\(\lim\left(\frac{x_n}{y_n}\right) = \frac{\lim x_n}{\lim y_n}\)
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        使用四则运算的前提是参与运算的极限都存在。<br>
+                        商的极限要求分母极限不为零。
+                    </div>
                 </div>
             </div>
             

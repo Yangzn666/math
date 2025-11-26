@@ -1,0 +1,1146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第6讲 无穷级数 题型分类练习</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .intro {
+                padding: 15px;
+            }
+            
+            .highlight-section {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h3 {
+            color: #3498db;
+            font-size: 22px;
+            margin: 20px 0 15px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .question-content {
+            margin: 10px 0;
+        }
+
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .answer {
+            display: none;
+            padding: 20px;
+            background: #fff8e1;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .answer.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .answer h4 {
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .answer p {
+            margin: 8px 0;
+        }
+
+        .answer ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .answer li {
+            margin: 8px 0;
+        }
+
+        /* 知识点卡片样式 */
+        .knowledge-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #3498db;
+            z-index: 1000;
+            max-width: 800px;
+            width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .knowledge-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .knowledge-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .knowledge-card .formula {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .knowledge-card .tip {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .knowledge-card ul {
+            padding-left: 20px;
+        }
+
+        .knowledge-card li {
+            margin: 8px 0;
+        }
+
+        .knowledge-link {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .knowledge-link:hover {
+            color: #e74c3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .answer {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 8px;
+            }
+            
+            header {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
+            
+            .question {
+                padding: 10px;
+            }
+            
+            .answer {
+                padding: 10px;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第6讲 无穷级数</h1>
+            <div class="subtitle">题型分类练习 · 高等数学第六章</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>题型概览</h2>
+                <p>本讲主要涵盖常数项级数、幂级数和傅里叶级数等内容，通过典型例题帮助同学们掌握解题方法与技巧。</p>
+                <p>相关知识点请参阅：<a href="第16讲 无穷级数.html" target="_blank">第16讲 无穷级数 讲义</a></p>
+            </div>
+
+            <!-- 一、常数项级数题型 -->
+            <div class="section">
+                <h2>一、常数项级数题型</h2>
+                
+                <!-- 1. 正项级数审敛 -->
+                <h3 id="positive-series">1. 正项级数审敛</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题1：</div>
+                    <div class="question-content">
+                        <p>判断级数 \(\sum_{n=1}^{\infty} \frac{1}{n^2+1}\) 的收敛性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('comparison-test-card')">比较审敛法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer1')">查看详解</button>
+                    <div id="answer1" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个正项级数，可以使用比较审敛法进行判断。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>由于 \(n^2 + 1 > n^2\)，所以：</p>
+                        <p>\(\frac{1}{n^2+1} < \frac{1}{n^2}\)</p>
+                        
+                        <p>我们知道级数 \(\sum_{n=1}^{\infty} \frac{1}{n^2}\) 是 p-级数，其中 \(p=2>1\)，所以该级数收敛。</p>
+                        
+                        <p>根据比较审敛法，由于 \(0 \leq \frac{1}{n^2+1} < \frac{1}{n^2}\) 且 \(\sum_{n=1}^{\infty} \frac{1}{n^2}\) 收敛，</p>
+                        <p>因此级数 \(\sum_{n=1}^{\infty} \frac{1}{n^2+1}\) 也收敛。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>级数 \(\sum_{n=1}^{\infty} \frac{1}{n^2+1}\) 收敛。</p>
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-title">例题2：</div>
+                    <div class="question-content">
+                        <p>判断级数 \(\sum_{n=1}^{\infty} \frac{n!}{n^n}\) 的收敛性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('ratio-test-card')">比值审敛法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer2')">查看详解</button>
+                    <div id="answer2" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>由于通项中含有阶乘和n次幂，适合使用比值审敛法。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设 \(u_n = \frac{n!}{n^n}\)，则：</p>
+                        <p>\(u_{n+1} = \frac{(n+1)!}{(n+1)^{n+1}} = \frac{(n+1)n!}{(n+1)^{n+1}} = \frac{n!}{(n+1)^n}\)</p>
+                        
+                        <p>计算比值：</p>
+                        <p>\(\lim_{n \to \infty} \frac{u_{n+1}}{u_n} = \lim_{n \to \infty} \frac{n!}{(n+1)^n} \cdot \frac{n^n}{n!} = \lim_{n \to \infty} \frac{n^n}{(n+1)^n}\)</p>
+                        <p>\(= \lim_{n \to \infty} \left(\frac{n}{n+1}\right)^n = \lim_{n \to \infty} \left(\frac{1}{1+\frac{1}{n}}\right)^n\)</p>
+                        <p>\(= \lim_{n \to \infty} \frac{1}{\left(1+\frac{1}{n}\right)^n} = \frac{1}{e} < 1\)</p>
+                        
+                        <p>根据比值审敛法，当极限小于1时，级数收敛。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>级数 \(\sum_{n=1}^{\infty} \frac{n!}{n^n}\) 收敛。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 交错级数审敛 -->
+                <h3 id="alternating-series">2. 交错级数审敛</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题3：</div>
+                    <div class="question-content">
+                        <p>判断级数 \(\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\) 的收敛性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('leibniz-test-card')">莱布尼茨判别法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer3')">查看详解</button>
+                    <div id="answer3" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个交错级数，可以使用莱布尼茨判别法进行判断。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设 \(u_n = \frac{1}{n}\)，我们需要验证莱布尼茨判别法的两个条件：</p>
+                        
+                        <p>条件1：验证 \(\{u_n\}\) 单调递减</p>
+                        <p>由于 \(u_n = \frac{1}{n}\)，显然当 \(n\) 增大时，\(u_n\) 减小，所以 \(\{u_n\}\) 单调递减。</p>
+                        
+                        <p>条件2：验证 \(\lim_{n \to \infty} u_n = 0\)</p>
+                        <p>\(\lim_{n \to \infty} \frac{1}{n} = 0\)</p>
+                        
+                        <p>两个条件都满足，根据莱布尼茨判别法，级数收敛。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>级数 \(\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n}\) 收敛。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 任意项级数 -->
+                <h3 id="general-series">3. 任意项级数</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题4：</div>
+                    <div class="question-content">
+                        <p>判断级数 \(\sum_{n=1}^{\infty} \frac{(-1)^n \cdot n}{n^2+1}\) 的绝对收敛性和条件收敛性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('absolute-convergence-card')">绝对收敛与条件收敛</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer4')">查看详解</button>
+                    <div id="answer4" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>首先判断级数是否绝对收敛，再判断是否条件收敛。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>先判断绝对收敛性，考虑级数 \(\sum_{n=1}^{\infty} \left|\frac{(-1)^n \cdot n}{n^2+1}\right| = \sum_{n=1}^{\infty} \frac{n}{n^2+1}\)</p>
+                        
+                        <p>使用极限比较审敛法，与 \(\sum_{n=1}^{\infty} \frac{1}{n}\) 比较：</p>
+                        <p>\(\lim_{n \to \infty} \frac{\frac{n}{n^2+1}}{\frac{1}{n}} = \lim_{n \to \infty} \frac{n^2}{n^2+1} = 1 > 0\)</p>
+                        
+                        <p>由于 \(\sum_{n=1}^{\infty} \frac{1}{n}\) 发散，根据极限比较审敛法，\(\sum_{n=1}^{\infty} \frac{n}{n^2+1}\) 也发散。</p>
+                        <p>所以原级数不是绝对收敛的。</p>
+                        
+                        <p>再判断条件收敛性，考虑原级数 \(\sum_{n=1}^{\infty} \frac{(-1)^n \cdot n}{n^2+1}\)</p>
+                        <p>设 \(u_n = \frac{n}{n^2+1}\)，验证莱布尼茨判别法的条件：</p>
+                        
+                        <p>条件1：验证 \(\{u_n\}\) 单调递减</p>
+                        <p>考虑函数 \(f(x) = \frac{x}{x^2+1}\)，求导：</p>
+                        <p>\(f'(x) = \frac{(x^2+1) - x \cdot 2x}{(x^2+1)^2} = \frac{1-x^2}{(x^2+1)^2}\)</p>
+                        <p>当 \(x > 1\) 时，\(f'(x) < 0\)，所以当 \(n > 1\) 时，\(\{u_n\}\) 单调递减。</p>
+                        
+                        <p>条件2：验证 \(\lim_{n \to \infty} u_n = 0\)</p>
+                        <p>\(\lim_{n \to \infty} \frac{n}{n^2+1} = 0\)</p>
+                        
+                        <p>两个条件都满足，根据莱布尼茨判别法，原级数收敛。</p>
+                        
+                        <p>综上所述，原级数收敛但不是绝对收敛，因此是条件收敛。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>级数 \(\sum_{n=1}^{\infty} \frac{(-1)^n \cdot n}{n^2+1}\) 条件收敛。</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 级数性质 -->
+                <h3 id="series-properties">4. 级数性质</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题5：</div>
+                    <div class="question-content">
+                        <p>设 \(\sum_{n=1}^{\infty} a_n\) 收敛，\(\sum_{n=1}^{\infty} b_n\) 发散，问级数 \(\sum_{n=1}^{\infty} (a_n+b_n)\) 的敛散性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('series-operation-card')">级数线性运算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer5')">查看详解</button>
+                    <div id="answer5" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>考查级数的线性运算性质。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>假设 \(\sum_{n=1}^{\infty} (a_n+b_n)\) 收敛。</p>
+                        
+                        <p>由于 \(\sum_{n=1}^{\infty} a_n\) 收敛，根据级数的线性运算性质：</p>
+                        <p>\(\sum_{n=1}^{\infty} b_n = \sum_{n=1}^{\infty} [(a_n+b_n) - a_n] = \sum_{n=1}^{\infty} (a_n+b_n) - \sum_{n=1}^{\infty} a_n\)</p>
+                        
+                        <p>两个收敛级数的差仍然收敛，这表明 \(\sum_{n=1}^{\infty} b_n\) 收敛。</p>
+                        
+                        <p>但这与题目条件 "\(\sum_{n=1}^{\infty} b_n\) 发散" 矛盾。</p>
+                        
+                        <p>因此，假设不成立，级数 \(\sum_{n=1}^{\infty} (a_n+b_n)\) 发散。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>级数 \(\sum_{n=1}^{\infty} (a_n+b_n)\) 发散。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 二、幂级数题型 -->
+            <div class="section">
+                <h2>二、幂级数题型</h2>
+                
+                <!-- 1. 收敛半径与域 -->
+                <h3 id="convergence-radius">1. 收敛半径与域</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题6：</div>
+                    <div class="question-content">
+                        <p>求幂级数 \(\sum_{n=1}^{\infty} \frac{x^n}{n^2}\) 的收敛半径和收敛域。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('radius-convergence-card')">收敛半径计算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer6')">查看详解</button>
+                    <div id="answer6" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>使用比值法求收敛半径，再单独检验端点处的敛散性。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设 \(u_n = \frac{x^n}{n^2}\)，则 \(u_{n+1} = \frac{x^{n+1}}{(n+1)^2}\)</p>
+                        
+                        <p>计算比值的极限：</p>
+                        <p>\(\lim_{n \to \infty} \left|\frac{u_{n+1}}{u_n}\right| = \lim_{n \to \infty} \left|\frac{x^{n+1}}{(n+1)^2} \cdot \frac{n^2}{x^n}\right|\)</p>
+                        <p>\(= \lim_{n \to \infty} |x| \cdot \frac{n^2}{(n+1)^2} = |x| \cdot \lim_{n \to \infty} \left(\frac{n}{n+1}\right)^2 = |x|\)</p>
+                        
+                        <p>根据比值审敛法，当 \(|x| < 1\) 时级数绝对收敛，当 \(|x| > 1\) 时级数发散。</p>
+                        <p>所以收敛半径 \(R = 1\)。</p>
+                        
+                        <p>检验端点：</p>
+                        <p>当 \(x = 1\) 时，级数为 \(\sum_{n=1}^{\infty} \frac{1}{n^2}\)，这是 p-级数，\(p = 2 > 1\)，所以收敛。</p>
+                        <p>当 \(x = -1\) 时，级数为 \(\sum_{n=1}^{\infty} \frac{(-1)^n}{n^2}\)，这是绝对收敛的（因为 \(\sum_{n=1}^{\infty} \frac{1}{n^2}\) 收敛）。</p>
+                        
+                        <p>因此收敛域为 \([-1, 1]\)。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>幂级数 \(\sum_{n=1}^{\infty} \frac{x^n}{n^2}\) 的收敛半径为 \(R = 1\)，收敛域为 \([-1, 1]\)。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 幂级数和函数 -->
+                <h3 id="power-series-sum">2. 幂级数和函数</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题7：</div>
+                    <div class="question-content">
+                        <p>求幂级数 \(\sum_{n=0}^{\infty} \frac{x^n}{n+1}\) 的和函数。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('series-summation-card')">幂级数求和</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer7')">查看详解</button>
+                    <div id="answer7" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>通过逐项积分或利用已知的幂级数展开式来求和函数。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>我们知道几何级数的和函数：</p>
+                        <p>\(\sum_{n=0}^{\infty} x^n = \frac{1}{1-x}\)，其中 \(|x| < 1\)。</p>
+                        
+                        <p>对两端在 \((-1,1)\) 上逐项积分：</p>
+                        <p>\(\sum_{n=0}^{\infty} \int_0^x t^n dt = \int_0^x \frac{1}{1-t} dt\)</p>
+                        <p>\(\sum_{n=0}^{\infty} \frac{x^{n+1}}{n+1} = -\ln(1-x)\)</p>
+                        
+                        <p>即：</p>
+                        <p>\(\sum_{n=1}^{\infty} \frac{x^n}{n} = -\ln(1-x)\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(\sum_{n=0}^{\infty} \frac{x^n}{n+1} = \frac{1}{x} \sum_{n=1}^{\infty} \frac{x^n}{n} = \frac{-\ln(1-x)}{x}\)</p>
+                        
+                        <p>当 \(x = 0\) 时，级数值为 1，而 \(\frac{-\ln(1-x)}{x}\) 在 \(x = 0\) 处的极限也为 1。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>幂级数 \(\sum_{n=0}^{\infty} \frac{x^n}{n+1}\) 的和函数为 \(S(x) = \begin{cases} \frac{-\ln(1-x)}{x}, & x \neq 0 \\ 1, & x = 0 \end{cases}\)，收敛域为 \((-1, 1)\)。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 函数展开 -->
+                <h3 id="function-expansion">3. 函数展开</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题8：</div>
+                    <div class="question-content">
+                        <p>将函数 \(f(x) = e^{2x}\) 展开为 \(x\) 的幂级数。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('taylor-expansion-card')">泰勒级数展开</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer8')">查看详解</button>
+                    <div id="answer8" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>利用指数函数的幂级数展开式，通过变量替换得到结果。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>我们知道指数函数的幂级数展开式：</p>
+                        <p>\(e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!} = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots\)</p>
+                        
+                        <p>将 \(x\) 替换为 \(2x\)：</p>
+                        <p>\(e^{2x} = \sum_{n=0}^{\infty} \frac{(2x)^n}{n!} = \sum_{n=0}^{\infty} \frac{2^n x^n}{n!}\)</p>
+                        <p>\(= 1 + 2x + \frac{(2x)^2}{2!} + \frac{(2x)^3}{3!} + \cdots\)</p>
+                        <p>\(= 1 + 2x + \frac{4x^2}{2} + \frac{8x^3}{6} + \cdots\)</p>
+                        <p>\(= 1 + 2x + 2x^2 + \frac{4x^3}{3} + \cdots\)</p>
+                        
+                        <p>由于 \(e^x\) 的收敛半径为 \(\infty\)，所以 \(e^{2x}\) 的收敛半径也为 \(\infty\)。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \(f(x) = e^{2x}\) 的幂级数展开式为：</p>
+                        <p>\(e^{2x} = \sum_{n=0}^{\infty} \frac{2^n x^n}{n!} = 1 + 2x + 2x^2 + \frac{4x^3}{3} + \cdots\)</p>
+                        <p>收敛域为 \((- \infty, +\infty)\)。</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 幂级数应用 -->
+                <h3 id="power-series-application">4. 幂级数应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题9：</div>
+                    <div class="question-content">
+                        <p>利用幂级数计算 \(\lim_{x \to 0} \frac{\sin x - x}{x^3}\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('series-limit-card')">幂级数求极限</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer9')">查看详解</button>
+                    <div id="answer9" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>将 \(\sin x\) 展开为幂级数，然后进行计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>首先写出 \(\sin x\) 的幂级数展开式：</p>
+                        <p>\(\sin x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!} = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots\)</p>
+                        
+                        <p>所以：</p>
+                        <p>\(\sin x - x = -\frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(\frac{\sin x - x}{x^3} = \frac{-\frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots}{x^3}\)</p>
+                        <p>\(= -\frac{1}{3!} + \frac{x^2}{5!} - \frac{x^4}{7!} + \cdots\)</p>
+                        <p>\(= -\frac{1}{6} + \frac{x^2}{120} - \frac{x^4}{5040} + \cdots\)</p>
+                        
+                        <p>所以：</p>
+                        <p>\(\lim_{x \to 0} \frac{\sin x - x}{x^3} = \lim_{x \to 0} \left(-\frac{1}{6} + \frac{x^2}{120} - \frac{x^4}{5040} + \cdots\right) = -\frac{1}{6}\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\(\lim_{x \to 0} \frac{\sin x - x}{x^3} = -\frac{1}{6}\)。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 三、傅里叶级数题型 -->
+            <div class="section">
+                <h2>三、傅里叶级数题型</h2>
+                
+                <!-- 1. 傅里叶系数 -->
+                <h3 id="fourier-coefficients">1. 傅里叶系数</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题10：</div>
+                    <div class="question-content">
+                        <p>计算函数 \(f(x) = x^2\) 在区间 \([-\pi, \pi]\) 上的傅里叶系数。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('fourier-coefficient-card')">傅里叶系数计算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer10')">查看详解</button>
+                    <div id="answer10" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>根据傅里叶系数的定义公式进行计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>函数 \(f(x) = x^2\) 在区间 \([-\pi, \pi]\) 上的傅里叶级数为：</p>
+                        <p>\(f(x) = \frac{a_0}{2} + \sum_{n=1}^{\infty} (a_n \cos nx + b_n \sin nx)\)</p>
+                        
+                        <p>其中傅里叶系数为：</p>
+                        <p>\(a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) dx\)</p>
+                        <p>\(a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos nx \, dx\)</p>
+                        <p>\(b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin nx \, dx\)</p>
+                        
+                        <p>计算 \(a_0\)：</p>
+                        <p>\(a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} x^2 dx = \frac{1}{\pi} \left[\frac{x^3}{3}\right]_{-\pi}^{\pi} = \frac{1}{\pi} \cdot \frac{2\pi^3}{3} = \frac{2\pi^2}{3}\)</p>
+                        
+                        <p>计算 \(a_n\)：</p>
+                        <p>由于 \(x^2 \cos nx\) 是偶函数，所以：</p>
+                        <p>\(a_n = \frac{2}{\pi} \int_0^{\pi} x^2 \cos nx \, dx\)</p>
+                        
+                        <p>使用分部积分两次：</p>
+                        <p>设 \(u = x^2\)，\(dv = \cos nx \, dx\)，则 \(du = 2x \, dx\)，\(v = \frac{\sin nx}{n}\)</p>
+                        <p>\(\int x^2 \cos nx \, dx = x^2 \cdot \frac{\sin nx}{n} - \int 2x \cdot \frac{\sin nx}{n} dx\)</p>
+                        <p>\(= \frac{x^2 \sin nx}{n} - \frac{2}{n} \int x \sin nx \, dx\)</p>
+                        
+                        <p>对 \(\int x \sin nx \, dx\) 再次分部积分：</p>
+                        <p>设 \(u = x\)，\(dv = \sin nx \, dx\)，则 \(du = dx\)，\(v = -\frac{\cos nx}{n}\)</p>
+                        <p>\(\int x \sin nx \, dx = -x \cdot \frac{\cos nx}{n} + \int \frac{\cos nx}{n} dx\)</p>
+                        <p>\(= -\frac{x \cos nx}{n} + \frac{\sin nx}{n^2}\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(\int x^2 \cos nx \, dx = \frac{x^2 \sin nx}{n} - \frac{2}{n} \left(-\frac{x \cos nx}{n} + \frac{\sin nx}{n^2}\right)\)</p>
+                        <p>\(= \frac{x^2 \sin nx}{n} + \frac{2x \cos nx}{n^2} - \frac{2\sin nx}{n^3}\)</p>
+                        
+                        <p>所以：</p>
+                        <p>\(a_n = \frac{2}{\pi} \left[\frac{x^2 \sin nx}{n} + \frac{2x \cos nx}{n^2} - \frac{2\sin nx}{n^3}\right]_0^{\pi}\)</p>
+                        <p>\(= \frac{2}{\pi} \left(0 + \frac{2\pi \cos n\pi}{n^2} - 0\right) = \frac{4(-1)^n}{n^2}\)</p>
+                        
+                        <p>计算 \(b_n\)：</p>
+                        <p>由于 \(x^2 \sin nx\) 是奇函数，所以：</p>
+                        <p>\(b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} x^2 \sin nx \, dx = 0\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \(f(x) = x^2\) 在区间 \([-\pi, \pi]\) 上的傅里叶系数为：</p>
+                        <p>\(a_0 = \frac{2\pi^2}{3}\)，\(a_n = \frac{4(-1)^n}{n^2}\)，\(b_n = 0\)（\(n = 1, 2, 3, \ldots\)）</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 收敛定理 -->
+                <h3 id="convergence-theorem">2. 收敛定理</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题11：</div>
+                    <div class="question-content">
+                        <p>判断函数 \(f(x) = x^2\) 的傅里叶级数在 \(x = \pi\) 处的收敛值。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('dirichlet-theorem-card')">狄利克雷收敛定理</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer11')">查看详解</button>
+                    <div id="answer11" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>应用狄利克雷收敛定理判断傅里叶级数在间断点处的收敛值。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>函数 \(f(x) = x^2\) 在区间 \((-\pi, \pi)\) 上连续且可导，因此在其内部每一点傅里叶级数都收敛于函数值。</p>
+                        
+                        <p>在端点 \(x = \pm\pi\) 处，虽然函数本身在这两点有定义，但由于我们是在 \((-\pi, \pi)\) 上进行傅里叶展开，</p>
+                        <p>根据狄利克雷收敛定理，傅里叶级数在 \(x = \pm\pi\) 处收敛于：</p>
+                        <p>\(\frac{f(\pi-0) + f(-\pi+0)}{2}\)</p>
+                        
+                        <p>由于 \(f(x) = x^2\) 是偶函数，且 \(f(\pi) = f(-\pi) = \pi^2\)，所以：</p>
+                        <p>\(\frac{f(\pi-0) + f(-\pi+0)}{2} = \frac{\pi^2 + \pi^2}{2} = \pi^2\)</p>
+                        
+                        <p>这也符合我们对傅里叶级数在连续点处收敛于函数值的理解，因为 \(f(x) = x^2\) 可以周期延拓为连续函数。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \(f(x) = x^2\) 的傅里叶级数在 \(x = \pi\) 处收敛于 \(\pi^2\)。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 奇偶延拓 -->
+                <h3 id="odd-even-extension">3. 奇偶延拓</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题12：</div>
+                    <div class="question-content">
+                        <p>将函数 \(f(x) = x\) 在 \([0, \pi]\) 上展开为正弦级数。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('odd-extension-card')">奇延拓</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer12')">查看详解</button>
+                    <div id="answer12" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>将函数进行奇延拓，然后计算傅里叶系数。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将函数 \(f(x) = x\) 在 \([0, \pi]\) 上奇延拓到 \([-\pi, \pi]\)，得到奇函数：</p>
+                        <p>\(f_{odd}(x) = \begin{cases} x, & 0 \leq x \leq \pi \\ -x, & -\pi \leq x < 0 \end{cases}\)</p>
+                        
+                        <p>但实际上更简单的做法是直接认为 \(f(x) = x\) 在 \([-\pi, \pi]\) 上本身就是奇函数延拓的结果。</p>
+                        
+                        <p>对于奇函数，傅里叶级数只有正弦项：</p>
+                        <p>\(f(x) = \sum_{n=1}^{\infty} b_n \sin nx\)</p>
+                        
+                        <p>其中系数：</p>
+                        <p>\(b_n = \frac{2}{\pi} \int_0^{\pi} f(x) \sin nx \, dx = \frac{2}{\pi} \int_0^{\pi} x \sin nx \, dx\)</p>
+                        
+                        <p>计算积分：</p>
+                        <p>使用分部积分，设 \(u = x\)，\(dv = \sin nx \, dx\)，则 \(du = dx\)，\(v = -\frac{\cos nx}{n}\)</p>
+                        <p>\(\int_0^{\pi} x \sin nx \, dx = \left[-x \cdot \frac{\cos nx}{n}\right]_0^{\pi} + \int_0^{\pi} \frac{\cos nx}{n} dx\)</p>
+                        <p>\(= -\frac{\pi \cos n\pi}{n} + \left[\frac{\sin nx}{n^2}\right]_0^{\pi}\)</p>
+                        <p>\(= -\frac{\pi (-1)^n}{n} + 0 = \frac{\pi (-1)^{n+1}}{n}\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(b_n = \frac{2}{\pi} \cdot \frac{\pi (-1)^{n+1}}{n} = \frac{2(-1)^{n+1}}{n}\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \(f(x) = x\) 在 \([0, \pi]\) 上的正弦级数展开为：</p>
+                        <p>\(x = \sum_{n=1}^{\infty} \frac{2(-1)^{n+1}}{n} \sin nx = 2\left(\sin x - \frac{\sin 2x}{2} + \frac{\sin 3x}{3} - \frac{\sin 4x}{4} + \cdots\right)\)</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 傅里叶级数应用 -->
+                <h3 id="fourier-application">4. 傅里叶级数应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题13：</div>
+                    <div class="question-content">
+                        <p>利用傅里叶级数证明 \(\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('parseval-identity-card')">帕塞瓦尔恒等式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer13')">查看详解</button>
+                    <div id="answer13" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>利用函数 \(f(x) = x^2\) 的傅里叶级数展开和帕塞瓦尔恒等式。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>在例题10中，我们得到了函数 \(f(x) = x^2\) 在 \([-\pi, \pi]\) 上的傅里叶系数：</p>
+                        <p>\(a_0 = \frac{2\pi^2}{3}\)，\(a_n = \frac{4(-1)^n}{n^2}\)，\(b_n = 0\)</p>
+                        
+                        <p>因此傅里叶级数为：</p>
+                        <p>\(x^2 = \frac{\pi^2}{3} + \sum_{n=1}^{\infty} \frac{4(-1)^n}{n^2} \cos nx\)</p>
+                        
+                        <p>根据帕塞瓦尔恒等式：</p>
+                        <p>\(\frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 dx = \frac{a_0^2}{4} + \frac{1}{2} \sum_{n=1}^{\infty} (a_n^2 + b_n^2)\)</p>
+                        
+                        <p>左边计算：</p>
+                        <p>\(\frac{1}{\pi} \int_{-\pi}^{\pi} x^4 dx = \frac{2}{\pi} \int_0^{\pi} x^4 dx = \frac{2}{\pi} \left[\frac{x^5}{5}\right]_0^{\pi} = \frac{2\pi^4}{5}\)</p>
+                        
+                        <p>右边计算：</p>
+                        <p>\(\frac{a_0^2}{4} = \frac{1}{4} \cdot \left(\frac{2\pi^2}{3}\right)^2 = \frac{4\pi^4}{36} = \frac{\pi^4}{9}\)</p>
+                        <p>\(\frac{1}{2} \sum_{n=1}^{\infty} a_n^2 = \frac{1}{2} \sum_{n=1}^{\infty} \left(\frac{4(-1)^n}{n^2}\right)^2 = \frac{1}{2} \sum_{n=1}^{\infty} \frac{16}{n^4} = 8 \sum_{n=1}^{\infty} \frac{1}{n^4}\)</p>
+                        
+                        <p>因此帕塞瓦尔恒等式变为：</p>
+                        <p>\(\frac{2\pi^4}{5} = \frac{\pi^4}{9} + 8 \sum_{n=1}^{\infty} \frac{1}{n^4}\)</p>
+                        <p>\(8 \sum_{n=1}^{\infty} \frac{1}{n^4} = \frac{2\pi^4}{5} - \frac{\pi^4}{9} = \frac{18\pi^4 - 5\pi^4}{45} = \frac{13\pi^4}{45}\)</p>
+                        <p>\(\sum_{n=1}^{\infty} \frac{1}{n^4} = \frac{13\pi^4}{360}\)</p>
+                        
+                        <p>这个方法用于计算 \(\sum_{n=1}^{\infty} \frac{1}{n^4}\)，我们现在改用另一个方法计算 \(\sum_{n=1}^{\infty} \frac{1}{n^2}\)。</p>
+                        
+                        <p>考虑函数 \(f(x) = x\) 在 \([-\pi, \pi]\) 上的傅里叶级数：</p>
+                        <p>\(x = 2\sum_{n=1}^{\infty} \frac{(-1)^{n+1}}{n} \sin nx\)</p>
+                        
+                        <p>或者考虑函数 \(f(x) = x^2\) 在 \(x = \pi\) 处傅里叶级数的收敛值：</p>
+                        <p>\(\pi^2 = \frac{\pi^2}{3} + \sum_{n=1}^{\infty} \frac{4(-1)^n}{n^2} \cos n\pi = \frac{\pi^2}{3} + \sum_{n=1}^{\infty} \frac{4(-1)^n (-1)^n}{n^2}\)</p>
+                        <p>\(= \frac{\pi^2}{3} + \sum_{n=1}^{\infty} \frac{4}{n^2}\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(\pi^2 - \frac{\pi^2}{3} = \sum_{n=1}^{\infty} \frac{4}{n^2}\)</p>
+                        <p>\(\frac{2\pi^2}{3} = 4 \sum_{n=1}^{\infty} \frac{1}{n^2}\)</p>
+                        <p>\(\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\(\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}\)。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 知识点卡片 -->
+            <div id="comparison-test-card" class="knowledge-card">
+                <h4>比较审敛法</h4>
+                <div class="formula">
+                    若 \(0 \leq u_n \leq v_n\)，且 \(\sum v_n\) 收敛，则 \(\sum u_n\) 收敛<br>
+                    若 \(0 \leq v_n \leq u_n\)，且 \(\sum v_n\) 发散，则 \(\sum u_n\) 发散
+                </div>
+                <div class="tip">
+                    <strong>应用场景：</strong><br>
+                    1. 通项含有分式结构的正项级数<br>
+                    2. 可以方便地找到合适的比较级数（如p-级数、几何级数）
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('comparison-test-card')">×</button>
+            </div>
+            
+            <div id="ratio-test-card" class="knowledge-card">
+                <h4>比值审敛法</h4>
+                <div class="formula">
+                    若 \(\lim_{n \to \infty} \frac{u_{n+1}}{u_n} = p\)<br>
+                    \(p < 1\)：级数收敛<br>
+                    \(p > 1\)：级数发散<br>
+                    \(p = 1\)：无法判定
+                </div>
+                <div class="tip">
+                    <strong>应用场景：</strong><br>
+                    1. 通项含有阶乘、n次幂等形式<br>
+                    2. 相邻两项比值容易计算
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('ratio-test-card')">×</button>
+            </div>
+            
+            <div id="leibniz-test-card" class="knowledge-card">
+                <h4>莱布尼茨判别法</h4>
+                <div class="formula">
+                    若交错级数 \(\sum (-1)^{n+1} u_n\) 满足：<br>
+                    1. \(u_n \geq 0\)<br>
+                    2. \(\{u_n\}\) 单调递减<br>
+                    3. \(\lim_{n \to \infty} u_n = 0\)<br>
+                    则级数收敛
+                </div>
+                <div class="tip">
+                    <strong>注意点：</strong><br>
+                    1. 三个条件必须同时满足<br>
+                    2. 只能判断收敛性，不能判断绝对收敛或条件收敛<br>
+                    3. 常用于形如 \(\frac{(-1)^n}{n^p}\) 的级数
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('leibniz-test-card')">×</button>
+            </div>
+            
+            <div id="absolute-convergence-card" class="knowledge-card">
+                <h4>绝对收敛与条件收敛</h4>
+                <div class="formula">
+                    绝对收敛：\(\sum |u_n|\) 收敛<br>
+                    条件收敛：\(\sum u_n\) 收敛，但 \(\sum |u_n|\) 发散
+                </div>
+                <div class="tip">
+                    <strong>重要性质：</strong><br>
+                    1. 绝对收敛的级数一定收敛<br>
+                    2. 绝对收敛的级数可以任意重排项的顺序<br>
+                    3. 条件收敛的级数重排后可能收敛到不同值或发散
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('absolute-convergence-card')">×</button>
+            </div>
+            
+            <div id="series-operation-card" class="knowledge-card">
+                <h4>级数线性运算</h4>
+                <div class="formula">
+                    若 \(\sum a_n = A\)，\(\sum b_n = B\)，则：<br>
+                    \(\sum (ka_n + lb_n) = kA + lB\)（\(k,l\) 为常数）
+                </div>
+                <div class="tip">
+                    <strong>注意点：</strong><br>
+                    1. 只有当两个级数都收敛时才能进行线性运算<br>
+                    2. 两个发散级数的和可能是收敛的<br>
+                    3. 收敛级数与发散级数的和一定是发散的
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('series-operation-card')">×</button>
+            </div>
+            
+            <div id="radius-convergence-card" class="knowledge-card">
+                <h4>收敛半径计算</h4>
+                <div class="formula">
+                    幂级数 \(\sum a_n x^n\) 的收敛半径：<br>
+                    \(R = \lim_{n \to \infty} \left|\frac{a_n}{a_{n+1}}\right|\) 或 \(R = \frac{1}{\lim_{n \to \infty} \sqrt[n]{|a_n|}}\)
+                </div>
+                <div class="tip">
+                    <strong>计算步骤：</strong><br>
+                    1. 使用比值法或根值法求收敛半径<br>
+                    2. 单独检验端点处的敛散性<br>
+                    3. 确定收敛域
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('radius-convergence-card')">×</button>
+            </div>
+            
+            <div id="series-summation-card" class="knowledge-card">
+                <h4>幂级数求和</h4>
+                <div class="formula">
+                    常用的幂级数展开：<br>
+                    \(\frac{1}{1-x} = \sum_{n=0}^{\infty} x^n\)，\(|x| < 1\)<br>
+                    \(e^x = \sum_{n=0}^{\infty} \frac{x^n}{n!}\)<br>
+                    \(\sin x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n+1}}{(2n+1)!}\)<br>
+                    \(\cos x = \sum_{n=0}^{\infty} \frac{(-1)^n x^{2n}}{(2n)!}\)
+                </div>
+                <div class="tip">
+                    <strong>常用方法：</strong><br>
+                    1. 利用已知展开式通过变量替换、逐项微分或积分<br>
+                    2. 建立微分方程求解<br>
+                    3. 利用幂级数的运算性质
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('series-summation-card')">×</button>
+            </div>
+            
+            <div id="taylor-expansion-card" class="knowledge-card">
+                <h4>泰勒级数展开</h4>
+                <div class="formula">
+                    \(f(x) = \sum_{n=0}^{\infty} \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n\)<br>
+                    当 \(x_0 = 0\) 时称为麦克劳林级数
+                </div>
+                <div class="tip">
+                    <strong>展开步骤：</strong><br>
+                    1. 求出函数在展开点的所有阶导数<br>
+                    2. 写出泰勒级数的一般项<br>
+                    3. 确定收敛半径和收敛域
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('taylor-expansion-card')">×</button>
+            </div>
+            
+            <div id="series-limit-card" class="knowledge-card">
+                <h4>幂级数求极限</h4>
+                <div class="formula">
+                    利用函数的幂级数展开式计算极限：<br>
+                    将分子分母都展开为幂级数，然后约简
+                </div>
+                <div class="tip">
+                    <strong>应用场景：</strong><br>
+                    1. 未定式极限（\(\frac{0}{0}\) 型）<br>
+                    2. 含有初等函数的极限<br>
+                    3. 可以避免多次使用洛必达法则
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('series-limit-card')">×</button>
+            </div>
+            
+            <div id="fourier-coefficient-card" class="knowledge-card">
+                <h4>傅里叶系数计算</h4>
+                <div class="formula">
+                    \(a_0 = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) dx\)<br>
+                    \(a_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \cos nx \, dx\)<br>
+                    \(b_n = \frac{1}{\pi} \int_{-\pi}^{\pi} f(x) \sin nx \, dx\)
+                </div>
+                <div class="tip">
+                    <strong>简化技巧：</strong><br>
+                    1. 若 \(f(x)\) 为偶函数，则 \(b_n = 0\)<br>
+                    2. 若 \(f(x)\) 为奇函数，则 \(a_n = 0\)<br>
+                    3. 利用函数的对称性简化积分计算
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('fourier-coefficient-card')">×</button>
+            </div>
+            
+            <div id="dirichlet-theorem-card" class="knowledge-card">
+                <h4>狄利克雷收敛定理</h4>
+                <div class="formula">
+                    若 \(f(x)\) 在 \([-\pi, \pi]\) 上至多有有限个第一类间断点，且只有有限个极值点，则：<br>
+                    在连续点 \(x\) 处，傅里叶级数收敛于 \(f(x)\)<br>
+                    在间断点 \(x\) 处，傅里叶级数收敛于 \(\frac{f(x-0) + f(x+0)}{2}\)
+                </div>
+                <div class="tip">
+                    <strong>实际应用：</strong><br>
+                    1. 判断傅里叶级数在特定点的收敛值<br>
+                    2. 验证傅里叶展开的正确性<br>
+                    3. 求某些数项级数的和
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('dirichlet-theorem-card')">×</button>
+            </div>
+            
+            <div id="odd-extension-card" class="knowledge-card">
+                <h4>奇延拓与偶延拓</h4>
+                <div class="formula">
+                    奇延拓：\(f_{odd}(x) = \begin{cases} f(x), & x \in (0, l) \\ -f(-x), & x \in (-l, 0) \end{cases}\)<br>
+                    偶延拓：\(f_{even}(x) = \begin{cases} f(x), & x \in (0, l) \\ f(-x), & x \in (-l, 0) \end{cases}\)
+                </div>
+                <div class="tip">
+                    <strong>展开特点：</strong><br>
+                    1. 奇延拓后傅里叶级数只有正弦项（正弦级数）<br>
+                    2. 偶延拓后傅里叶级数只有余弦项（余弦级数）<br>
+                    3. 可以根据需要选择适当的延拓方式
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('odd-extension-card')">×</button>
+            </div>
+            
+            <div id="parseval-identity-card" class="knowledge-card">
+                <h4>帕塞瓦尔恒等式</h4>
+                <div class="formula">
+                    \(\frac{1}{\pi} \int_{-\pi}^{\pi} |f(x)|^2 dx = \frac{a_0^2}{4} + \frac{1}{2} \sum_{n=1}^{\infty} (a_n^2 + b_n^2)\)
+                </div>
+                <div class="tip">
+                    <strong>主要应用：</strong><br>
+                    1. 计算某些数项级数的和<br>
+                    2. 验证傅里叶系数计算的正确性<br>
+                    3. 表示函数的能量或范数
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('parseval-identity-card')">×</button>
+            </div>
+            
+            <div class="footer">
+                <p>© 2025 高等数学学习笔记 | 第6讲：无穷级数 题型分类练习</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 展开/收起答案
+        function toggleAnswer(id) {
+            var answer = document.getElementById(id);
+            var button = answer.previousElementSibling;
+            answer.classList.toggle('active');
+            
+            if (answer.classList.contains('active')) {
+                button.textContent = '收起详解';
+            } else {
+                button.textContent = '查看详解';
+            }
+        }
+        
+        // 显示知识点卡片
+        function showKnowledgeCard(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        
+        // 关闭知识点卡片
+        function closeKnowledgeCard(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        
+        // 点击卡片外部关闭
+        window.onclick = function(event) {
+            var cards = document.getElementsByClassName('knowledge-card');
+            for (var i = 0; i < cards.length; i++) {
+                if (event.target == cards[i]) {
+                    cards[i].classList.remove('active');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

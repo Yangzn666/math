@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第2讲 导数与微分、中值定理 题型分类练习</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .intro {
+                padding: 15px;
+            }
+            
+            .highlight-section {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h3 {
+            color: #3498db;
+            font-size: 22px;
+            margin: 20px 0 15px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .question-content {
+            margin: 10px 0;
+        }
+
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .answer {
+            display: none;
+            padding: 20px;
+            background: #fff8e1;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .answer.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .answer h4 {
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .answer p {
+            margin: 8px 0;
+        }
+
+        .answer ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .answer li {
+            margin: 8px 0;
+        }
+
+        /* 知识点卡片样式 */
+        .knowledge-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #3498db;
+            z-index: 1000;
+            max-width: 800px;
+            width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .knowledge-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .knowledge-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .knowledge-card .formula {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .knowledge-card .tip {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .knowledge-card ul {
+            padding-left: 20px;
+        }
+
+        .knowledge-card li {
+            margin: 8px 0;
+        }
+
+        .knowledge-link {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .knowledge-link:hover {
+            color: #e74c3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .answer {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 8px;
+            }
+            
+            header {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
+            
+            .question {
+                padding: 10px;
+            }
+            
+            .answer {
+                padding: 10px;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第2讲 导数与微分、中值定理</h1>
+            <div class="subtitle">题型分类练习 · 高等数学第二章</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>题型概览</h2>
+                <p>本讲主要涵盖导数与微分的基础概念、中值定理的应用、微分不等式以及函数性质分析等内容，通过典型例题帮助同学们掌握解题方法与技巧。</p>
+                <p>相关知识点请参阅：<a href="第2讲 数列极限.html" target="_blank">第2讲 数列极限 讲义</a></p>
+            </div>
+
+            <!-- 一、导数与微分基础题型 -->
+            <div class="section">
+                <h2>一、导数与微分基础题型</h2>
+                
+                <!-- 1. 导数定义与计算 -->
+                <h3 id="derivative-definition">1. 导数定义与计算</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题1：</div>
+                    <div class="question-content">
+                        <p>设函数 \( f(x) = \begin{cases} 
+x^2 \sin \frac{1}{x}, & x \neq 0 \\
+0, & x = 0
+\end{cases} \)，讨论 \( f(x) \) 在 \( x = 0 \) 处的可导性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('derivative-definition-card')">导数定义</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer1')">查看详解</button>
+                    <div id="answer1" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>要判断分段函数在分界点处的可导性，需要使用导数定义进行计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>根据导数定义：</p>
+                        <p>\( f'(0) = \lim_{h \to 0} \frac{f(0+h) - f(0)}{h} = \lim_{h \to 0} \frac{f(h) - f(0)}{h} \)</p>
+                        <p>由于 \( f(0) = 0 \)，所以：</p>
+                        <p>\( f'(0) = \lim_{h \to 0} \frac{f(h)}{h} = \lim_{h \to 0} \frac{h^2 \sin \frac{1}{h}}{h} \)</p>
+                        <p>\( = \lim_{h \to 0} h \sin \frac{1}{h} \)</p>
+                        <p>我们知道 \( \sin \frac{1}{h} \) 是有界函数，\( |\sin \frac{1}{h}| \leq 1 \)</p>
+                        <p>而 \( h \to 0 \) 时，\( h \to 0 \)</p>
+                        <p>根据有界函数与无穷小量的乘积仍为无穷小量，有：</p>
+                        <p>\( \lim_{h \to 0} h \sin \frac{1}{h} = 0 \)</p>
+                        <p>因此 \( f'(0) = 0 \)，即函数在 \( x = 0 \) 处可导。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x) \) 在 \( x = 0 \) 处可导，且 \( f'(0) = 0 \)。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 高阶导数 -->
+                <h3 id="higher-derivative">2. 高阶导数</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题2：</div>
+                    <div class="question-content">
+                        <p>设 \( y = x^2 \ln x \)，求 \( y^{(n)} \)（\( n \geq 2 \)）。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('higher-derivative-card')">高阶导数</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer2')">查看详解</button>
+                    <div id="answer2" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个求高阶导数的问题，可以通过逐次求导找出规律。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>首先求前几阶导数：</p>
+                        <p>\( y = x^2 \ln x \)</p>
+                        <p>\( y' = 2x \ln x + x^2 \cdot \frac{1}{x} = 2x \ln x + x \)</p>
+                        <p>\( y'' = 2 \ln x + 2x \cdot \frac{1}{x} + 1 = 2 \ln x + 2 + 1 = 2 \ln x + 3 \)</p>
+                        <p>\( y''' = 2 \cdot \frac{1}{x} = \frac{2}{x} \)</p>
+                        <p>\( y^{(4)} = 2 \cdot (-1) \cdot x^{-2} = -\frac{2}{x^2} \)</p>
+                        <p>\( y^{(5)} = -2 \cdot (-2) \cdot x^{-3} = \frac{4}{x^3} \)</p>
+                        <p>观察规律：</p>
+                        <p>当 \( n \geq 3 \) 时，\( y^{(n)} = (-1)^n \cdot (n-3)! \cdot \frac{2}{x^{n-2}} \)</p>
+                        <p>验证：</p>
+                        <p>当 \( n = 3 \) 时：\( y''' = (-1)^3 \cdot 0! \cdot \frac{2}{x^1} = -1 \cdot 1 \cdot \frac{2}{x} = -\frac{2}{x} \)（与之前结果不符）</p>
+                        <p>重新计算：</p>
+                        <p>\( y''' = \frac{d}{dx}(\frac{2}{x}) = 2 \cdot (-1) \cdot x^{-2} = -\frac{2}{x^2} \)</p>
+                        <p>之前的计算有误，重新来过：</p>
+                        <p>\( y = x^2 \ln x \)</p>
+                        <p>\( y' = 2x \ln x + x \)</p>
+                        <p>\( y'' = 2 \ln x + 2 + 1 = 2 \ln x + 3 \)</p>
+                        <p>\( y''' = \frac{2}{x} \)</p>
+                        <p>\( y^{(4)} = -\frac{2}{x^2} \)</p>
+                        <p>\( y^{(5)} = \frac{4}{x^3} \)</p>
+                        <p>\( y^{(6)} = -\frac{12}{x^4} \)</p>
+                        <p>规律为：当 \( n \geq 3 \) 时，\( y^{(n)} = (-1)^{n-1} \cdot (n-3)! \cdot \frac{2}{x^{n-2}} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( y' = 2x \ln x + x \)</p>
+                        <p>\( y'' = 2 \ln x + 3 \)</p>
+                        <p>当 \( n \geq 3 \) 时，\( y^{(n)} = (-1)^{n-1} \cdot (n-3)! \cdot \frac{2}{x^{n-2}} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 隐函数与参数方程求导 -->
+                <h3 id="implicit-parametric">3. 隐函数与参数方程求导</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题3：</div>
+                    <div class="question-content">
+                        <p>设 \( y = y(x) \) 由方程 \( e^y + xy = e \) 确定，求 \( \frac{d^2y}{dx^2} \big|_{x=0} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('implicit-differentiation-card')">隐函数求导</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer3')">查看详解</button>
+                    <div id="answer3" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个隐函数求导问题，需要先确定 \( x = 0 \) 时 \( y \) 的值，然后逐次求导。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：确定 \( x = 0 \) 时 \( y \) 的值</p>
+                        <p>将 \( x = 0 \) 代入方程 \( e^y + xy = e \)：</p>
+                        <p>\( e^y + 0 \cdot y = e \)</p>
+                        <p>\( e^y = e \)</p>
+                        <p>所以 \( y = 1 \)</p>
+                        
+                        <p>第二步：求 \( \frac{dy}{dx} \)</p>
+                        <p>对 \( e^y + xy = e \) 两边对 \( x \) 求导：</p>
+                        <p>\( e^y \frac{dy}{dx} + y + x \frac{dy}{dx} = 0 \)</p>
+                        <p>\( (e^y + x) \frac{dy}{dx} = -y \)</p>
+                        <p>\( \frac{dy}{dx} = -\frac{y}{e^y + x} \)</p>
+                        
+                        <p>第三步：求 \( \frac{d^2y}{dx^2} \)</p>
+                        <p>对 \( \frac{dy}{dx} = -\frac{y}{e^y + x} \) 两边对 \( x \) 求导：</p>
+                        <p>使用商法则：</p>
+                        <p>\( \frac{d^2y}{dx^2} = -\frac{(e^y + x) \frac{dy}{dx} - y(e^y \frac{dy}{dx} + 1)}{(e^y + x)^2} \)</p>
+                        <p>将 \( \frac{dy}{dx} = -\frac{y}{e^y + x} \) 代入：</p>
+                        <p>\( \frac{d^2y}{dx^2} = -\frac{(e^y + x)(-\frac{y}{e^y + x}) - y(e^y(-\frac{y}{e^y + x}) + 1)}{(e^y + x)^2} \)</p>
+                        <p>\( = -\frac{-y - y(-\frac{ye^y}{e^y + x} + 1)}{(e^y + x)^2} \)</p>
+                        <p>\( = -\frac{-y + \frac{y^2e^y}{e^y + x} - y}{(e^y + x)^2} \)</p>
+                        <p>\( = -\frac{-2y + \frac{y^2e^y}{e^y + x}}{(e^y + x)^2} \)</p>
+                        <p>\( = \frac{2y - \frac{y^2e^y}{e^y + x}}{(e^y + x)^2} \)</p>
+                        <p>\( = \frac{2y(e^y + x) - y^2e^y}{(e^y + x)^3} \)</p>
+                        <p>\( = \frac{y(2e^y + 2x - ye^y)}{(e^y + x)^3} \)</p>
+                        
+                        <p>第四步：代入 \( x = 0, y = 1 \)</p>
+                        <p>\( \frac{d^2y}{dx^2} \big|_{x=0} = \frac{1(2e + 0 - e)}{(e + 0)^3} = \frac{e}{e^3} = \frac{1}{e^2} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \frac{d^2y}{dx^2} \big|_{x=0} = \frac{1}{e^2} \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 二、中值定理应用题型 -->
+            <div class="section">
+                <h2>二、中值定理应用题型</h2>
+                
+                <!-- 1. 罗尔定理应用 -->
+                <h3 id="rolle-theorem">1. 罗尔定理应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题4：</div>
+                    <div class="question-content">
+                        <p>设 \( f(x) \) 在 \([a,b]\) 上二阶可导，且 \( f(a) = f(b) \)，\( f''(x) \neq 0 \)，证明：存在 \( \xi \in (a,b) \) 使得 \( f'(\xi) = 0 \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('rolle-theorem-card')">罗尔定理</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer4')">查看详解</button>
+                    <div id="answer4" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是罗尔定理的直接应用。需要验证罗尔定理的条件，然后得出结论。</p>
+                        
+                        <h4>证明过程：</h4>
+                        <p>罗尔定理的条件：</p>
+                        <p>1. \( f(x) \) 在闭区间 \([a,b]\) 上连续</p>
+                        <p>2. \( f(x) \) 在开区间 \((a,b)\) 内可导</p>
+                        <p>3. \( f(a) = f(b) \)</p>
+                        
+                        <p>根据题目条件：</p>
+                        <p>1. \( f(x) \) 在 \([a,b]\) 上二阶可导，自然在 \([a,b]\) 上连续</p>
+                        <p>2. \( f(x) \) 在 \((a,b)\) 内二阶可导，自然在 \((a,b)\) 内可导</p>
+                        <p>3. 题目已给出 \( f(a) = f(b) \)</p>
+                        
+                        <p>因此，\( f(x) \) 满足罗尔定理的所有条件。</p>
+                        <p>根据罗尔定理，存在 \( \xi \in (a,b) \) 使得 \( f'(\xi) = 0 \)。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>根据罗尔定理，存在 \( \xi \in (a,b) \) 使得 \( f'(\xi) = 0 \)。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 拉格朗日中值定理 -->
+                <h3 id="lagrange-theorem">2. 拉格朗日中值定理</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题5：</div>
+                    <div class="question-content">
+                        <p>证明不等式：当 \( x > 0 \) 时，\( \frac{x}{1+x} < \ln(1+x) < x \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('lagrange-theorem-card')">拉格朗日中值定理</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer5')">查看详解</button>
+                    <div id="answer5" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>要证明这个不等式，可以构造函数并利用拉格朗日中值定理。</p>
+                        
+                        <h4>证明过程：</h4>
+                        <p>我们分两部分证明：</p>
+                        
+                        <p><strong>第一部分：证明 \( \ln(1+x) < x \)（当 \( x > 0 \) 时）</strong></p>
+                        <p>设 \( f(t) = \ln(1+t) \)，在区间 \([0,x]\) 上应用拉格朗日中值定理：</p>
+                        <p>存在 \( \xi \in (0,x) \)，使得：</p>
+                        <p>\( \frac{f(x) - f(0)}{x - 0} = f'(\xi) \)</p>
+                        <p>即：\( \frac{\ln(1+x) - \ln(1+0)}{x} = \frac{1}{1+\xi} \)</p>
+                        <p>所以：\( \frac{\ln(1+x)}{x} = \frac{1}{1+\xi} \)</p>
+                        <p>因为 \( \xi > 0 \)，所以 \( 1+\xi > 1 \)，因此 \( \frac{1}{1+\xi} < 1 \)</p>
+                        <p>所以：\( \frac{\ln(1+x)}{x} < 1 \)</p>
+                        <p>即：\( \ln(1+x) < x \)</p>
+                        
+                        <p><strong>第二部分：证明 \( \frac{x}{1+x} < \ln(1+x) \)（当 \( x > 0 \) 时）</strong></p>
+                        <p>设 \( g(t) = \ln(1+t) - \frac{t}{1+t} \)，我们需要证明当 \( x > 0 \) 时，\( g(x) > 0 \)</p>
+                        <p>计算 \( g'(t) \)：</p>
+                        <p>\( g'(t) = \frac{1}{1+t} - \frac{(1+t) - t}{(1+t)^2} = \frac{1}{1+t} - \frac{1}{(1+t)^2} \)</p>
+                        <p>\( = \frac{1+t-1}{(1+t)^2} = \frac{t}{(1+t)^2} \)</p>
+                        <p>当 \( t > 0 \) 时，\( g'(t) > 0 \)，所以 \( g(t) \) 在 \( (0,+\infty) \) 上单调递增</p>
+                        <p>又因为 \( g(0) = \ln(1+0) - \frac{0}{1+0} = 0 \)</p>
+                        <p>所以当 \( x > 0 \) 时，\( g(x) > g(0) = 0 \)</p>
+                        <p>即：\( \ln(1+x) - \frac{x}{1+x} > 0 \)</p>
+                        <p>所以：\( \frac{x}{1+x} < \ln(1+x) \)</p>
+                        
+                        <p>综合两部分，当 \( x > 0 \) 时，有：</p>
+                        <p>\( \frac{x}{1+x} < \ln(1+x) < x \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>当 \( x > 0 \) 时，不等式 \( \frac{x}{1+x} < \ln(1+x) < x \) 成立。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 柯西中值定理 -->
+                <h3 id="cauchy-theorem">3. 柯西中值定理</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题6：</div>
+                    <div class="question-content">
+                        <p>设 \( f(x) \) 和 \( g(x) \) 在 \([a,b]\) 上连续，在 \((a,b)\) 内可导，且 \( g'(x) \neq 0 \)，证明存在 \( \xi \in (a,b) \) 使得 \( \frac{f(b)-f(a)}{g(b)-g(a)} = \frac{f'(\xi)}{g'(\xi)} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('cauchy-theorem-card')">柯西中值定理</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer6')">查看详解</button>
+                    <div id="answer6" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是柯西中值定理的标准形式，需要构造辅助函数并应用罗尔定理进行证明。</p>
+                        
+                        <h4>证明过程：</h4>
+                        <p>构造辅助函数：</p>
+                        <p>设 \( F(x) = f(x) - \frac{f(b)-f(a)}{g(b)-g(a)} g(x) \)</p>
+                        
+                        <p>验证 \( F(x) \) 满足罗尔定理的条件：</p>
+                        <p>1. 由于 \( f(x) \) 和 \( g(x) \) 在 \([a,b]\) 上连续，所以 \( F(x) \) 在 \([a,b]\) 上连续</p>
+                        <p>2. 由于 \( f(x) \) 和 \( g(x) \) 在 \((a,b)\) 内可导，所以 \( F(x) \) 在 \((a,b)\) 内可导</p>
+                        <p>3. 计算端点值：</p>
+                        <p>\( F(a) = f(a) - \frac{f(b)-f(a)}{g(b)-g(a)} g(a) \)</p>
+                        <p>\( F(b) = f(b) - \frac{f(b)-f(a)}{g(b)-g(a)} g(b) \)</p>
+                        <p>计算 \( F(b) - F(a) \)：</p>
+                        <p>\( F(b) - F(a) = f(b) - f(a) - \frac{f(b)-f(a)}{g(b)-g(a)} [g(b) - g(a)] \)</p>
+                        <p>\( = f(b) - f(a) - [f(b) - f(a)] = 0 \)</p>
+                        <p>所以 \( F(a) = F(b) \)</p>
+                        
+                        <p>因此，\( F(x) \) 满足罗尔定理的所有条件。</p>
+                        <p>根据罗尔定理，存在 \( \xi \in (a,b) \) 使得 \( F'(\xi) = 0 \)</p>
+                        
+                        <p>计算 \( F'(x) \)：</p>
+                        <p>\( F'(x) = f'(x) - \frac{f(b)-f(a)}{g(b)-g(a)} g'(x) \)</p>
+                        
+                        <p>所以存在 \( \xi \in (a,b) \) 使得：</p>
+                        <p>\( F'(\xi) = f'(\xi) - \frac{f(b)-f(a)}{g(b)-g(a)} g'(\xi) = 0 \)</p>
+                        
+                        <p>即：\( f'(\xi) = \frac{f(b)-f(a)}{g(b)-g(a)} g'(\xi) \)</p>
+                        
+                        <p>由于题目条件 \( g'(x) \neq 0 \)，所以 \( g'(\xi) \neq 0 \)</p>
+                        <p>因此：\( \frac{f(b)-f(a)}{g(b)-g(a)} = \frac{f'(\xi)}{g'(\xi)} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>根据柯西中值定理，存在 \( \xi \in (a,b) \) 使得 \( \frac{f(b)-f(a)}{g(b)-g(a)} = \frac{f'(\xi)}{g'(\xi)} \)。</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 泰勒公式应用 -->
+                <h3 id="taylor-formula">4. 泰勒公式应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题7：</div>
+                    <div class="question-content">
+                        <p>利用泰勒公式计算极限 \( \lim_{x \to 0} \frac{e^x \sin x - x(1+x)}{x^3} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('taylor-formula-card')">泰勒公式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer7')">查看详解</button>
+                    <div id="answer7" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个 \( \frac{0}{0} \) 型未定式极限，可以使用泰勒公式展开分子。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>首先写出相关函数的泰勒展开式：</p>
+                        <p>\( e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + o(x^3) \)</p>
+                        <p>\( \sin x = x - \frac{x^3}{3!} + o(x^3) \)</p>
+                        
+                        <p>计算 \( e^x \sin x \)：</p>
+                        <p>\( e^x \sin x = (1 + x + \frac{x^2}{2} + \frac{x^3}{6} + o(x^3))(x - \frac{x^3}{6} + o(x^3)) \)</p>
+                        <p>只保留到 \( x^3 \) 项：</p>
+                        <p>\( e^x \sin x = (1 + x + \frac{x^2}{2} + \frac{x^3}{6})(x - \frac{x^3}{6}) + o(x^3) \)</p>
+                        <p>\( = x - \frac{x^3}{6} + x^2 - \frac{x^4}{6} + \frac{x^3}{2} - \frac{x^5}{12} + \frac{x^4}{6} - \frac{x^6}{36} + o(x^3) \)</p>
+                        <p>\( = x + x^2 + (\frac{1}{2} - \frac{1}{6})x^3 + o(x^3) \)</p>
+                        <p>\( = x + x^2 + \frac{1}{3}x^3 + o(x^3) \)</p>
+                        
+                        <p>计算分子：</p>
+                        <p>\( e^x \sin x - x(1+x) = x + x^2 + \frac{1}{3}x^3 + o(x^3) - x - x^2 \)</p>
+                        <p>\( = \frac{1}{3}x^3 + o(x^3) \)</p>
+                        
+                        <p>计算极限：</p>
+                        <p>\( \lim_{x \to 0} \frac{e^x \sin x - x(1+x)}{x^3} = \lim_{x \to 0} \frac{\frac{1}{3}x^3 + o(x^3)}{x^3} \)</p>
+                        <p>\( = \lim_{x \to 0} (\frac{1}{3} + \frac{o(x^3)}{x^3}) = \frac{1}{3} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \lim_{x \to 0} \frac{e^x \sin x - x(1+x)}{x^3} = \frac{1}{3} \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 三、微分不等式题型 -->
+            <div class="section">
+                <h2>三、微分不等式题型</h2>
+                
+                <!-- 1. 导数符号与函数不等式 -->
+                <h3 id="derivative-inequality">1. 导数符号与函数不等式</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题8：</div>
+                    <div class="question-content">
+                        <p>设 \( f(x) > 0 \)，\( f'(x) \) 存在且 \( f''(x) \leq 0 \)，证明 \( f'(x) \geq 0 \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('derivative-inequality-card')">导数与不等式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer8')">查看详解</button>
+                    <div id="answer8" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个关于函数凹凸性与单调性的证明题，需要利用二阶导数的性质。</p>
+                        
+                        <h4>证明过程：</h4>
+                        <p>已知条件：</p>
+                        <p>1. \( f(x) > 0 \)</p>
+                        <p>2. \( f'(x) \) 存在</p>
+                        <p>3. \( f''(x) \leq 0 \)</p>
+                        
+                        <p>要证明：\( f'(x) \geq 0 \)</p>
+                        
+                        <p>由于 \( f''(x) \leq 0 \)，说明函数 \( f(x) \) 是上凸函数（或称凹函数）。</p>
+                        
+                        <p>反证法：假设存在某点 \( x_0 \) 使得 \( f'(x_0) < 0 \)</p>
+                        
+                        <p>由于 \( f''(x) \leq 0 \)，所以 \( f'(x) \) 是单调递减函数。</p>
+                        
+                        <p>因此，当 \( x > x_0 \) 时，有 \( f'(x) \leq f'(x_0) < 0 \)</p>
+                        
+                        <p>这意味着当 \( x > x_0 \) 时，\( f(x) \) 单调递减。</p>
+                        
+                        <p>考虑 \( x \to +\infty \) 时的情况：</p>
+                        <p>由于 \( f'(x) \leq f'(x_0) < 0 \) 对所有 \( x > x_0 \) 成立，</p>
+                        <p>我们有：</p>
+                        <p>\( f(x) = f(x_0) + \int_{x_0}^x f'(t) dt \leq f(x_0) + \int_{x_0}^x f'(x_0) dt = f(x_0) + f'(x_0)(x - x_0) \)</p>
+                        
+                        <p>当 \( x \to +\infty \) 时，右边 \( \to -\infty \)（因为 \( f'(x_0) < 0 \)）</p>
+                        
+                        <p>这与 \( f(x) > 0 \) 矛盾。</p>
+                        
+                        <p>因此，假设不成立，即对所有 \( x \)，都有 \( f'(x) \geq 0 \)。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>由函数的凹性和正性，可证明 \( f'(x) \geq 0 \)。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 构造辅助函数证明不等式 -->
+                <h3 id="auxiliary-function">2. 构造辅助函数证明不等式</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题9：</div>
+                    <div class="question-content">
+                        <p>设 \( e < a < b \)，证明 \( a^b < b^a \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('auxiliary-function-card')">辅助函数法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer9')">查看详解</button>
+                    <div id="answer9" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个经典的不等式证明题，可以通过构造辅助函数并分析其单调性来证明。</p>
+                        
+                        <h4>证明过程：</h4>
+                        <p>要证明 \( a^b < b^a \)，即证明 \( \frac{\ln a}{a} > \frac{\ln b}{b} \)（因为 \( a,b > 0 \)）</p>
+                        
+                        <p>构造辅助函数 \( f(x) = \frac{\ln x}{x} \)，其中 \( x > 0 \)</p>
+                        
+                        <p>计算 \( f'(x) \)：</p>
+                        <p>\( f'(x) = \frac{(\ln x)' \cdot x - \ln x \cdot (x)'}{x^2} = \frac{\frac{1}{x} \cdot x - \ln x \cdot 1}{x^2} = \frac{1 - \ln x}{x^2} \)</p>
+                        
+                        <p>分析 \( f'(x) \) 的符号：</p>
+                        <p>当 \( x > e \) 时，\( \ln x > 1 \)，所以 \( 1 - \ln x < 0 \)</p>
+                        <p>又因为 \( x^2 > 0 \)，所以 \( f'(x) < 0 \)</p>
+                        
+                        <p>因此，当 \( x > e \) 时，\( f(x) = \frac{\ln x}{x} \) 单调递减。</p>
+                        
+                        <p>由于 \( e < a < b \)，根据单调递减性，有：</p>
+                        <p>\( f(a) > f(b) \)</p>
+                        <p>即：\( \frac{\ln a}{a} > \frac{\ln b}{b} \)</p>
+                        
+                        <p>两边同时乘以 \( ab > 0 \)：</p>
+                        <p>\( b \ln a > a \ln b \)</p>
+                        
+                        <p>即：\( \ln a^b > \ln b^a \)</p>
+                        
+                        <p>由于自然对数函数单调递增，所以：</p>
+                        <p>\( a^b > b^a \)</p>
+                        
+                        <p>等等，这与我们要证明的结论相反！</p>
+                        
+                        <p>重新检查：我们要证明的是 \( a^b < b^a \)</p>
+                        <p>即 \( \frac{\ln a}{a} < \frac{\ln b}{b} \)</p>
+                        
+                        <p>由于 \( f(x) = \frac{\ln x}{x} \) 在 \( (e,+\infty) \) 上单调递减</p>
+                        <p>且 \( e < a < b \)</p>
+                        <p>所以 \( f(a) > f(b) \)</p>
+                        <p>即 \( \frac{\ln a}{a} > \frac{\ln b}{b} \)</p>
+                        
+                        <p>这说明 \( a^b > b^a \)，与题目要求证明的结论相反。</p>
+                        
+                        <p>重新审视题目，发现题目可能是想让我们证明 \( a^b > b^a \)</p>
+                        <p>但题目明确要求证明 \( a^b < b^a \)</p>
+                        
+                        <p>让我们再仔细分析：</p>
+                        <p>取具体数值验证：设 \( a = 3, b = 4 \)（满足 \( e < 3 < 4 \)）</p>
+                        <p>\( a^b = 3^4 = 81 \)</p>
+                        <p>\( b^a = 4^3 = 64 \)</p>
+                        <p>显然 \( 81 > 64 \)，即 \( a^b > b^a \)</p>
+                        
+                        <p>因此，题目中的不等式方向可能有误，正确的应该是 \( a^b > b^a \)</p>
+                        <p>但按照题目要求，我们给出正确的证明：</p>
+                        
+                        <p>实际上，当 \( e < a < b \) 时，有 \( a^b > b^a \)</p>
+                        <p>证明过程如上。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>当 \( e < a < b \) 时，实际上有 \( a^b > b^a \)。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 四、函数性质分析题型 -->
+            <div class="section">
+                <h2>四、函数性质分析题型</h2>
+                
+                <!-- 1. 函数单调性分析 -->
+                <h3 id="monotonicity">1. 函数单调性分析</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题10：</div>
+                    <div class="question-content">
+                        <p>讨论函数 \( f(x) = x^2 e^{-x} \) 的单调性。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('monotonicity-card')">函数单调性</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer10')">查看详解</button>
+                    <div id="answer10" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>通过求导数并分析导数的符号来判断函数的单调性。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>首先求 \( f'(x) \)：</p>
+                        <p>\( f(x) = x^2 e^{-x} \)</p>
+                        <p>使用乘积法则：</p>
+                        <p>\( f'(x) = (x^2)' e^{-x} + x^2 (e^{-x})' \)</p>
+                        <p>\( = 2x e^{-x} + x^2 (-e^{-x}) \)</p>
+                        <p>\( = 2x e^{-x} - x^2 e^{-x} \)</p>
+                        <p>\( = x e^{-x} (2 - x) \)</p>
+                        
+                        <p>分析 \( f'(x) \) 的符号：</p>
+                        <p>因为 \( e^{-x} > 0 \) 对所有 \( x \) 成立</p>
+                        <p>所以 \( f'(x) \) 的符号由 \( x(2-x) \) 决定</p>
+                        
+                        <p>令 \( f'(x) = 0 \)：</p>
+                        <p>\( x e^{-x} (2 - x) = 0 \)</p>
+                        <p>解得 \( x = 0 \) 或 \( x = 2 \)</p>
+                        
+                        <p>分析各区间的符号：</p>
+                        <p>1. 当 \( x < 0 \) 时，\( x < 0 \)，\( 2-x > 0 \)，所以 \( f'(x) = x e^{-x} (2-x) < 0 \)</p>
+                        <p>2. 当 \( 0 < x < 2 \) 时，\( x > 0 \)，\( 2-x > 0 \)，所以 \( f'(x) = x e^{-x} (2-x) > 0 \)</p>
+                        <p>3. 当 \( x > 2 \) 时，\( x > 0 \)，\( 2-x < 0 \)，所以 \( f'(x) = x e^{-x} (2-x) < 0 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>- 当 \( x \in (-\infty, 0) \) 时，\( f'(x) < 0 \)，函数单调递减</p>
+                        <p>- 当 \( x \in (0, 2) \) 时，\( f'(x) > 0 \)，函数单调递增</p>
+                        <p>- 当 \( x \in (2, +\infty) \) 时，\( f'(x) < 0 \)，函数单调递减</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x) = x^2 e^{-x} \) 在 \( (-\infty, 0) \) 和 \( (2, +\infty) \) 上单调递减，在 \( (0, 2) \) 上单调递增。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 函数极值与最值 -->
+                <h3 id="extremum">2. 函数极值与最值</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题11：</div>
+                    <div class="question-content">
+                        <p>求函数 \( f(x) = x^3 - 3x^2 + 5 \) 在区间 \([-1, 3]\) 上的最大值和最小值。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('extremum-card')">函数极值</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer11')">查看详解</button>
+                    <div id="answer11" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是闭区间上连续函数最值问题，需要找出所有可能的极值点并比较函数值。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：求驻点</p>
+                        <p>\( f(x) = x^3 - 3x^2 + 5 \)</p>
+                        <p>\( f'(x) = 3x^2 - 6x = 3x(x-2) \)</p>
+                        <p>令 \( f'(x) = 0 \)：</p>
+                        <p>\( 3x(x-2) = 0 \)</p>
+                        <p>解得 \( x = 0 \) 或 \( x = 2 \)</p>
+                        <p>这两个点都在区间 \([-1, 3]\) 内</p>
+                        
+                        <p>第二步：计算函数在驻点和端点的值</p>
+                        <p>\( f(-1) = (-1)^3 - 3(-1)^2 + 5 = -1 - 3 + 5 = 1 \)</p>
+                        <p>\( f(0) = 0^3 - 3 \cdot 0^2 + 5 = 5 \)</p>
+                        <p>\( f(2) = 2^3 - 3 \cdot 2^2 + 5 = 8 - 12 + 5 = 1 \)</p>
+                        <p>\( f(3) = 3^3 - 3 \cdot 3^2 + 5 = 27 - 27 + 5 = 5 \)</p>
+                        
+                        <p>第三步：比较函数值</p>
+                        <p>函数值为：\( f(-1) = 1 \)，\( f(0) = 5 \)，\( f(2) = 1 \)，\( f(3) = 5 \)</p>
+                        <p>最大值为 5，最小值为 1</p>
+                        
+                        <h4>答案：</h4>
+                        <p>函数 \( f(x) = x^3 - 3x^2 + 5 \) 在区间 \([-1, 3]\) 上的最大值为 5，最小值为 1。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 函数凹凸性与拐点 -->
+                <h3 id="concavity">3. 函数凹凸性与拐点</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题12：</div>
+                    <div class="question-content">
+                        <p>求曲线 \( y = x^4 - 2x^3 + 1 \) 的拐点。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('concavity-card')">函数凹凸性</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer12')">查看详解</button>
+                    <div id="answer12" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>拐点是函数凹凸性发生变化的点，需要通过二阶导数来判断。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：求一阶和二阶导数</p>
+                        <p>\( y = x^4 - 2x^3 + 1 \)</p>
+                        <p>\( y' = 4x^3 - 6x^2 \)</p>
+                        <p>\( y'' = 12x^2 - 12x = 12x(x-1) \)</p>
+                        
+                        <p>第二步：找可能的拐点</p>
+                        <p>令 \( y'' = 0 \)：</p>
+                        <p>\( 12x(x-1) = 0 \)</p>
+                        <p>解得 \( x = 0 \) 或 \( x = 1 \)</p>
+                        
+                        <p>第三步：判断二阶导数在这些点附近的符号</p>
+                        <p>1. 当 \( x < 0 \) 时，\( x < 0 \)，\( x-1 < 0 \)，所以 \( y'' = 12x(x-1) > 0 \)</p>
+                        <p>2. 当 \( 0 < x < 1 \) 时，\( x > 0 \)，\( x-1 < 0 \)，所以 \( y'' = 12x(x-1) < 0 \)</p>
+                        <p>3. 当 \( x > 1 \) 时，\( x > 0 \)，\( x-1 > 0 \)，所以 \( y'' = 12x(x-1) > 0 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>- 当 \( x < 0 \) 时，\( y'' > 0 \)，曲线是凹的</p>
+                        <p>- 当 \( 0 < x < 1 \) 时，\( y'' < 0 \)，曲线是凸的</p>
+                        <p>- 当 \( x > 1 \) 时，\( y'' > 0 \)，曲线是凹的</p>
+                        
+                        <p>因为二阶导数在 \( x = 0 \) 和 \( x = 1 \) 处变号，所以这两点都是拐点。</p>
+                        
+                        <p>第四步：计算拐点的坐标</p>
+                        <p>当 \( x = 0 \) 时，\( y = 0^4 - 2 \cdot 0^3 + 1 = 1 \)，拐点为 \( (0, 1) \)</p>
+                        <p>当 \( x = 1 \) 时，\( y = 1^4 - 2 \cdot 1^3 + 1 = 0 \)，拐点为 \( (1, 0) \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>曲线 \( y = x^4 - 2x^3 + 1 \) 的拐点为 \( (0, 1) \) 和 \( (1, 0) \)。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            高等数学第二章题型分类练习 · 导数与微分、中值定理
+        </div>
+    </div>
+    
+    <!-- 知识点卡片 -->
+    <!-- 导数定义卡片 -->
+    <div id="derivative-definition-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('derivative-definition-card')">×</button>
+        <h4>导数定义</h4>
+        <p>函数 \( y = f(x) \) 在点 \( x_0 \) 处的导数定义为：</p>
+        <div class="formula">\( f'(x_0) = \lim_{\Delta x \to 0} \frac{f(x_0 + \Delta x) - f(x_0)}{\Delta x} \)</div>
+        <p>或等价地：</p>
+        <div class="formula">\( f'(x_0) = \lim_{x \to x_0} \frac{f(x) - f(x_0)}{x - x_0} \)</div>
+        <p><strong>导数的几何意义：</strong>函数在某点的导数就是曲线在该点切线的斜率。</p>
+        <p><strong>导数的物理意义：</strong>如果函数表示物体的运动规律，则导数表示物体在该时刻的瞬时速度。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            对于分段函数在分界点处的可导性，必须使用导数定义来判断。<br>
+            注意区分导函数的连续性和函数的可导性。
+        </div>
+    </div>
+    
+    <!-- 高阶导数卡片 -->
+    <div id="higher-derivative-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('higher-derivative-card')">×</button>
+        <h4>高阶导数</h4>
+        <p>函数的高阶导数是逐次求导得到的：</p>
+        <ul>
+            <li>一阶导数：\( y' = f'(x) \)</li>
+            <li>二阶导数：\( y'' = f''(x) = (f'(x))' \)</li>
+            <li>n阶导数：\( y^{(n)} = f^{(n)}(x) = (f^{(n-1)}(x))' \)</li>
+        </ul>
+        <p><strong>莱布尼茨公式：</strong>用于计算两个函数乘积的n阶导数</p>
+        <div class="formula">\( (uv)^{(n)} = \sum_{k=0}^{n} C_n^k u^{(n-k)} v^{(k)} \)</div>
+        <p>其中 \( C_n^k = \frac{n!}{k!(n-k)!} \) 是组合数。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            求高阶导数时，先计算前几阶导数，找出规律。<br>
+            对于乘积形式的函数，考虑使用莱布尼茨公式。
+        </div>
+    </div>
+    
+    <!-- 隐函数求导卡片 -->
+    <div id="implicit-differentiation-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('implicit-differentiation-card')">×</button>
+        <h4>隐函数求导</h4>
+        <p>当函数由方程 \( F(x,y) = 0 \) 确定时，称为隐函数。</p>
+        <p><strong>隐函数求导法：</strong></p>
+        <p>对方程两边同时对 \( x \) 求导，将 \( y \) 看作 \( x \) 的函数。</p>
+        <p><strong>参数方程求导：</strong></p>
+        <p>若参数方程为 \( \begin{cases} x = \varphi(t) \\ y = \psi(t) \end{cases} \)，则：</p>
+        <div class="formula">\( \frac{dy}{dx} = \frac{\frac{dy}{dt}}{\frac{dx}{dt}} = \frac{\psi'(t)}{\varphi'(t)} \)</div>
+        <p>二阶导数：</p>
+        <div class="formula">\( \frac{d^2y}{dx^2} = \frac{d}{dx}\left(\frac{dy}{dx}\right) = \frac{\frac{d}{dt}\left(\frac{dy}{dx}\right)}{\frac{dx}{dt}} \)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            隐函数求导时，记得应用链式法则。<br>
+            对于复杂表达式，可以先进行对数求导以简化计算。
+        </div>
+    </div>
+    
+    <!-- 罗尔定理卡片 -->
+    <div id="rolle-theorem-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('rolle-theorem-card')">×</button>
+        <h4>罗尔定理</h4>
+        <p>如果函数 \( f(x) \) 满足：</p>
+        <ol>
+            <li>在闭区间 \([a,b]\) 上连续</li>
+            <li>在开区间 \((a,b)\) 内可导</li>
+            <li>\( f(a) = f(b) \)</li>
+        </ol>
+        <p>则至少存在一点 \( \xi \in (a,b) \)，使得 \( f'(\xi) = 0 \)。</p>
+        <p><strong>几何意义：</strong>在两端点函数值相等的连续光滑曲线上，至少存在一点，其切线平行于x轴。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            罗尔定理常用于证明方程根的存在性。<br>
+            可以多次应用罗尔定理来证明高阶导数零点的存在性。
+        </div>
+    </div>
+    
+    <!-- 拉格朗日中值定理卡片 -->
+    <div id="lagrange-theorem-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('lagrange-theorem-card')">×</button>
+        <h4>拉格朗日中值定理</h4>
+        <p>如果函数 \( f(x) \) 满足：</p>
+        <ol>
+            <li>在闭区间 \([a,b]\) 上连续</li>
+            <li>在开区间 \((a,b)\) 内可导</li>
+        </ol>
+        <p>则至少存在一点 \( \xi \in (a,b) \)，使得：</p>
+        <div class="formula">\( f(b) - f(a) = f'(\xi)(b - a) \)</div>
+        <p>或写成：</p>
+        <div class="formula">\( \frac{f(b) - f(a)}{b - a} = f'(\xi) \)</p>
+        <p><strong>几何意义：</strong>在连续光滑的曲线上，至少存在一点，其切线平行于连接两端点的弦。</p>
+        <p><strong>推论：</strong></p>
+        <ul>
+            <li>若在区间 \( I \) 上 \( f'(x) = 0 \)，则 \( f(x) \) 在 \( I \) 上为常数</li>
+            <li>若在区间 \( I \) 上 \( f'(x) > 0 \)（或 \( f'(x) < 0 \)），则 \( f(x) \) 在 \( I \) 上严格单调递增（或递减）</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            拉格朗日中值定理是证明不等式的重要工具。<br>
+            可用于函数增量的估计和极限计算。
+        </div>
+    </div>
+    
+    <!-- 柯西中值定理卡片 -->
+    <div id="cauchy-theorem-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('cauchy-theorem-card')">×</button>
+        <h4>柯西中值定理</h4>
+        <p>如果函数 \( f(x) \) 和 \( g(x) \) 满足：</p>
+        <ol>
+            <li>在闭区间 \([a,b]\) 上都连续</li>
+            <li>在开区间 \((a,b)\) 内都可导</li>
+            <li>在 \((a,b)\) 内 \( g'(x) \neq 0 \)</li>
+        </ol>
+        <p>则至少存在一点 \( \xi \in (a,b) \)，使得：</p>
+        <div class="formula">\( \frac{f(b) - f(a)}{g(b) - g(a)} = \frac{f'(\xi)}{g'(\xi)} \)</div>
+        <p><strong>注意：</strong>柯西中值定理是拉格朗日中值定理的推广，当 \( g(x) = x \) 时即为拉格朗日中值定理。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            柯西中值定理主要用于处理两个函数比值的极限问题。<br>
+            是洛必达法则的理论基础。
+        </div>
+    </div>
+    
+    <!-- 泰勒公式卡片 -->
+    <div id="taylor-formula-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('taylor-formula-card')">×</button>
+        <h4>泰勒公式</h4>
+        <p>如果函数 \( f(x) \) 在点 \( x_0 \) 的某个邻域内具有 \( (n+1) \) 阶导数，则对该邻域内的任意 \( x \)，有：</p>
+        <div class="formula">
+            \( f(x) = f(x_0) + f'(x_0)(x-x_0) + \frac{f''(x_0)}{2!}(x-x_0)^2 + \cdots + \frac{f^{(n)}(x_0)}{n!}(x-x_0)^n + R_n(x) \)
+        </div>
+        <p>其中 \( R_n(x) \) 是余项，拉格朗日形式的余项为：</p>
+        <div class="formula">
+            \( R_n(x) = \frac{f^{(n+1)}(\xi)}{(n+1)!}(x-x_0)^{n+1} \)
+        </div>
+        <p>其中 \( \xi \) 是介于 \( x_0 \) 与 \( x \) 之间的某个值。</p>
+        <p><strong>麦克劳林公式：</strong>当 \( x_0 = 0 \) 时的泰勒公式：</p>
+        <div class="formula">
+            \( f(x) = f(0) + f'(0)x + \frac{f''(0)}{2!}x^2 + \cdots + \frac{f^{(n)}(0)}{n!}x^n + R_n(x) \)
+        </div>
+        <p><strong>常见函数的麦克劳林展开：</strong></p>
+        <ul>
+            <li>\( e^x = 1 + x + \frac{x^2}{2!} + \frac{x^3}{3!} + \cdots + \frac{x^n}{n!} + \cdots \)</li>
+            <li>\( \sin x = x - \frac{x^3}{3!} + \frac{x^5}{5!} - \frac{x^7}{7!} + \cdots \)</li>
+            <li>\( \cos x = 1 - \frac{x^2}{2!} + \frac{x^4}{4!} - \frac{x^6}{6!} + \cdots \)</li>
+            <li>\( \ln(1+x) = x - \frac{x^2}{2} + \frac{x^3}{3} - \frac{x^4}{4} + \cdots \)（\(|x|<1\)）</li>
+            <li>\( (1+x)^m = 1 + mx + \frac{m(m-1)}{2!}x^2 + \cdots \)（\(|x|<1\)）</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            泰勒公式是计算极限和近似计算的有力工具。<br>
+            使用时要注意展开的阶数，通常展开到分母的同阶即可。
+        </div>
+    </div>
+    
+    <!-- 导数与不等式卡片 -->
+    <div id="derivative-inequality-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('derivative-inequality-card')">×</button>
+        <h4>导数与不等式</h4>
+        <p>函数的单调性与导数符号的关系：</p>
+        <ul>
+            <li>若在区间 \( I \) 上 \( f'(x) > 0 \)，则 \( f(x) \) 在 \( I \) 上严格单调递增</li>
+            <li>若在区间 \( I \) 上 \( f'(x) < 0 \)，则 \( f(x) \) 在 \( I \) 上严格单调递减</li>
+            <li>若在区间 \( I \) 上 \( f'(x) \geq 0 \)，则 \( f(x) \) 在 \( I \) 上单调递增</li>
+            <li>若在区间 \( I \) 上 \( f'(x) \leq 0 \)，则 \( f(x) \) 在 \( I \) 上单调递减</li>
+        </ul>
+        <p>函数的凹凸性与二阶导数的关系：</p>
+        <ul>
+            <li>若在区间 \( I \) 上 \( f''(x) > 0 \)，则 \( f(x) \) 在 \( I \) 上是凹函数（下凸）</li>
+            <li>若在区间 \( I \) 上 \( f''(x) < 0 \)，则 \( f(x) \) 在 \( I \) 上是凸函数（上凸）</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            证明不等式时，可以构造辅助函数并分析其单调性。<br>
+            注意利用函数的凹凸性，如琴生不等式等。
+        </div>
+    </div>
+    
+    <!-- 辅助函数法卡片 -->
+    <div id="auxiliary-function-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('auxiliary-function-card')">×</button>
+        <h4>辅助函数法</h4>
+        <p>在证明不等式或等式时，常常需要构造辅助函数，通过研究辅助函数的性质来解决问题。</p>
+        <p><strong>常见的构造方法：</strong></p>
+        <ul>
+            <li>作差法：\( F(x) = f(x) - g(x) \)</li>
+            <li>作商法：\( F(x) = \frac{f(x)}{g(x)} \)（当 \( g(x) \neq 0 \) 时）</li>
+            <li>对数法：\( F(x) = \ln f(x) - \ln g(x) \)（当 \( f(x), g(x) > 0 \) 时）</li>
+            <li>变量替换：通过适当的变量替换简化问题</li>
+        </ul>
+        <p><strong>应用步骤：</strong></p>
+        <ol>
+            <li>根据要证明的结论构造合适的辅助函数</li>
+            <li>分析辅助函数的性质（连续性、可导性等）</li>
+            <li>计算辅助函数的导数</li>
+            <li>分析导数的符号，判断函数的单调性</li>
+            <li>利用函数的单调性得出结论</li>
+        </ol>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            构造辅助函数时要根据具体问题选择合适的形式。<br>
+            注意利用函数在特殊点的值，如端点、驻点等。
+        </div>
+    </div>
+    
+    <!-- 函数单调性卡片 -->
+    <div id="monotonicity-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('monotonicity-card')">×</button>
+        <h4>函数单调性</h4>
+        <p>函数单调性的判定：</p>
+        <ul>
+            <li>若在区间 \( I \) 上 \( f'(x) > 0 \)，则 \( f(x) \) 在 \( I \) 上严格单调递增</li>
+            <li>若在区间 \( I \) 上 \( f'(x) < 0 \)，则 \( f(x) \) 在 \( I \) 上严格单调递减</li>
+            <li>若在区间 \( I \) 上 \( f'(x) \geq 0 \)，则 \( f(x) \) 在 \( I \) 上单调递增</li>
+            <li>若在区间 \( I \) 上 \( f'(x) \leq 0 \)，则 \( f(x) \) 在 \( I \) 上单调递减</li>
+        </ul>
+        <p><strong>单调区间求法：</strong></p>
+        <ol>
+            <li>确定函数的定义域</li>
+            <li>求出导数 \( f'(x) \)</li>
+            <li>求出 \( f'(x) = 0 \) 的点和 \( f'(x) \) 不存在的点</li>
+            <li>用这些点划分定义域，得到若干个子区间</li>
+            <li>在每个子区间上判断 \( f'(x) \) 的符号</li>
+            <li>根据符号确定函数在各子区间上的单调性</li>
+        </ol>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            注意区分严格单调和单调（不严格单调）。<br>
+            对于分段函数，要分别讨论各段的单调性，并注意连接点处的情况。
+        </div>
+    </div>
+    
+    <!-- 函数极值卡片 -->
+    <div id="extremum-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('extremum-card')">×</button>
+        <h4>函数极值</h4>
+        <p><strong>极值的定义：</strong></p>
+        <ul>
+            <li>若存在 \( \delta > 0 \)，使得对满足 \( 0 < |x-x_0| < \delta \) 的所有 \( x \)，都有 \( f(x) < f(x_0) \)，则称 \( f(x_0) \) 为极大值</li>
+            <li>若存在 \( \delta > 0 \)，使得对满足 \( 0 < |x-x_0| < \delta \) 的所有 \( x \)，都有 \( f(x) > f(x_0) \)，则称 \( f(x_0) \) 为极小值</li>
+        </ul>
+        <p><strong>极值的必要条件：</strong></p>
+        <p>若 \( f(x) \) 在 \( x_0 \) 处可导且在 \( x_0 \) 处取得极值，则 \( f'(x_0) = 0 \)。</p>
+        <p><strong>极值的第一充分条件：</strong></p>
+        <p>设 \( f(x) \) 在 \( x_0 \) 处连续，在 \( x_0 \) 的某去心邻域内可导：</p>
+        <ul>
+            <li>若在 \( (x_0-\delta, x_0) \) 内 \( f'(x) > 0 \)，在 \( (x_0, x_0+\delta) \) 内 \( f'(x) < 0 \)，则 \( f(x_0) \) 为极大值</li>
+            <li>若在 \( (x_0-\delta, x_0) \) 内 \( f'(x) < 0 \)，在 \( (x_0, x_0+\delta) \) 内 \( f'(x) > 0 \)，则 \( f(x_0) \) 为极小值</li>
+        </ul>
+        <p><strong>极值的第二充分条件：</strong></p>
+        <p>设 \( f(x) \) 在 \( x_0 \) 处二阶可导，且 \( f'(x_0) = 0 \)，\( f''(x_0) \neq 0 \)：</p>
+        <ul>
+            <li>若 \( f''(x_0) < 0 \)，则 \( f(x_0) \) 为极大值</li>
+            <li>若 \( f''(x_0) > 0 \)，则 \( f(x_0) \) 为极小值</li>
+        </ul>
+        <p><strong>闭区间上连续函数的最值：</strong></p>
+        <p>在闭区间 \([a,b]\) 上连续的函数一定存在最大值和最小值，它们在驻点、不可导点或端点处取得。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            求最值时，要比较所有驻点、不可导点和端点的函数值。<br>
+            注意区分极值和最值，极值是局部概念，最值是全局概念。
+        </div>
+    </div>
+    
+    <!-- 函数凹凸性卡片 -->
+    <div id="concavity-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('concavity-card')">×</button>
+        <h4>函数凹凸性</h4>
+        <p><strong>凹凸性的定义：</strong></p>
+        <ul>
+            <li>若曲线 \( y = f(x) \) 在某区间内任意两点间的弧段都在所连弦的上方，则称曲线在该区间内是凹的</li>
+            <li>若曲线 \( y = f(x) \) 在某区间内任意两点间的弧段都在所连弦的下方，则称曲线在该区间内是凸的</li>
+        </ul>
+        <p><strong>凹凸性的判定：</strong></p>
+        <ul>
+            <li>若在区间 \( I \) 上 \( f''(x) > 0 \)，则 \( f(x) \) 在 \( I \) 上是凹函数</li>
+            <li>若在区间 \( I \) 上 \( f''(x) < 0 \)，则 \( f(x) \) 在 \( I \) 上是凸函数</li>
+        </ul>
+        <p><strong>拐点：</strong></p>
+        <p>连续曲线凹弧与凸弧的分界点称为拐点。</p>
+        <p><strong>拐点的求法：</strong></p>
+        <ol>
+            <li>求出二阶导数 \( f''(x) \)</li>
+            <li>求出使 \( f''(x) = 0 \) 的点和 \( f''(x) \) 不存在的点</li>
+            <li>检查这些点左右两侧 \( f''(x) \) 的符号是否相反</li>
+            <li>若符号相反，则该点是拐点</li>
+        </ol>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            拐点处二阶导数可能为0或不存在。<br>
+            二阶导数为0的点不一定是拐点，必须检查左右两侧二阶导数的符号。
+        </div>
+    </div>
+    
+    <script>
+        // 展开/折叠功能
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            const button = document.querySelector(`button[onclick="toggleAnswer('${id}')"]`);
+            
+            answer.classList.toggle('active');
+            
+            if (answer.classList.contains('active')) {
+                button.textContent = '收起详解';
+            } else {
+                button.textContent = '查看详解';
+            }
+        }
+        
+        // 显示知识点卡片
+        function showKnowledgeCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.add('active');
+        }
+        
+        // 隐藏知识点卡片
+        function hideKnowledgeCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.remove('active');
+        }
+        
+        // 点击卡片外部区域关闭卡片
+        document.addEventListener('click', function(event) {
+            const knowledgeCards = document.querySelectorAll('.knowledge-card');
+            knowledgeCards.forEach(card => {
+                if (card.classList.contains('active') && !card.contains(event.target) && 
+                    !event.target.classList.contains('knowledge-link')) {
+                    card.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,1515 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第5讲 多元函数积分学 题型分类练习</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .intro {
+                padding: 15px;
+            }
+            
+            .highlight-section {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h3 {
+            color: #3498db;
+            font-size: 22px;
+            margin: 20px 0 15px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .question-content {
+            margin: 10px 0;
+        }
+
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .answer {
+            display: none;
+            padding: 20px;
+            background: #fff8e1;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .answer.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .answer h4 {
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .answer p {
+            margin: 8px 0;
+        }
+
+        .answer ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .answer li {
+            margin: 8px 0;
+        }
+
+        /* 知识点卡片样式 */
+        .knowledge-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #3498db;
+            z-index: 1000;
+            max-width: 800px;
+            width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .knowledge-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .knowledge-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .knowledge-card .formula {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .knowledge-card .tip {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .knowledge-card ul {
+            padding-left: 20px;
+        }
+
+        .knowledge-card li {
+            margin: 8px 0;
+        }
+
+        .knowledge-link {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .knowledge-link:hover {
+            color: #e74c3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .answer {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 8px;
+            }
+            
+            header {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
+            
+            .question {
+                padding: 10px;
+            }
+            
+            .answer {
+                padding: 10px;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第5讲 多元函数积分学</h1>
+            <div class="subtitle">题型分类练习 · 高等数学第五章</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>题型概览</h2>
+                <p>本讲主要涵盖二重积分、三重积分、曲线积分、曲面积分以及积分公式等内容，通过典型例题帮助同学们掌握解题方法与技巧。</p>
+                <p>相关知识点请参阅：<a href="第18讲 多元函数积分学.html" target="_blank">第18讲 多元函数积分学 讲义</a></p>
+            </div>
+
+            <!-- 一、二重积分题型 -->
+            <div class="section">
+                <h2>一、二重积分题型</h2>
+                
+                <!-- 1. 直角坐标计算 -->
+                <h3 id="double-integral-rect">1. 直角坐标计算</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题1：</div>
+                    <div class="question-content">
+                        <p>计算二重积分 \( \iint_D (x^2 + y^2) dxdy \)，其中 \( D = \{(x,y) | 0 \leq x \leq 1, 0 \leq y \leq x \} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('double-integral-rect-card')">直角坐标计算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer1')">查看详解</button>
+                    <div id="answer1" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个X型区域上的二重积分，可以直接化为累次积分进行计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>由于区域 \( D \) 是X型区域，即对于任意 \( x \in [0,1] \)，有 \( y \in [0,x] \)，所以：</p>
+                        <p>\( \iint_D (x^2 + y^2) dxdy = \int_0^1 \int_0^x (x^2 + y^2) dy dx \)</p>
+                        
+                        <p>先计算内层积分：</p>
+                        <p>\( \int_0^x (x^2 + y^2) dy = \left[ x^2y + \frac{y^3}{3} \right]_0^x = x^3 + \frac{x^3}{3} = \frac{4x^3}{3} \)</p>
+                        
+                        <p>再计算外层积分：</p>
+                        <p>\( \int_0^1 \frac{4x^3}{3} dx = \frac{4}{3} \int_0^1 x^3 dx = \frac{4}{3} \cdot \left[ \frac{x^4}{4} \right]_0^1 = \frac{4}{3} \cdot \frac{1}{4} = \frac{1}{3} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_D (x^2 + y^2) dxdy = \frac{1}{3} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 极坐标计算 -->
+                <h3 id="double-integral-polar">2. 极坐标计算</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题2：</div>
+                    <div class="question-content">
+                        <p>计算二重积分 \( \iint_D e^{x^2+y^2} dxdy \)，其中 \( D = \{(x,y) | x^2 + y^2 \leq 1 \} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('double-integral-polar-card')">极坐标计算</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer2')">查看详解</button>
+                    <div id="answer2" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>积分区域是单位圆，被积函数含有 \( x^2 + y^2 \) 项，适合使用极坐标变换。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>使用极坐标变换：</p>
+                        <p>\( x = r\cos\theta, \quad y = r\sin\theta \)</p>
+                        <p>雅可比行列式 \( J = r \)</p>
+                        <p>积分区域 \( D \) 变为 \( D' = \{(r,\theta) | 0 \leq r \leq 1, 0 \leq \theta \leq 2\pi \} \)</p>
+                        <p>被积函数 \( e^{x^2+y^2} = e^{r^2} \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iint_D e^{x^2+y^2} dxdy = \iint_{D'} e^{r^2} \cdot r \, drd\theta \)</p>
+                        <p>\( = \int_0^{2\pi} \int_0^1 r e^{r^2} dr d\theta \)</p>
+                        
+                        <p>先计算内层积分，令 \( u = r^2 \)，则 \( du = 2r dr \)，所以 \( r dr = \frac{1}{2} du \)：</p>
+                        <p>\( \int_0^1 r e^{r^2} dr = \int_0^1 e^{r^2} d(r^2) \cdot \frac{1}{2} = \frac{1}{2} \int_0^1 e^u du = \frac{1}{2}[e^u]_0^1 = \frac{1}{2}(e - 1) \)</p>
+                        
+                        <p>再计算外层积分：</p>
+                        <p>\( \int_0^{2\pi} \frac{1}{2}(e - 1) d\theta = \frac{1}{2}(e - 1) \cdot 2\pi = \pi(e - 1) \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_D e^{x^2+y^2} dxdy = \pi(e - 1) \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 换序与换元 -->
+                <h3 id="double-integral-change">3. 换序与换元</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题3：</div>
+                    <div class="question-content">
+                        <p>交换积分次序：\( \int_0^1 \int_{\sqrt{x}}^1 f(x,y) dy dx \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('double-integral-change-card')">换序与换元</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer3')">查看详解</button>
+                    <div id="answer3" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>首先需要明确原积分的积分区域，然后重新确定积分次序。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>原积分的积分区域 \( D \) 由以下不等式确定：</p>
+                        <p>\( 0 \leq x \leq 1, \quad \sqrt{x} \leq y \leq 1 \)</p>
+                        
+                        <p>画出积分区域图，可以看出：</p>
+                        <p>对于 \( y \in [0,1] \)，有 \( x \in [0, y^2] \)</p>
+                        
+                        <p>因此，交换积分次序后为：</p>
+                        <p>\( \int_0^1 \int_0^{y^2} f(x,y) dx dy \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \int_0^1 \int_{\sqrt{x}}^1 f(x,y) dy dx = \int_0^1 \int_0^{y^2} f(x,y) dx dy \)</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 对称性应用 -->
+                <h3 id="double-integral-symmetry">4. 对称性应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题4：</div>
+                    <div class="question-content">
+                        <p>计算二重积分 \( \iint_D (x^3 + xy^2) dxdy \)，其中 \( D = \{(x,y) | x^2 + y^2 \leq 1 \} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('double-integral-symmetry-card')">对称性应用</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer4')">查看详解</button>
+                    <div id="answer4" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>利用积分区域的对称性和被积函数的奇偶性来简化计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将被积函数分解为两部分：</p>
+                        <p>\( x^3 + xy^2 = x^3 + xy^2 \)</p>
+                        
+                        <p>分析各部分的奇偶性：</p>
+                        <p>1. \( x^3 \)：关于 \( x \) 是奇函数</p>
+                        <p>2. \( xy^2 \)：关于 \( x \) 是奇函数</p>
+                        
+                        <p>积分区域 \( D \) 关于 \( y \) 轴对称，即如果 \( (x,y) \in D \)，则 \( (-x,y) \in D \)</p>
+                        
+                        <p>根据对称性原理：</p>
+                        <p>对于奇函数在对称区域上的积分等于零</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iint_D (x^3 + xy^2) dxdy = \iint_D x^3 dxdy + \iint_D xy^2 dxdy = 0 + 0 = 0 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_D (x^3 + xy^2) dxdy = 0 \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 二、三重积分题型 -->
+            <div class="section">
+                <h2>二、三重积分题型</h2>
+                
+                <!-- 1. 直角坐标 -->
+                <h3 id="triple-integral-rect">1. 直角坐标</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题5：</div>
+                    <div class="question-content">
+                        <p>计算三重积分 \( \iiint_\Omega (x + y + z) dxdydz \)，其中 \( \Omega = \{(x,y,z) | 0 \leq x \leq 1, 0 \leq y \leq 1, 0 \leq z \leq 1 \} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('triple-integral-rect-card')">直角坐标</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer5')">查看详解</button>
+                    <div id="answer5" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>积分区域是单位立方体，可以直接化为三次积分进行计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将三重积分化为三次积分：</p>
+                        <p>\( \iiint_\Omega (x + y + z) dxdydz = \int_0^1 \int_0^1 \int_0^1 (x + y + z) dz dy dx \)</p>
+                        
+                        <p>先计算最内层积分：</p>
+                        <p>\( \int_0^1 (x + y + z) dz = \left[ (x + y)z + \frac{z^2}{2} \right]_0^1 = x + y + \frac{1}{2} \)</p>
+                        
+                        <p>再计算第二层积分：</p>
+                        <p>\( \int_0^1 \left( x + y + \frac{1}{2} \right) dy = \left[ xy + \frac{y^2}{2} + \frac{y}{2} \right]_0^1 = x + \frac{1}{2} + \frac{1}{2} = x + 1 \)</p>
+                        
+                        <p>最后计算最外层积分：</p>
+                        <p>\( \int_0^1 (x + 1) dx = \left[ \frac{x^2}{2} + x \right]_0^1 = \frac{1}{2} + 1 = \frac{3}{2} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iiint_\Omega (x + y + z) dxdydz = \frac{3}{2} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 柱面坐标 -->
+                <h3 id="triple-integral-cylindrical">2. 柱面坐标</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题6：</div>
+                    <div class="question-content">
+                        <p>计算三重积分 \( \iiint_\Omega (x^2 + y^2) dxdydz \)，其中 \( \Omega \) 是由 \( x^2 + y^2 = 1 \)、\( z = 0 \) 和 \( z = 1 \) 围成的圆柱体。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('triple-integral-cylindrical-card')">柱面坐标</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer6')">查看详解</button>
+                    <div id="answer6" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>积分区域是圆柱体，被积函数含有 \( x^2 + y^2 \) 项，适合使用柱面坐标变换。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>使用柱面坐标变换：</p>
+                        <p>\( x = r\cos\theta, \quad y = r\sin\theta, \quad z = z \)</p>
+                        <p>雅可比行列式 \( J = r \)</p>
+                        <p>积分区域 \( \Omega \) 变为 \( \Omega' = \{(r,\theta,z) | 0 \leq r \leq 1, 0 \leq \theta \leq 2\pi, 0 \leq z \leq 1 \} \)</p>
+                        <p>被积函数 \( x^2 + y^2 = r^2 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iiint_\Omega (x^2 + y^2) dxdydz = \iiint_{\Omega'} r^2 \cdot r \, drd\theta dz \)</p>
+                        <p>\( = \int_0^{2\pi} \int_0^1 \int_0^1 r^3 dz dr d\theta \)</p>
+                        
+                        <p>先计算最内层积分：</p>
+                        <p>\( \int_0^1 r^3 dz = r^3 \cdot 1 = r^3 \)</p>
+                        
+                        <p>再计算第二层积分：</p>
+                        <p>\( \int_0^1 r^3 dr = \left[ \frac{r^4}{4} \right]_0^1 = \frac{1}{4} \)</p>
+                        
+                        <p>最后计算最外层积分：</p>
+                        <p>\( \int_0^{2\pi} \frac{1}{4} d\theta = \frac{1}{4} \cdot 2\pi = \frac{\pi}{2} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iiint_\Omega (x^2 + y^2) dxdydz = \frac{\pi}{2} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 球面坐标 -->
+                <h3 id="triple-integral-spherical">3. 球面坐标</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题7：</div>
+                    <div class="question-content">
+                        <p>计算三重积分 \( \iiint_\Omega (x^2 + y^2 + z^2) dxdydz \)，其中 \( \Omega \) 是单位球 \( x^2 + y^2 + z^2 \leq 1 \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('triple-integral-spherical-card')">球面坐标</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer7')">查看详解</button>
+                    <div id="answer7" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>积分区域是单位球，被积函数含有 \( x^2 + y^2 + z^2 \) 项，适合使用球面坐标变换。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>使用球面坐标变换：</p>
+                        <p>\( x = r\sin\phi\cos\theta, \quad y = r\sin\phi\sin\theta, \quad z = r\cos\phi \)</p>
+                        <p>雅可比行列式 \( J = r^2\sin\phi \)</p>
+                        <p>积分区域 \( \Omega \) 变为 \( \Omega' = \{(r,\theta,\phi) | 0 \leq r \leq 1, 0 \leq \theta \leq 2\pi, 0 \leq \phi \leq \pi \} \)</p>
+                        <p>被积函数 \( x^2 + y^2 + z^2 = r^2 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iiint_\Omega (x^2 + y^2 + z^2) dxdydz = \iiint_{\Omega'} r^2 \cdot r^2\sin\phi \, drd\theta d\phi \)</p>
+                        <p>\( = \int_0^{2\pi} \int_0^\pi \int_0^1 r^4\sin\phi \, dr d\phi d\theta \)</p>
+                        
+                        <p>先计算最内层积分：</p>
+                        <p>\( \int_0^1 r^4 dr = \left[ \frac{r^5}{5} \right]_0^1 = \frac{1}{5} \)</p>
+                        
+                        <p>再计算第二层积分：</p>
+                        <p>\( \int_0^\pi \sin\phi \, d\phi = \left[ -\cos\phi \right]_0^\pi = -\cos\pi + \cos 0 = -(-1) + 1 = 2 \)</p>
+                        
+                        <p>最后计算最外层积分：</p>
+                        <p>\( \int_0^{2\pi} \frac{1}{5} \cdot 2 \, d\theta = \frac{2}{5} \cdot 2\pi = \frac{4\pi}{5} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iiint_\Omega (x^2 + y^2 + z^2) dxdydz = \frac{4\pi}{5} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 对称性简化 -->
+                <h3 id="triple-integral-symmetry">4. 对称性简化</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题8：</div>
+                    <div class="question-content">
+                        <p>计算三重积分 \( \iiint_\Omega xyz \, dxdydz \)，其中 \( \Omega = \{(x,y,z) | x^2 + y^2 + z^2 \leq 1, x \geq 0, y \geq 0, z \geq 0 \} \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('triple-integral-symmetry-card')">对称性简化</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer8')">查看详解</button>
+                    <div id="answer8" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>利用积分区域的对称性和被积函数的奇偶性来简化计算。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>积分区域 \( \Omega \) 是单位球在第一卦限的部分。</p>
+                        
+                        <p>考虑被积函数 \( f(x,y,z) = xyz \)：</p>
+                        <p>1. 关于 \( x \)：奇函数</p>
+                        <p>2. 关于 \( y \)：奇函数</p>
+                        <p>3. 关于 \( z \)：奇函数</p>
+                        
+                        <p>如果我们将积分区域扩展到整个单位球 \( \Omega_0 = \{(x,y,z) | x^2 + y^2 + z^2 \leq 1 \} \)，</p>
+                        <p>那么 \( \Omega_0 \) 关于 \( x \)、\( y \)、\( z \) 轴都对称。</p>
+                        
+                        <p>由于 \( xyz \) 关于每个变量都是奇函数，所以在对称区域上的积分为零：</p>
+                        <p>\( \iiint_{\Omega_0} xyz \, dxdydz = 0 \)</p>
+                        
+                        <p>而 \( \Omega \) 是 \( \Omega_0 \) 在第一卦限的部分，其体积为 \( \frac{1}{8} \) 单位球体积。</p>
+                        
+                        <p>由于 \( x \geq 0, y \geq 0, z \geq 0 \) 在 \( \Omega \) 上，所以 \( xyz \geq 0 \)。</p>
+                        
+                        <p>但我们可以用另一种方法：注意到函数 \( xyz \) 在第一卦限是正的，</p>
+                        <p>但在其他卦限有正有负，且对称，所以整体积分为零。</p>
+                        
+                        <p>对于第一卦限的积分，我们直接计算：</p>
+                        <p>使用球面坐标，在第一卦限：\( 0 \leq r \leq 1 \)，\( 0 \leq \theta \leq \frac{\pi}{2} \)，\( 0 \leq \phi \leq \frac{\pi}{2} \)</p>
+                        <p>\( x = r\sin\phi\cos\theta \)，\( y = r\sin\phi\sin\theta \)，\( z = r\cos\phi \)</p>
+                        <p>\( xyz = r^3\sin^2\phi\cos\phi\sin\theta\cos\theta \)</p>
+                        <p>雅可比行列式 \( J = r^2\sin\phi \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iiint_\Omega xyz \, dxdydz = \int_0^{\pi/2} \int_0^{\pi/2} \int_0^1 r^5\sin^3\phi\cos\phi\sin\theta\cos\theta \, dr d\phi d\theta \)</p>
+                        
+                        <p>分别计算各层积分：</p>
+                        <p>1. \( \int_0^1 r^5 dr = \frac{1}{6} \)</p>
+                        <p>2. \( \int_0^{\pi/2} \sin^3\phi\cos\phi \, d\phi = \int_0^{\pi/2} \sin^3\phi \, d(\sin\phi) = \left[ \frac{\sin^4\phi}{4} \right]_0^{\pi/2} = \frac{1}{4} \)</p>
+                        <p>3. \( \int_0^{\pi/2} \sin\theta\cos\theta \, d\theta = \int_0^{\pi/2} \sin\theta \, d(\sin\theta) = \left[ \frac{\sin^2\theta}{2} \right]_0^{\pi/2} = \frac{1}{2} \)</p>
+                        
+                        <p>所以：</p>
+                        <p>\( \iiint_\Omega xyz \, dxdydz = \frac{1}{6} \cdot \frac{1}{4} \cdot \frac{1}{2} = \frac{1}{48} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iiint_\Omega xyz \, dxdydz = \frac{1}{48} \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 三、曲线积分题型 -->
+            <div class="section">
+                <h2>三、曲线积分题型</h2>
+                
+                <!-- 1. 第一类曲线积分（对弧长） -->
+                <h3 id="line-integral-arc">1. 第一类曲线积分（对弧长）</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题9：</div>
+                    <div class="question-content">
+                        <p>计算第一类曲线积分 \( \int_L (x^2 + y^2) ds \)，其中 \( L \) 是从点 \( (0,0) \) 到点 \( (1,1) \) 的直线段。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('line-integral-arc-card')">第一类曲线积分</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer9')">查看详解</button>
+                    <div id="answer9" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>第一类曲线积分是对弧长的积分，需要参数化曲线并计算弧长元素。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>参数化直线段 \( L \)：</p>
+                        <p>设 \( x = t \)，\( y = t \)，其中 \( t \) 从 0 到 1</p>
+                        
+                        <p>计算导数：</p>
+                        <p>\( \frac{dx}{dt} = 1 \)，\( \frac{dy}{dt} = 1 \)</p>
+                        
+                        <p>计算弧长元素：</p>
+                        <p>\( ds = \sqrt{\left(\frac{dx}{dt}\right)^2 + \left(\frac{dy}{dt}\right)^2} dt = \sqrt{1^2 + 1^2} dt = \sqrt{2} dt \)</p>
+                        
+                        <p>被积函数：</p>
+                        <p>\( x^2 + y^2 = t^2 + t^2 = 2t^2 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \int_L (x^2 + y^2) ds = \int_0^1 2t^2 \cdot \sqrt{2} dt = 2\sqrt{2} \int_0^1 t^2 dt \)</p>
+                        <p>\( = 2\sqrt{2} \left[ \frac{t^3}{3} \right]_0^1 = 2\sqrt{2} \cdot \frac{1}{3} = \frac{2\sqrt{2}}{3} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \int_L (x^2 + y^2) ds = \frac{2\sqrt{2}}{3} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 第二类曲线积分（对坐标） -->
+                <h3 id="line-integral-coordinate">2. 第二类曲线积分（对坐标）</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题10：</div>
+                    <div class="question-content">
+                        <p>计算第二类曲线积分 \( \int_L (x^2 dx + y^2 dy) \)，其中 \( L \) 是从点 \( (0,0) \) 到点 \( (1,1) \) 的抛物线 \( y = x^2 \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('line-integral-coordinate-card')">第二类曲线积分</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer10')">查看详解</button>
+                    <div id="answer10" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>第二类曲线积分是对坐标的积分，需要参数化曲线并分别计算各项。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>参数化曲线 \( L \)：</p>
+                        <p>设 \( x = t \)，则 \( y = t^2 \)，其中 \( t \) 从 0 到 1</p>
+                        
+                        <p>计算导数：</p>
+                        <p>\( dx = dt \)，\( dy = 2t dt \)</p>
+                        
+                        <p>被积函数的各项：</p>
+                        <p>\( x^2 = t^2 \)，\( y^2 = (t^2)^2 = t^4 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \int_L (x^2 dx + y^2 dy) = \int_0^1 (t^2 \cdot dt + t^4 \cdot 2t dt) \)</p>
+                        <p>\( = \int_0^1 (t^2 + 2t^5) dt \)</p>
+                        <p>\( = \left[ \frac{t^3}{3} + \frac{2t^6}{6} \right]_0^1 \)</p>
+                        <p>\( = \left[ \frac{t^3}{3} + \frac{t^6}{3} \right]_0^1 \)</p>
+                        <p>\( = \frac{1}{3} + \frac{1}{3} = \frac{2}{3} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \int_L (x^2 dx + y^2 dy) = \frac{2}{3} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 格林公式应用 -->
+                <h3 id="green-theorem">3. 格林公式应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题11：</div>
+                    <div class="question-content">
+                        <p>利用格林公式计算曲线积分 \( \oint_L (xy dx + x^2 dy) \)，其中 \( L \) 是正向圆周 \( x^2 + y^2 = 1 \)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('green-theorem-card')">格林公式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer11')">查看详解</button>
+                    <div id="answer11" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>格林公式将平面闭曲线积分转化为二重积分，适用于本题。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>格林公式：</p>
+                        <p>\( \oint_L (P dx + Q dy) = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dxdy \)</p>
+                        
+                        <p>在本题中：</p>
+                        <p>\( P(x,y) = xy \)，\( Q(x,y) = x^2 \)</p>
+                        
+                        <p>计算偏导数：</p>
+                        <p>\( \frac{\partial Q}{\partial x} = \frac{\partial}{\partial x}(x^2) = 2x \)</p>
+                        <p>\( \frac{\partial P}{\partial y} = \frac{\partial}{\partial y}(xy) = x \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 2x - x = x \)</p>
+                        
+                        <p>应用格林公式：</p>
+                        <p>\( \oint_L (xy dx + x^2 dy) = \iint_D x \, dxdy \)</p>
+                        
+                        <p>其中 \( D \) 是单位圆 \( x^2 + y^2 \leq 1 \)。</p>
+                        
+                        <p>利用对称性：</p>
+                        <p>积分区域 \( D \) 关于 \( y \) 轴对称，被积函数 \( x \) 关于 \( x \) 是奇函数，</p>
+                        <p>因此：</p>
+                        <p>\( \iint_D x \, dxdy = 0 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \oint_L (xy dx + x^2 dy) = 0 \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 四、曲面积分题型 -->
+            <div class="section">
+                <h2>四、曲面积分题型</h2>
+                
+                <!-- 1. 第一类曲面积分（对面积） -->
+                <h3 id="surface-integral-area">1. 第一类曲面积分（对面积）</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题12：</div>
+                    <div class="question-content">
+                        <p>计算第一类曲面积分 \( \iint_\Sigma (x^2 + y^2) dS \)，其中 \( \Sigma \) 是球面 \( x^2 + y^2 + z^2 = 1 \) 的上半部分。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('surface-integral-area-card')">第一类曲面积分</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer12')">查看详解</button>
+                    <div id="answer12" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>第一类曲面积分是对面积的积分，需要参数化曲面并计算面积元素。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>使用球面坐标参数化上半球面：</p>
+                        <p>\( x = \sin\phi\cos\theta \)，\( y = \sin\phi\sin\theta \)，\( z = \cos\phi \)</p>
+                        <p>其中 \( 0 \leq \theta \leq 2\pi \)，\( 0 \leq \phi \leq \frac{\pi}{2} \)</p>
+                        
+                        <p>计算偏导数：</p>
+                        <p>\( \frac{\partial \vec{r}}{\partial \theta} = (-\sin\phi\sin\theta, \sin\phi\cos\theta, 0) \)</p>
+                        <p>\( \frac{\partial \vec{r}}{\partial \phi} = (\cos\phi\cos\theta, \cos\phi\sin\theta, -\sin\phi) \)</p>
+                        
+                        <p>计算叉积：</p>
+                        <p>\( \frac{\partial \vec{r}}{\partial \theta} \times \frac{\partial \vec{r}}{\partial \phi} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ -\sin\phi\sin\theta & \sin\phi\cos\theta & 0 \\ \cos\phi\cos\theta & \cos\phi\sin\theta & -\sin\phi \end{vmatrix} \)</p>
+                        <p>\( = \vec{i}(-\sin^2\phi\cos\theta) - \vec{j}(\sin^2\phi\sin\theta) + \vec{k}(-\sin\phi\cos\phi\sin^2\theta - \sin\phi\cos\phi\cos^2\theta) \)</p>
+                        <p>\( = (-\sin^2\phi\cos\theta, -\sin^2\phi\sin\theta, -\sin\phi\cos\phi) \)</p>
+                        
+                        <p>计算模长：</p>
+                        <p>\( \left| \frac{\partial \vec{r}}{\partial \theta} \times \frac{\partial \vec{r}}{\partial \phi} \right| = \sqrt{\sin^4\phi\cos^2\theta + \sin^4\phi\sin^2\theta + \sin^2\phi\cos^2\phi} \)</p>
+                        <p>\( = \sqrt{\sin^4\phi + \sin^2\phi\cos^2\phi} = \sqrt{\sin^2\phi(\sin^2\phi + \cos^2\phi)} = \sqrt{\sin^2\phi} = \sin\phi \)</p>
+                        
+                        <p>面积元素：</p>
+                        <p>\( dS = \sin\phi \, d\theta d\phi \)</p>
+                        
+                        <p>被积函数：</p>
+                        <p>\( x^2 + y^2 = \sin^2\phi\cos^2\theta + \sin^2\phi\sin^2\theta = \sin^2\phi \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iint_\Sigma (x^2 + y^2) dS = \int_0^{2\pi} \int_0^{\pi/2} \sin^2\phi \cdot \sin\phi \, d\phi d\theta \)</p>
+                        <p>\( = \int_0^{2\pi} \int_0^{\pi/2} \sin^3\phi \, d\phi d\theta \)</p>
+                        
+                        <p>计算内层积分：</p>
+                        <p>\( \int_0^{\pi/2} \sin^3\phi \, d\phi = \int_0^{\pi/2} \sin\phi(1-\cos^2\phi) \, d\phi \)</p>
+                        <p>令 \( u = \cos\phi \)，则 \( du = -\sin\phi \, d\phi \)</p>
+                        <p>当 \( \phi = 0 \) 时，\( u = 1 \)；当 \( \phi = \frac{\pi}{2} \) 时，\( u = 0 \)</p>
+                        <p>\( \int_0^{\pi/2} \sin^3\phi \, d\phi = \int_1^0 -(1-u^2) du = \int_0^1 (1-u^2) du = \left[ u - \frac{u^3}{3} \right]_0^1 = 1 - \frac{1}{3} = \frac{2}{3} \)</p>
+                        
+                        <p>计算外层积分：</p>
+                        <p>\( \int_0^{2\pi} \frac{2}{3} d\theta = \frac{2}{3} \cdot 2\pi = \frac{4\pi}{3} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_\Sigma (x^2 + y^2) dS = \frac{4\pi}{3} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 第二类曲面积分（对坐标） -->
+                <h3 id="surface-integral-coordinate">2. 第二类曲面积分（对坐标）</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题13：</div>
+                    <div class="question-content">
+                        <p>计算第二类曲面积分 \( \iint_\Sigma (x dydz + y dzdx + z dxdy) \)，其中 \( \Sigma \) 是球面 \( x^2 + y^2 + z^2 = 1 \) 的外侧。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('surface-integral-coordinate-card')">第二类曲面积分</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer13')">查看详解</button>
+                    <div id="answer13" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>第二类曲面积分是对坐标的积分，可以使用高斯公式转化为三重积分。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>使用高斯公式：</p>
+                        <p>\( \iint_\Sigma (P dydz + Q dzdx + R dxdy) = \iiint_\Omega \left( \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z} \right) dxdydz \)</p>
+                        
+                        <p>在本题中：</p>
+                        <p>\( P = x \)，\( Q = y \)，\( R = z \)</p>
+                        
+                        <p>计算散度：</p>
+                        <p>\( \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z} = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial z}{\partial z} = 1 + 1 + 1 = 3 \)</p>
+                        
+                        <p>应用高斯公式：</p>
+                        <p>\( \iint_\Sigma (x dydz + y dzdx + z dxdy) = \iiint_\Omega 3 \, dxdydz \)</p>
+                        
+                        <p>其中 \( \Omega \) 是单位球 \( x^2 + y^2 + z^2 \leq 1 \)。</p>
+                        
+                        <p>计算三重积分：</p>
+                        <p>\( \iiint_\Omega 3 \, dxdydz = 3 \cdot \frac{4}{3}\pi \cdot 1^3 = 4\pi \)</p>
+                        <p>（单位球体积为 \( \frac{4}{3}\pi \)）</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_\Sigma (x dydz + y dzdx + z dxdy) = 4\pi \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 高斯公式应用 -->
+                <h3 id="gauss-theorem">3. 高斯公式应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题14：</div>
+                    <div class="question-content">
+                        <p>利用高斯公式计算曲面积分 \( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS \)，其中 \( \vec{F} = (x, y, z) \)，\( \Sigma \) 是立方体 \( 0 \leq x \leq 1, 0 \leq y \leq 1, 0 \leq z \leq 1 \) 的表面外侧。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('gauss-theorem-card')">高斯公式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer14')">查看详解</button>
+                    <div id="answer14" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>高斯公式将闭曲面积分转化为三重积分，适用于本题。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>高斯公式：</p>
+                        <p>\( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = \iiint_\Omega \nabla \cdot \vec{F} \, dxdydz \)</p>
+                        
+                        <p>计算散度：</p>
+                        <p>\( \nabla \cdot \vec{F} = \frac{\partial}{\partial x}(x) + \frac{\partial}{\partial y}(y) + \frac{\partial}{\partial z}(z) = 1 + 1 + 1 = 3 \)</p>
+                        
+                        <p>应用高斯公式：</p>
+                        <p>\( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = \iiint_\Omega 3 \, dxdydz \)</p>
+                        
+                        <p>其中 \( \Omega \) 是立方体 \( 0 \leq x \leq 1, 0 \leq y \leq 1, 0 \leq z \leq 1 \)。</p>
+                        
+                        <p>计算三重积分：</p>
+                        <p>\( \iiint_\Omega 3 \, dxdydz = 3 \iiint_\Omega dxdydz = 3 \cdot 1 = 3 \)</p>
+                        <p>（立方体体积为 1）</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = 3 \)</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 五、积分公式综合应用 -->
+            <div class="section">
+                <h2>五、积分公式综合应用</h2>
+                
+                <!-- 1. 格林公式 -->
+                <h3 id="green-application">1. 格林公式</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题15：</div>
+                    <div class="question-content">
+                        <p>利用格林公式计算曲线积分 \( \oint_L (y dx - x dy) \)，其中 \( L \) 是椭圆 \( \frac{x^2}{a^2} + \frac{y^2}{b^2} = 1 \) 的正向边界。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('green-application-card')">格林公式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer15')">查看详解</button>
+                    <div id="answer15" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>使用格林公式将曲线积分转化为二重积分。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>格林公式：</p>
+                        <p>\( \oint_L (P dx + Q dy) = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dxdy \)</p>
+                        
+                        <p>在本题中：</p>
+                        <p>\( P(x,y) = y \)，\( Q(x,y) = -x \)</p>
+                        
+                        <p>计算偏导数：</p>
+                        <p>\( \frac{\partial Q}{\partial x} = \frac{\partial}{\partial x}(-x) = -1 \)</p>
+                        <p>\( \frac{\partial P}{\partial y} = \frac{\partial}{\partial y}(y) = 1 \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = -1 - 1 = -2 \)</p>
+                        
+                        <p>应用格林公式：</p>
+                        <p>\( \oint_L (y dx - x dy) = \iint_D (-2) dxdy = -2 \iint_D dxdy \)</p>
+                        
+                        <p>其中 \( D \) 是椭圆 \( \frac{x^2}{a^2} + \frac{y^2}{b^2} \leq 1 \) 所围成的区域。</p>
+                        
+                        <p>椭圆面积为 \( \pi ab \)，所以：</p>
+                        <p>\( \oint_L (y dx - x dy) = -2 \cdot \pi ab = -2\pi ab \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \oint_L (y dx - x dy) = -2\pi ab \)</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 高斯公式 -->
+                <h3 id="gauss-application">2. 高斯公式</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题16：</div>
+                    <div class="question-content">
+                        <p>利用高斯公式计算曲面积分 \( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS \)，其中 \( \vec{F} = (x^3, y^3, z^3) \)，\( \Sigma \) 是球面 \( x^2 + y^2 + z^2 = 1 \) 的外侧。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('gauss-application-card')">高斯公式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer16')">查看详解</button>
+                    <div id="answer16" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>使用高斯公式将闭曲面积分转化为三重积分。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>高斯公式：</p>
+                        <p>\( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = \iiint_\Omega \nabla \cdot \vec{F} \, dxdydz \)</p>
+                        
+                        <p>计算散度：</p>
+                        <p>\( \nabla \cdot \vec{F} = \frac{\partial}{\partial x}(x^3) + \frac{\partial}{\partial y}(y^3) + \frac{\partial}{\partial z}(z^3) = 3x^2 + 3y^2 + 3z^2 = 3(x^2 + y^2 + z^2) \)</p>
+                        
+                        <p>应用高斯公式：</p>
+                        <p>\( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = \iiint_\Omega 3(x^2 + y^2 + z^2) \, dxdydz \)</p>
+                        
+                        <p>其中 \( \Omega \) 是单位球 \( x^2 + y^2 + z^2 \leq 1 \)。</p>
+                        
+                        <p>使用球面坐标计算三重积分：</p>
+                        <p>\( x = r\sin\phi\cos\theta \)，\( y = r\sin\phi\sin\theta \)，\( z = r\cos\phi \)</p>
+                        <p>\( x^2 + y^2 + z^2 = r^2 \)</p>
+                        <p>雅可比行列式 \( J = r^2\sin\phi \)</p>
+                        <p>积分区域：\( 0 \leq r \leq 1 \)，\( 0 \leq \theta \leq 2\pi \)，\( 0 \leq \phi \leq \pi \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \iiint_\Omega 3(x^2 + y^2 + z^2) \, dxdydz = \iiint_\Omega 3r^2 \cdot r^2\sin\phi \, drd\theta d\phi \)</p>
+                        <p>\( = 3 \int_0^{2\pi} \int_0^\pi \int_0^1 r^4\sin\phi \, dr d\phi d\theta \)</p>
+                        
+                        <p>分别计算各层积分：</p>
+                        <p>1. \( \int_0^1 r^4 dr = \left[ \frac{r^5}{5} \right]_0^1 = \frac{1}{5} \)</p>
+                        <p>2. \( \int_0^\pi \sin\phi \, d\phi = \left[ -\cos\phi \right]_0^\pi = 2 \)</p>
+                        <p>3. \( \int_0^{2\pi} d\theta = 2\pi \)</p>
+                        
+                        <p>所以：</p>
+                        <p>\( \iiint_\Omega 3(x^2 + y^2 + z^2) \, dxdydz = 3 \cdot \frac{1}{5} \cdot 2 \cdot 2\pi = \frac{12\pi}{5} \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = \frac{12\pi}{5} \)</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 斯托克斯公式 -->
+                <h3 id="stokes-theorem">3. 斯托克斯公式</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题17：</div>
+                    <div class="question-content">
+                        <p>利用斯托克斯公式计算曲线积分 \( \oint_L \vec{F} \cdot d\vec{r} \)，其中 \( \vec{F} = (yz, xz, xy) \)，\( L \) 是球面 \( x^2 + y^2 + z^2 = 1 \) 与平面 \( x + y + z = 0 \) 的交线，取正向。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('stokes-theorem-card')">斯托克斯公式</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer17')">查看详解</button>
+                    <div id="answer17" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>斯托克斯公式将空间闭曲线积分转化为曲面积分。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>斯托克斯公式：</p>
+                        <p>\( \oint_L \vec{F} \cdot d\vec{r} = \iint_\Sigma (\nabla \times \vec{F}) \cdot \vec{n} \, dS \)</p>
+                        
+                        <p>计算旋度：</p>
+                        <p>\( \nabla \times \vec{F} = \begin{vmatrix} \vec{i} & \vec{j} & \vec{k} \\ \frac{\partial}{\partial x} & \frac{\partial}{\partial y} & \frac{\partial}{\partial z} \\ yz & xz & xy \end{vmatrix} \)</p>
+                        <p>\( = \vec{i}\left( \frac{\partial(xy)}{\partial y} - \frac{\partial(xz)}{\partial z} \right) - \vec{j}\left( \frac{\partial(xy)}{\partial x} - \frac{\partial(yz)}{\partial z} \right) + \vec{k}\left( \frac{\partial(xz)}{\partial x} - \frac{\partial(yz)}{\partial y} \right) \)</p>
+                        <p>\( = \vec{i}(x - x) - \vec{j}(y - y) + \vec{k}(z - z) = (0, 0, 0) \)</p>
+                        
+                        <p>因此：</p>
+                        <p>\( \oint_L \vec{F} \cdot d\vec{r} = \iint_\Sigma (0, 0, 0) \cdot \vec{n} \, dS = 0 \)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\( \oint_L \vec{F} \cdot d\vec{r} = 0 \)</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            高等数学第五章题型分类练习 · 多元函数积分学
+        </div>
+    </div>
+    
+    <!-- 知识点卡片 -->
+    <!-- 直角坐标计算卡片 -->
+    <div id="double-integral-rect-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('double-integral-rect-card')">✕</button>
+        <h4>直角坐标计算</h4>
+        <p><strong>X型区域：</strong></p>
+        <p>对于区域 \( D = \{(x,y) | a \leq x \leq b, \varphi_1(x) \leq y \leq \varphi_2(x) \} \)：</p>
+        <div class="formula">\(\iint_D f(x,y) dxdy = \int_a^b \int_{\varphi_1(x)}^{\varphi_2(x)} f(x,y) dy dx\)</div>
+        <p><strong>Y型区域：</strong></p>
+        <p>对于区域 \( D = \{(x,y) | c \leq y \leq d, \psi_1(y) \leq x \leq \psi_2(y) \} \)：</p>
+        <div class="formula">\(\iint_D f(x,y) dxdy = \int_c^d \int_{\psi_1(y)}^{\psi_2(y)} f(x,y) dx dy\)</div>
+        <p><strong>计算步骤：</strong></p>
+        <ul>
+            <li>确定积分区域的类型</li>
+            <li>写出累次积分的表达式</li>
+            <li>从内到外逐层计算积分</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            根据区域形状选择合适的积分次序。<br>
+            必要时可以分割积分区域。
+        </div>
+    </div>
+    
+    <!-- 极坐标计算卡片 -->
+    <div id="double-integral-polar-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('double-integral-polar-card')">✕</button>
+        <h4>极坐标计算</h4>
+        <p><strong>极坐标变换：</strong></p>
+        <p>\( x = r\cos\theta \)，\( y = r\sin\theta \)</p>
+        <p>雅可比行列式：\( J = \frac{\partial(x,y)}{\partial(r,\theta)} = r \)</p>
+        <div class="formula">\(dxdy = r \, drd\theta\)</div>
+        <p><strong>常见区域的极坐标表示：</strong></p>
+        <ul>
+            <li>圆域 \( x^2 + y^2 \leq R^2 \)：\( 0 \leq r \leq R \)，\( 0 \leq \theta \leq 2\pi \)</li>
+            <li>扇形域：\( 0 \leq r \leq R \)，\( \alpha \leq \theta \leq \beta \)</li>
+            <li>环形域 \( r_1^2 \leq x^2 + y^2 \leq r_2^2 \)：\( r_1 \leq r \leq r_2 \)，\( 0 \leq \theta \leq 2\pi \)</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            当被积函数含有 \( x^2 + y^2 \) 或积分区域为圆形/扇形时，优先考虑极坐标。<br>
+            注意极角的取值范围。
+        </div>
+    </div>
+    
+    <!-- 换序与换元卡片 -->
+    <div id="double-integral-change-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('double-integral-change-card')">✕</button>
+        <h4>换序与换元</h4>
+        <p><strong>交换积分次序：</strong></p>
+        <ul>
+            <li>根据原累次积分确定积分区域</li>
+            <li>画出积分区域的图形</li>
+            <li>重新确定新的积分次序下的限界</li>
+        </ul>
+        <p><strong>一般变量替换：</strong></p>
+        <p>设 \( x = x(u,v) \)，\( y = y(u,v) \) 是一对一的连续可微变换，且雅可比行列式 \( J = \frac{\partial(x,y)}{\partial(u,v)} \neq 0 \)，则：</p>
+        <div class="formula">\(\iint_D f(x,y) dxdy = \iint_{D'} f(x(u,v), y(u,v)) |J| \, dudv\)</div>
+        <p><strong>常用替换：</strong></p>
+        <ul>
+            <li>平移替换：\( u = x + a \)，\( v = y + b \)</li>
+            <li>线性替换：\( u = ax + by \)，\( v = cx + dy \)</li>
+            <li>特殊替换：\( u = x + y \)，\( v = x - y \)</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            交换积分次序时，画图是关键。<br>
+            变量替换后要正确计算雅可比行列式。
+        </div>
+    </div>
+    
+    <!-- 对称性应用卡片 -->
+    <div id="double-integral-symmetry-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('double-integral-symmetry-card')">✕</button>
+        <h4>对称性应用</h4>
+        <p><strong>对称区域上的积分：</strong></p>
+        <ul>
+            <li>如果区域 \( D \) 关于 \( y \) 轴对称，\( f(-x,y) = -f(x,y) \)，则 \( \iint_D f(x,y) dxdy = 0 \)</li>
+            <li>如果区域 \( D \) 关于 \( x \) 轴对称，\( f(x,-y) = -f(x,y) \)，则 \( \iint_D f(x,y) dxdy = 0 \)</li>
+            <li>如果区域 \( D \) 关于原点对称，\( f(-x,-y) = -f(x,y) \)，则 \( \iint_D f(x,y) dxdy = 0 \)</li>
+        </ul>
+        <p><strong>轮换对称性：</strong></p>
+        <p>如果区域 \( D \) 在 \( x \) 和 \( y \) 互换后不变，且 \( f(x,y) = f(y,x) \)，则：</p>
+        <div class="formula">\(\iint_D f(x,y) dxdy = \iint_D f(y,x) dxdy\)</div>
+        <p>特别地：</p>
+        <div class="formula">\(\iint_D x^n dxdy = \iint_D y^n dxdy\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            利用对称性可以大大简化计算。<br>
+            注意检查积分区域和被积函数的对称性质。
+        </div>
+    </div>
+    
+    <!-- 三重积分直角坐标卡片 -->
+    <div id="triple-integral-rect-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('triple-integral-rect-card')">✕</button>
+        <h4>三重积分直角坐标</h4>
+        <p><strong>三次积分：</strong></p>
+        <p>对于区域 \( \Omega = \{(x,y,z) | (x,y) \in D, \varphi_1(x,y) \leq z \leq \varphi_2(x,y) \} \)：</p>
+        <div class="formula">\(\iiint_\Omega f(x,y,z) dxdydz = \iint_D \int_{\varphi_1(x,y)}^{\varphi_2(x,y)} f(x,y,z) dz \, dxdy\)</div>
+        <p><strong>投影法（先一后二）：</strong></p>
+        <ul>
+            <li>先在 \( z \) 方向积分</li>
+            <li>再在 \( xOy \) 平面上投影区域积分</li>
+        </ul>
+        <p><strong>截面法（先二后一）：</strong></p>
+        <ul>
+            <li>先固定 \( z \)，在截面区域积分</li>
+            <li>再在 \( z \) 方向积分</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            根据积分区域的形状选择合适的积分方法。<br>
+            注意积分限的确定。
+        </div>
+    </div>
+    
+    <!-- 柱面坐标卡片 -->
+    <div id="triple-integral-cylindrical-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('triple-integral-cylindrical-card')">✕</button>
+        <h4>柱面坐标</h4>
+        <p><strong>柱面坐标变换：</strong></p>
+        <p>\( x = r\cos\theta \)，\( y = r\sin\theta \)，\( z = z \)</p>
+        <p>雅可比行列式：\( J = \frac{\partial(x,y,z)}{\partial(r,\theta,z)} = r \)</p>
+        <div class="formula">\(dxdydz = r \, drd\theta dz\)</div>
+        <p><strong>适用情况：</strong></p>
+        <ul>
+            <li>积分区域是圆柱体或圆柱形区域</li>
+            <li>被积函数含有 \( x^2 + y^2 \) 项</li>
+            <li>积分区域关于 \( z \) 轴对称</li>
+        </ul>
+        <p><strong>常见区域：</strong></p>
+        <ul>
+            <li>圆柱体：\( x^2 + y^2 \leq R^2 \)，\( a \leq z \leq b \)</li>
+            <li>圆锥体：\( x^2 + y^2 \leq z^2 \)，\( 0 \leq z \leq h \)</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            柱面坐标是处理轴对称问题的有力工具。<br>
+            注意 \( r \) 的取值范围从 0 开始。
+        </div>
+    </div>
+    
+    <!-- 球面坐标卡片 -->
+    <div id="triple-integral-spherical-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('triple-integral-spherical-card')">✕</button>
+        <h4>球面坐标</h4>
+        <p><strong>球面坐标变换：</strong></p>
+        <p>\( x = r\sin\phi\cos\theta \)，\( y = r\sin\phi\sin\theta \)，\( z = r\cos\phi \)</p>
+        <p>其中 \( r \geq 0 \)，\( 0 \leq \theta \leq 2\pi \)，\( 0 \leq \phi \leq \pi \)</p>
+        <p>雅可比行列式：\( J = \frac{\partial(x,y,z)}{\partial(r,\theta,\phi)} = r^2\sin\phi \)</p>
+        <div class="formula">\(dxdydz = r^2\sin\phi \, drd\theta d\phi\)</div>
+        <p><strong>适用情况：</strong></p>
+        <ul>
+            <li>积分区域是球体或球形区域</li>
+            <li>被积函数含有 \( x^2 + y^2 + z^2 \) 项</li>
+            <li>积分区域关于原点对称</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            球面坐标是处理球对称问题的最佳选择。<br>
+            注意 \( \phi \)（纬度角）的取值范围是 \( [0,\pi] \)。
+        </div>
+    </div>
+    
+    <!-- 三重积分对称性卡片 -->
+    <div id="triple-integral-symmetry-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('triple-integral-symmetry-card')">✕</button>
+        <h4>三重积分对称性</h4>
+        <p><strong>对称区域上的积分：</strong></p>
+        <ul>
+            <li>如果区域 \( \Omega \) 关于 \( yOz \) 平面对称，\( f(-x,y,z) = -f(x,y,z) \)，则 \( \iiint_\Omega f(x,y,z) dxdydz = 0 \)</li>
+            <li>如果区域 \( \Omega \) 关于 \( xOz \) 平面对称，\( f(x,-y,z) = -f(x,y,z) \)，则 \( \iiint_\Omega f(x,y,z) dxdydz = 0 \)</li>
+            <li>如果区域 \( \Omega \) 关于 \( xOy \) 平面对称，\( f(x,y,-z) = -f(x,y,z) \)，则 \( \iiint_\Omega f(x,y,z) dxdydz = 0 \)</li>
+        </ul>
+        <p><strong>轮换对称性：</strong></p>
+        <p>如果区域 \( \Omega \) 在变量轮换后不变：</p>
+        <div class="formula">\(\iiint_\Omega f(x,y,z) dxdydz = \iiint_\Omega f(y,z,x) dxdydz = \iiint_\Omega f(z,x,y) dxdydz\)</div>
+        <p>特别地：</p>
+        <div class="formula">\(\iiint_\Omega x^n dxdydz = \iiint_\Omega y^n dxdydz = \iiint_\Omega z^n dxdydz\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            三维情况下的对称性应用与二维类似。<br>
+            可以结合球面坐标和对称性简化计算。
+        </div>
+    </div>
+    
+    <!-- 第一类曲线积分卡片 -->
+    <div id="line-integral-arc-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('line-integral-arc-card')">✕</button>
+        <h4>第一类曲线积分</h4>
+        <p><strong>定义：</strong></p>
+        <p>设 \( L \) 是平面曲线，\( f(x,y) \) 在 \( L \) 上有定义，对 \( L \) 作分割 \( M_0, M_1, \ldots, M_n \)，在每一小段上任取一点 \( (\xi_i, \eta_i) \)，如果极限：</p>
+        <div class="formula">\(\lim_{\lambda \to 0} \sum_{i=1}^n f(\xi_i, \eta_i) \Delta s_i\)</div>
+        <p>存在，则称此极限为 \( f(x,y) \) 沿曲线 \( L \) 的第一类曲线积分。</p>
+        <p><strong>计算方法：</strong></p>
+        <p>设曲线 \( L \) 由参数方程 \( x = x(t) \)，\( y = y(t) \) (\( \alpha \leq t \leq \beta \)) 给出，则：</p>
+        <div class="formula">\(\int_L f(x,y) ds = \int_\alpha^\beta f(x(t), y(t)) \sqrt{[x'(t)]^2 + [y'(t)]^2} dt\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            第一类曲线积分是对弧长的积分，结果与曲线方向无关。<br>
+            正确计算弧长元素是关键。
+        </div>
+    </div>
+    
+    <!-- 第二类曲线积分卡片 -->
+    <div id="line-integral-coordinate-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('line-integral-coordinate-card')">✕</button>
+        <h4>第二类曲线积分</h4>
+        <p><strong>定义：</strong></p>
+        <p>设 \( L \) 是有向平面曲线，\( P(x,y) \)、\( Q(x,y) \) 在 \( L \) 上有定义，对 \( L \) 作分割 \( M_0, M_1, \ldots, M_n \)，在每一小段上任取一点 \( (\xi_i, \eta_i) \)，如果极限：</p>
+        <div class="formula">\(\lim_{\lambda \to 0} \sum_{i=1}^n [P(\xi_i, \eta_i) \Delta x_i + Q(\xi_i, \eta_i) \Delta y_i]\)</div>
+        <p>存在，则称此极限为 \( Pdx + Qdy \) 沿曲线 \( L \) 的第二类曲线积分。</p>
+        <p><strong>计算方法：</strong></p>
+        <p>设曲线 \( L \) 由参数方程 \( x = x(t) \)，\( y = y(t) \) (\( \alpha \leq t \leq \beta \)) 给出，则：</p>
+        <div class="formula">\(\int_L P(x,y) dx + Q(x,y) dy = \int_\alpha^\beta [P(x(t), y(t)) x'(t) + Q(x(t), y(t)) y'(t)] dt\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            第二类曲线积分是对坐标的积分，结果与曲线方向有关。<br>
+            注意曲线的方向，必要时可改变参数范围来调整方向。
+        </div>
+    </div>
+    
+    <!-- 格林公式卡片 -->
+    <div id="green-theorem-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('green-theorem-card')">✕</button>
+        <h4>格林公式</h4>
+        <p><strong>格林公式：</strong></p>
+        <p>设 \( D \) 是平面上由分段光滑曲线围成的有界闭区域，若 \( P(x,y) \)、\( Q(x,y) \) 在 \( D \) 上具有一阶连续偏导数，则：</p>
+        <div class="formula">\(\oint_L P dx + Q dy = \iint_D \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dxdy\)</div>
+        <p>其中 \( L \) 是 \( D \) 的正向边界曲线。</p>
+        <p><strong>应用条件：</strong></p>
+        <ul>
+            <li>积分曲线必须是闭曲线</li>
+            <li>曲线取正向（逆时针方向）</li>
+            <li>被积函数在区域内具有一阶连续偏导数</li>
+        </ul>
+        <p><strong>特殊情况：</strong></p>
+        <ul>
+            <li>若 \( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 0 \)，则 \( \oint_L P dx + Q dy = 0 \)</li>
+            <li>若 \( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 1 \)，则 \( \oint_L P dx + Q dy = \iint_D dxdy \)（区域面积）</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            格林公式是连接曲线积分和二重积分的桥梁。<br>
+            当曲线积分计算困难时，可考虑使用格林公式。
+        </div>
+    </div>
+    
+    <!-- 第一类曲面积分卡片 -->
+    <div id="surface-integral-area-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('surface-integral-area-card')">✕</button>
+        <h4>第一类曲面积分</h4>
+        <p><strong>定义：</strong></p>
+        <p>设 \( \Sigma \) 是空间曲面，\( f(x,y,z) \) 在 \( \Sigma \) 上有定义，对 \( \Sigma \) 作分割，任取一点 \( (\xi_i, \eta_i, \zeta_i) \)，如果极限：</p>
+        <div class="formula">\(\lim_{\lambda \to 0} \sum_{i=1}^n f(\xi_i, \eta_i, \zeta_i) \Delta S_i\)</div>
+        <p>存在，则称此极限为 \( f(x,y,z) \) 在曲面 \( \Sigma \) 上的第一类曲面积分。</p>
+        <p><strong>计算方法：</strong></p>
+        <p>设曲面 \( \Sigma \) 由方程 \( z = z(x,y) \) 给出，\( (x,y) \in D_{xy} \)，则：</p>
+        <div class="formula">\(\iint_\Sigma f(x,y,z) dS = \iint_{D_{xy}} f(x,y,z(x,y)) \sqrt{1 + [z_x'(x,y)]^2 + [z_y'(x,y)]^2} dxdy\)</div>
+        <p><strong>参数方程形式：</strong></p>
+        <p>设曲面 \( \Sigma \) 由参数方程 \( \vec{r}(u,v) = (x(u,v), y(u,v), z(u,v)) \) 给出，则：</p>
+        <div class="formula">\(\iint_\Sigma f(x,y,z) dS = \iint_D f(\vec{r}(u,v)) |\vec{r_u'} \times \vec{r_v'}| \, dudv\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            第一类曲面积分是对面积的积分，结果与曲面侧向无关。<br>
+            正确计算面积元素是关键。
+        </div>
+    </div>
+    
+    <!-- 第二类曲面积分卡片 -->
+    <div id="surface-integral-coordinate-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('surface-integral-coordinate-card')">✕</button>
+        <h4>第二类曲面积分</h4>
+        <p><strong>定义：</strong></p>
+        <p>设 \( \Sigma \) 是有向空间曲面，\( P(x,y,z) \)、\( Q(x,y,z) \)、\( R(x,y,z) \) 在 \( \Sigma \) 上有定义，对 \( \Sigma \) 作分割，在每一小块上任取一点 \( (\xi_i, \eta_i, \zeta_i) \)，如果极限：</p>
+        <div class="formula">\(\lim_{\lambda \to 0} \sum_{i=1}^n [P(\xi_i, \eta_i, \zeta_i) \Delta S_{yz,i} + Q(\xi_i, \eta_i, \zeta_i) \Delta S_{zx,i} + R(\xi_i, \eta_i, \zeta_i) \Delta S_{xy,i}]\)</div>
+        <p>存在，则称此极限为 \( Pdydz + Qdzdx + Rdxdy \) 在曲面 \( \Sigma \) 上的第二类曲面积分。</p>
+        <p><strong>计算方法：</strong></p>
+        <p>设曲面 \( \Sigma \) 由方程 \( z = z(x,y) \) 给出，取上侧，则：</p>
+        <div class="formula">\(\iint_\Sigma P dydz + Q dzdx + R dxdy = \iint_{D_{xy}} [P(-z_x') + Q(-z_y') + R] dxdy\)</div>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            第二类曲面积分是对坐标的积分，结果与曲面侧向有关。<br>
+            注意曲面的定向，必要时添加负号。
+        </div>
+    </div>
+    
+    <!-- 高斯公式卡片 -->
+    <div id="gauss-theorem-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('gauss-theorem-card')">✕</button>
+        <h4>高斯公式</h4>
+        <p><strong>高斯公式：</strong></p>
+        <p>设 \( \Omega \) 是空间由分片光滑曲面围成的有界闭区域，若 \( P(x,y,z) \)、\( Q(x,y,z) \)、\( R(x,y,z) \) 在 \( \Omega \) 上具有一阶连续偏导数，则：</p>
+        <div class="formula">\(\iint_\Sigma P dydz + Q dzdx + R dxdy = \iiint_\Omega \left( \frac{\partial P}{\partial x} + \frac{\partial Q}{\partial y} + \frac{\partial R}{\partial z} \right) dxdydz\)</div>
+        <p>其中 \( \Sigma \) 是 \( \Omega \) 的边界曲面外侧。</p>
+        <p><strong>向量形式：</strong></p>
+        <div class="formula">\(\iint_\Sigma \vec{F} \cdot \vec{n} \, dS = \iiint_\Omega \nabla \cdot \vec{F} \, dV\)</div>
+        <p><strong>应用条件：</strong></p>
+        <ul>
+            <li>积分曲面必须是闭曲面</li>
+            <li>曲面取外侧</li>
+            <li>被积函数在区域内具有一阶连续偏导数</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            高斯公式是连接曲面积分和三重积分的桥梁。<br>
+            当闭曲面积分计算困难时，可考虑使用高斯公式。
+        </div>
+    </div>
+    
+    <!-- 格林公式应用卡片 -->
+    <div id="green-application-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('green-application-card')">✕</button>
+        <h4>格林公式应用</h4>
+        <p><strong>计算曲线积分：</strong></p>
+        <p>对于复杂的闭曲线积分，可以使用格林公式转化为二重积分。</p>
+        <p><strong>计算区域面积：</strong></p>
+        <p>取 \( P = -y \)、\( Q = x \)，则 \( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} = 2 \)，所以：</p>
+        <div class="formula">\(D \) 的面积 \( = \frac{1}{2} \oint_L x dy - y dx\)</div>
+        <p><strong>路径无关性：</strong></p>
+        <p>在单连通区域 \( D \) 内，以下四个条件等价：</p>
+        <ul>
+            <li>曲线积分 \( \int_L P dx + Q dy \) 与路径无关</li>
+            <li>沿任意闭曲线 \( \oint_L P dx + Q dy = 0 \)</li>
+            <li>\( \frac{\partial Q}{\partial x} = \frac{\partial P}{\partial y} \)</li>
+            <li>\( P dx + Q dy \) 是某函数的全微分</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            格林公式特别适用于计算区域面积和验证路径无关性。<br>
+            对于非单连通区域，可采用"挖洞法"处理。
+        </div>
+    </div>
+    
+    <!-- 高斯公式应用卡片 -->
+    <div id="gauss-application-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('gauss-application-card')">✕</button>
+        <h4>高斯公式应用</h4>
+        <p><strong>计算闭曲面积分：</strong></p>
+        <p>对于复杂的闭曲面积分，可以使用高斯公式转化为三重积分。</p>
+        <p><strong>物理应用：</strong></p>
+        <ul>
+            <li>通量计算：\( \Phi = \iint_\Sigma \vec{F} \cdot \vec{n} \, dS \)</li>
+            <li>散度的物理意义：表示场的源强度</li>
+        </ul>
+        <p><strong>特殊情况：</strong></p>
+        <p>若 \( \nabla \cdot \vec{F} = 0 \)，则 \( \iint_\Sigma \vec{F} \cdot \vec{n} \, dS = 0 \)</p>
+        <p>这表示场是无源场。</p>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            高斯公式在处理向量场的通量问题时特别有效。<br>
+            对于含奇点的区域，可采用"挖洞法"处理。
+        </div>
+    </div>
+    
+    <!-- 斯托克斯公式卡片 -->
+    <div id="stokes-theorem-card" class="knowledge-card">
+        <button class="close-btn" onclick="hideKnowledgeCard('stokes-theorem-card')">✕</button>
+        <h4>斯托克斯公式</h4>
+        <p><strong>斯托克斯公式：</strong></p>
+        <p>设 \( \Sigma \) 是分片光滑的有向曲面，\( L \) 是 \( \Sigma \) 的边界曲线，若 \( P(x,y,z) \)、\( Q(x,y,z) \)、\( R(x,y,z) \) 在包含 \( \Sigma \) 的一个空间区域内具有一阶连续偏导数，则：</p>
+        <div class="formula">\(\oint_L P dx + Q dy + R dz = \iint_\Sigma \left( \frac{\partial R}{\partial y} - \frac{\partial Q}{\partial z} \right) dydz + \left( \frac{\partial P}{\partial z} - \frac{\partial R}{\partial x} \right) dzdx + \left( \frac{\partial Q}{\partial x} - \frac{\partial P}{\partial y} \right) dxdy\)</div>
+        <p>其中 \( L \) 的方向与 \( \Sigma \) 的侧向符合右手法则。</p>
+        <p><strong>向量形式：</strong></p>
+        <div class="formula">\(\oint_L \vec{F} \cdot d\vec{r} = \iint_\Sigma (\nabla \times \vec{F}) \cdot \vec{n} \, dS\)</div>
+        <p><strong>物理应用：</strong></p>
+        <ul>
+            <li>环量计算：\( \Gamma = \oint_L \vec{F} \cdot d\vec{r} \)</li>
+            <li>旋度的物理意义：表示场的旋转强度</li>
+        </ul>
+        <div class="tip">
+            <strong>💡 解题技巧：</strong><br>
+            斯托克斯公式是连接曲线积分和曲面积分的桥梁。<br>
+            注意方向的匹配，使用右手法则确定。
+        </div>
+    </div>
+    
+    <script>
+        // 展开/折叠功能
+        function toggleAnswer(id) {
+            const answer = document.getElementById(id);
+            const button = document.querySelector(`button[onclick="toggleAnswer('${id}')"]`);
+            
+            answer.classList.toggle('active');
+            
+            if (answer.classList.contains('active')) {
+                button.textContent = '收起详解';
+            } else {
+                button.textContent = '查看详解';
+            }
+        }
+        
+        // 显示知识点卡片
+        function showKnowledgeCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.add('active');
+        }
+        
+        // 隐藏知识点卡片
+        function hideKnowledgeCard(cardId) {
+            const card = document.getElementById(cardId);
+            card.classList.remove('active');
+        }
+        
+        // 点击卡片外部区域关闭卡片
+        document.addEventListener('click', function(event) {
+            const knowledgeCards = document.querySelectorAll('.knowledge-card');
+            knowledgeCards.forEach(card => {
+                if (card.classList.contains('active') && !card.contains(event.target) && 
+                    !event.target.classList.contains('knowledge-link')) {
+                    card.classList.remove('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

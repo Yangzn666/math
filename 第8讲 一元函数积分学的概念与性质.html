@@ -5,6 +5,52 @@
     <title>第8讲 一元函数积分学的概念与性质</title>
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        // 展开/折叠功能
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            const button = document.querySelector(`button[onclick="toggleContent('${id}')"]`);
+            
+            // 如果找不到特定按钮，则查找最近的按钮
+            if (!button) {
+                console.error('未找到切换按钮');
+                return;
+            }
+            
+            content.classList.toggle('active');
+            
+            if (content.classList.contains('active')) {
+                button.textContent = '收起内容';
+            } else {
+                button.textContent = '展开详细内容';
+            }
+            
+            // 更新学习进度
+            updateProgress();
+        }
+        
+        // 更新学习进度
+        function updateProgress() {
+            const collapsibleContents = document.querySelectorAll('.collapsible-content');
+            let activeCount = 0;
+            
+            collapsibleContents.forEach(content => {
+                if (content.classList.contains('active')) {
+                    activeCount++;
+                }
+            });
+            
+            const progressPercent = Math.round((activeCount / collapsibleContents.length) * 100);
+            document.getElementById('progressBar').style.width = progressPercent + '%';
+            document.getElementById('progressText').textContent = '学习进度: ' + progressPercent + '%';
+        }
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化进度条
+            updateProgress();
+        });
+    </script>
     <style>
         * {
             margin: 0;
@@ -28,6 +74,29 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
             overflow: hidden;
             backdrop-filter: blur(10px);
+        }
+
+        /* 进度条样式 */
+        .progress-container {
+            width: 100%;
+            background-color: #f1f1f1;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            border-radius: 10px;
+            width: 0%;
+            transition: width 0.5s ease;
+        }
+
+        .progress-text {
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-top: 5px;
         }
 
         header {
@@ -109,12 +178,20 @@
             transition: all 0.3s ease;
             min-width: 160px;
             cursor: pointer;
+            animation: pulse 2s infinite;
         }
 
         .mindmap-node:hover {
             transform: scale(1.05);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
             z-index: 5;
+            animation: none;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
         }
 
         .mindmap-node h3 {
@@ -182,7 +259,22 @@
             padding-bottom: 15px;
             border-bottom: 3px solid #3498db;
             font-weight: bold;
+            position: relative;
+            padding-left: 40px;
         }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h2:nth-of-type(2):before { content: "📖"; }
+        h2:nth-of-type(3):before { content: "✏️"; }
+        h2:nth-of-type(4):before { content: "⚠️"; }
+        h2:nth-of-type(5):before { content: "📋"; }
+        h2:nth-of-type(6):before { content: "🔍"; }
 
         h3 {
             color: #34495e;
@@ -224,14 +316,16 @@
             border-radius: 10px;
             margin: 20px 0;
             border-left: 5px solid #e74c3c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         .step {
-            background: #f8f9fa;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
             padding: 15px 20px;
             margin: 10px 0;
             border-radius: 8px;
             border-left: 5px solid #3498db;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         .quote {
@@ -262,6 +356,206 @@
             font-weight: 500;
             color: #2c3e50;
             border: 2px dashed #3498db;
+        }
+
+        /* 展开/折叠按钮样式 */
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .collapsible-content {
+            display: none;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #3498db;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .collapsible-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* 费曼学习法指导样式 */
+        .feynman-guide {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 25px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .feynman-guide h3 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+
+        .feynman-steps {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feynman-step {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+
+        .feynman-step-number {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background: #3498db;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 30px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        /* 流程图样式 */
+        .flowchart-container {
+            display: flex;
+            justify-content: center;
+            margin: 25px 0;
+        }
+
+        .flowchart {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+        }
+
+        .flowchart-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .flowchart-step:last-child .flowchart-arrow {
+            display: none;
+        }
+
+        .flowchart-box {
+            flex: 1;
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .flowchart-arrow {
+            padding: 0 15px;
+            font-size: 24px;
+            color: #3498db;
+        }
+
+        /* 图表容器 */
+        .chart-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        .chart-title {
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* 决策树样式 */
+        .decision-tree {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 20px 0;
+        }
+
+        .decision-node {
+            background: linear-gradient(135deg, #3498db, #2c3e50);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+
+        .decision-branch {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+            margin: 10px 0;
+        }
+
+        .decision-branch .decision-node {
+            width: 200px;
+            font-size: 14px;
+        }
+
+        .decision-arrow {
+            color: #3498db;
+            font-size: 24px;
+            margin: 5px 0;
+        }
+
+        /* 提示和警告样式 */
+        .tip {
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #28a745;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #f8d7da 0%, #f1b0b7 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 5px solid #dc3545;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
         }
 
         table {
@@ -317,6 +611,28 @@
             .node-4 { top: 50%; left: 5%; }
             .node-5 { top: 50%; left: 85%; }
             .node-6 { top: 75%; left: 50%; transform: translateX(-50%); }
+            
+            .feynman-steps {
+                flex-direction: column;
+            }
+            
+            .flowchart-step {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .flowchart-arrow {
+                transform: rotate(90deg);
+                padding: 10px 0;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
         }
 
         @media print {
@@ -349,6 +665,12 @@
         </header>
         
         <div class="content">
+            <!-- 学习进度条 -->
+            <div class="progress-container">
+                <div class="progress-bar" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">学习进度: 0%</div>
+            
             <div class="mindmap-section">
                 <h2>一、知识结构思维导图</h2>
                 <div class="mindmap-container">
@@ -409,61 +731,230 @@
             <div class="section">
                 <h2>二、核心概念</h2>
                 
+                <!-- 费曼学习法指导 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法指导：如何学习积分学核心概念</h3>
+                    <p>积分学是高等数学的重要组成部分，使用费曼学习法可以帮你更好地掌握：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>确立目标</strong>
+                            <p>明确要学习的概念，比如"变限积分"或"反常积分"</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>教授他人</strong>
+                            <p>尝试向一个没有学过高等数学的人解释这些概念</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>查漏补缺</strong>
+                            <p>当你卡壳时，回头学习你不理解的部分</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>简化表达</strong>
+                            <p>用更简单、更直白的语言重新组织你的解释</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 积分学问题类型决策树 -->
+                <div class="chart-container">
+                    <div class="chart-title">积分学问题类型识别决策树</div>
+                    <div class="decision-tree">
+                        <div class="decision-node">积分学问题</div>
+                        <div class="decision-arrow">↓</div>
+                        <div class="decision-node">问题类型识别</div>
+                        <div class="decision-arrow">↓</div>
+                        <div class="decision-branch">
+                            <div class="decision-node">概念理解</div>
+                            <div class="decision-node">定理应用</div>
+                            <div class="decision-node">计算问题</div>
+                        </div>
+                        <div class="decision-branch">
+                            <div class="decision-node">原函数问题</div>
+                            <div class="decision-node">中值定理</div>
+                            <div class="decision-node">敛散性判断</div>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>1. 原函数与不定积分</h3>
-                <p><strong>原函数：</strong>若\(F'(x) = f(x)\)，则\(F(x)\)称为\(f(x)\)的一个原函数</p>
-                <p><strong>不定积分：</strong>所有原函数的集合，记为\(\int f(x)dx = F(x) + C\)</p>
-                <p><strong>存在定理：</strong>若\(f(x)\)在区间\(I\)上连续，则\(f(x)\)在\(I\)上一定存在原函数</p>
+                <button class="toggle-button" onclick="toggleContent('primitive-function')">展开详细内容</button>
+                <div id="primitive-function" class="collapsible-content">
+                    <p><strong>原函数：</strong>若\(F'(x) = f(x)\)，则\(F(x)\)称为\(f(x)\)的一个原函数</p>
+                    <p><strong>不定积分：</strong>所有原函数的集合，记为\(\int f(x)dx = F(x) + C\)</p>
+                    <p><strong>存在定理：</strong>若\(f(x)\)在区间\(I\)上连续，则\(f(x)\)在\(I\)上一定存在原函数</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        原函数是导数的逆运算<br>
+                        不定积分表示原函数的全体
+                    </div>
+                </div>
                 
                 <h3>2. 定积分</h3>
-                <p><strong>定义：</strong>\(\int_a^b f(x)dx\)表示曲边梯形的面积</p>
-                <p><strong>存在定理：</strong>若\(f(x)\)在\([a,b]\)上连续，则定积分存在</p>
-                <p><strong>几何意义：</strong>曲边梯形的面积</p>
+                <button class="toggle-button" onclick="toggleContent('definite-integral')">展开详细内容</button>
+                <div id="definite-integral" class="collapsible-content">
+                    <p><strong>定义：</strong>\(\int_a^b f(x)dx\)表示曲边梯形的面积</p>
+                    <p><strong>存在定理：</strong>若\(f(x)\)在\([a,b]\)上连续，则定积分存在</p>
+                    <p><strong>几何意义：</strong>曲边梯形的面积</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        定积分是数值，不定积分是函数族<br>
+                        几何意义有助于理解积分概念
+                    </div>
+                </div>
                 
                 <h3>3. 变限积分</h3>
-                <p><strong>变上限积分：</strong>\(F(x) = \int_a^x f(t)dt\)，表示动态的面积</p>
-                <p><strong>基本性质：</strong>若\(f(x)\)连续，则\(\frac{d}{dx}\left[\int_a^x f(t)dt\right] = f(x)\)</p>
-                <p><strong>一般形式：</strong>\(\frac{d}{dx}\left[\int_{u(x)}^{v(x)} f(t)dt\right] = f(v(x))v'(x) - f(u(x))u'(x)\)</p>
+                <button class="toggle-button" onclick="toggleContent('variable-limit-integral')">展开详细内容</button>
+                <div id="variable-limit-integral" class="collapsible-content">
+                    <p><strong>变上限积分：</strong>\(F(x) = \int_a^x f(t)dt\)，表示动态的面积</p>
+                    <p><strong>基本性质：</strong>若\(f(x)\)连续，则\(\frac{d}{dx}\left[\int_a^x f(t)dt\right] = f(x)\)</p>
+                    <p><strong>一般形式：</strong>\(\frac{d}{dx}\left[\int_{u(x)}^{v(x)} f(t)dt\right] = f(v(x))v'(x) - f(u(x))u'(x)\)</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        变限积分是函数，不是数值<br>
+                        求导公式是微积分基本定理的重要应用
+                    </div>
+                </div>
                 
                 <h3>4. 反常积分</h3>
-                <p><strong>定义：</strong>积分区间无限或被积函数在积分区间内有无穷间断点的积分</p>
-                <p><strong>常见类型：</strong></p>
-                <div class="formula">
-                    \(\int_a^{+\infty} f(x)dx = \lim_{b \to +\infty} \int_a^b f(x)dx\)<br>
-                    \(\int_{-\infty}^b f(x)dx = \lim_{a \to -\infty} \int_a^b f(x)dx\)<br>
-                    \(\int_{-\infty}^{+\infty} f(x)dx = \int_{-\infty}^0 f(x)dx + \int_0^{+\infty} f(x)dx\)<br>
-                    \(\int_a^b f(x)dx\)（\(f(x)\)在\(c \in (a,b)\)处有无穷间断点）
+                <button class="toggle-button" onclick="toggleContent('improper-integral')">展开详细内容</button>
+                <div id="improper-integral" class="collapsible-content">
+                    <p><strong>定义：</strong>积分区间无限或被积函数在积分区间内有无穷间断点的积分</p>
+                    <p><strong>常见类型：</strong></p>
+                    <div class="formula">
+                        \(\int_a^{+\infty} f(x)dx = \lim_{b \to +\infty} \int_a^b f(x)dx\)<br>
+                        \(\int_{-\infty}^b f(x)dx = \lim_{a \to -\infty} \int_a^b f(x)dx\)<br>
+                        \(\int_{-\infty}^{+\infty} f(x)dx = \int_{-\infty}^0 f(x)dx + \int_0^{+\infty} f(x)dx\)<br>
+                        \(\int_a^b f(x)dx\)（\(f(x)\)在\(c \in (a,b)\)处有无穷间断点）
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        反常积分本质是极限问题<br>
+                        收敛表示极限存在且为有限值
+                    </div>
                 </div>
             </div>
             
             <div class="section">
                 <h2>三、重要定理与性质</h2>
                 
+                <!-- 题型解题费曼学习法 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法：积分学定理与性质解题技巧</h3>
+                    <p>积分学定理与性质是解题的基础，用费曼法帮你掌握解题思路：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>识别定理</strong>
+                            <p>先判断题目适用哪个定理或性质</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>讲解过程</strong>
+                            <p>尝试向别人讲解定理的应用条件和结论</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>总结规律</strong>
+                            <p>归纳定理的常见应用场景和易错点</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>变式练习</strong>
+                            <p>自己改变题目条件，看定理是否仍然适用</p>
+                        </div>
+                    </div>
+                </div>
+                
                 <h3>1. 不定积分的基本性质</h3>
-                <div class="formula">
-                    \(\int [f(x) \pm g(x)]dx = \int f(x)dx \pm \int g(x)dx\)<br>
-                    \(\int kf(x)dx = k\int f(x)dx\)（\(k\)为常数）<br>
-                    \(\int f(x)dx = F(x) + C\)
+                <button class="toggle-button" onclick="toggleContent('indefinite-integral-properties')">展开详细内容</button>
+                <div id="indefinite-integral-properties" class="collapsible-content">
+                    <div class="formula">
+                        \(\int [f(x) \pm g(x)]dx = \int f(x)dx \pm \int g(x)dx\)<br>
+                        \(\int kf(x)dx = k\int f(x)dx\)（\(k\)为常数）<br>
+                        \(\int f(x)dx = F(x) + C\)
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        线性性质是积分运算的基础<br>
+                        注意常数可以提到积分号外
+                    </div>
                 </div>
                 
                 <h3>2. 定积分的基本性质</h3>
-                <div class="formula">
-                    \(\int_a^b f(x)dx = -\int_b^a f(x)dx\)<br>
-                    \(\int_a^b f(x)dx = \int_a^c f(x)dx + \int_c^b f(x)dx\)<br>
-                    \(\int_a^b [f(x) \pm g(x)]dx = \int_a^b f(x)dx \pm \int_a^b g(x)dx\)<br>
-                    \(\int_a^b kf(x)dx = k\int_a^b f(x)dx\)（\(k\)为常数）
+                <button class="toggle-button" onclick="toggleContent('definite-integral-properties')">展开详细内容</button>
+                <div id="definite-integral-properties" class="collapsible-content">
+                    <div class="formula">
+                        \(\int_a^b f(x)dx = -\int_b^a f(x)dx\)<br>
+                        \(\int_a^b f(x)dx = \int_a^c f(x)dx + \int_c^b f(x)dx\)<br>
+                        \(\int_a^b [f(x) \pm g(x)]dx = \int_a^b f(x)dx \pm \int_a^b g(x)dx\)<br>
+                        \(\int_a^b kf(x)dx = k\int_a^b f(x)dx\)（\(k\)为常数）
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        定积分的性质有助于简化计算<br>
+                        区间可加性在分段函数积分中常用
+                    </div>
                 </div>
                 
                 <h3>3. 积分中值定理</h3>
-                <p><strong>定理：</strong>若函数\(f(x)\)在区间\([a,b]\)上连续，则至少存在一点\(\xi \in [a,b]\)，使\(\int_a^b f(x)dx = f(\xi)(b-a)\)</p>
-                <p><strong>几何意义：</strong>曲边梯形面积等于以\((b-a)\)为底，\(f(\xi)\)为高的矩形面积</p>
+                <button class="toggle-button" onclick="toggleContent('integral-mean-value-theorem')">展开详细内容</button>
+                <div id="integral-mean-value-theorem" class="collapsible-content">
+                    <p><strong>定理：</strong>若函数\(f(x)\)在区间\([a,b]\)上连续，则至少存在一点\(\xi \in [a,b]\)，使\(\int_a^b f(x)dx = f(\xi)(b-a)\)</p>
+                    <p><strong>几何意义：</strong>曲边梯形面积等于以\((b-a)\)为底，\(f(\xi)\)为高的矩形面积</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        积分中值定理连接了积分与函数值<br>
+                        常用于证明题和估值问题
+                    </div>
+                </div>
                 
                 <h3>4. 反常积分收敛的比较判别法</h3>
-                <p><strong>比较判别法：</strong>若\(0 \leq f(x) \leq g(x)\)，且\(\int_a^{+\infty} g(x)dx\)收敛，则\(\int_a^{+\infty} f(x)dx\)收敛</p>
-                <p><strong>极限比较判别法：</strong>若\(\lim_{x \to +\infty} \frac{f(x)}{g(x)} = k\)（\(0 < k < +\infty\)），则\(\int_a^{+\infty} f(x)dx\)与\(\int_a^{+\infty} g(x)dx\)同时收敛或同时发散</p>
+                <button class="toggle-button" onclick="toggleContent('improper-integral-convergence')">展开详细内容</button>
+                <div id="improper-integral-convergence" class="collapsible-content">
+                    <p><strong>比较判别法：</strong>若\(0 \leq f(x) \leq g(x)\)，且\(\int_a^{+\infty} g(x)dx\)收敛，则\(\int_a^{+\infty} f(x)dx\)收敛</p>
+                    <p><strong>极限比较判别法：</strong>若\(\lim_{x \to +\infty} \frac{f(x)}{g(x)} = k\)（\(0 < k < +\infty\)），则\(\int_a^{+\infty} f(x)dx\)与\(\int_a^{+\infty} g(x)dx\)同时收敛或同时发散</p>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        比较判别法关键是选择合适的比较函数<br>
+                        常用的比较函数是\(p\)-积分
+                    </div>
+                </div>
             </div>
             
             <div class="section">
                 <h2>四、常见题型及解题思路</h2>
+                
+                <!-- 题型解题费曼学习法 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法：积分学题型解题技巧</h3>
+                    <p>积分学题型多样，用费曼法帮你掌握解题思路：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>识别题型</strong>
+                            <p>先判断题目属于哪种类型，确定解题方法</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>讲解过程</strong>
+                            <p>尝试向别人讲解每一步的原理，而不只是机械地抄写步骤</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>总结规律</strong>
+                            <p>归纳同类题目的解题套路和易错点</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>变式练习</strong>
+                            <p>自己改变题目条件，看解题方法是否仍然适用</p>
+                        </div>
+                    </div>
+                </div>
                 
                 <h3>1. 计算变限积分的导数</h3>
                 <p><strong>解题思路：</strong></p>
@@ -512,41 +1003,132 @@
             </div>
             
             <div class="section">
-                <h2>四、易错点与注意事项</h2>
+                <h2>五、易错点与注意事项</h2>
                 
                 <h3>1. 原函数与不定积分的区别</h3>
-                <div class="example">
-                    原函数是具体的函数，不定积分是原函数的全体<br>
-                    不定积分包含任意常数\(C\)
+                <button class="toggle-button" onclick="toggleContent('primitive-vs-indefinite')">展开详细内容</button>
+                <div id="primitive-vs-indefinite" class="collapsible-content">
+                    <div class="example">
+                        原函数是具体的函数，不定积分是原函数的全体<br>
+                        不定积分包含任意常数\(C\)
+                    </div>
+                    <p><strong>常见错误：</strong></p>
+                    <div class="step">
+                        1. 混淆原函数与不定积分的概念<br>
+                        2. 忘记不定积分中的常数C<br>
+                        3. 错误理解原函数的存在条件
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        原函数是不定积分的一个特例<br>
+                        连续函数一定有原函数
+                    </div>
                 </div>
                 
                 <h3>2. 变限积分求导</h3>
-                <div class="example">
-                    要注意上下限是否是\(x\)的函数<br>
-                    应用链式法则，正确计算上下限的导数
+                <button class="toggle-button" onclick="toggleContent('variable-limit-derivative')">展开详细内容</button>
+                <div id="variable-limit-derivative" class="collapsible-content">
+                    <div class="example">
+                        要注意上下限是否是\(x\)的函数<br>
+                        应用链式法则，正确计算上下限的导数
+                    </div>
+                    <p><strong>常见错误：</strong></p>
+                    <div class="step">
+                        1. 忘记对上下限求导<br>
+                        2. 错误应用链式法则<br>
+                        3. 混淆被积函数中的变量
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        变限积分求导是微积分基本定理的应用<br>
+                        注意区分积分变量和上下限变量
+                    </div>
                 </div>
                 
                 <h3>3. 反常积分的敛散性</h3>
-                <div class="example">
-                    需要分别判断积分区间两端的敛散性<br>
-                    无穷间断点处的反常积分需要特殊处理
+                <button class="toggle-button" onclick="toggleContent('improper-convergence-errors')">展开详细内容</button>
+                <div id="improper-convergence-errors" class="collapsible-content">
+                    <div class="example">
+                        需要分别判断积分区间两端的敛散性<br>
+                        无穷间断点处的反常积分需要特殊处理
+                    </div>
+                    <p><strong>常见错误：</strong></p>
+                    <div class="step">
+                        1. 只判断一个端点的敛散性<br>
+                        2. 忽略被积函数的奇点<br>
+                        3. 错误应用比较判别法
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        反常积分收敛要求所有部分都收敛<br>
+                        选择合适的比较函数是关键
+                    </div>
                 </div>
                 
                 <h3>4. 积分中值定理的应用条件</h3>
-                <div class="example">
-                    必须保证函数在区间上连续<br>
-                    不能直接应用在不连续的函数上
+                <button class="toggle-button" onclick="toggleContent('mean-value-theorem-conditions')">展开详细内容</button>
+                <div id="mean-value-theorem-conditions" class="collapsible-content">
+                    <div class="example">
+                        必须保证函数在区间上连续<br>
+                        不能直接应用在不连续的函数上
+                    </div>
+                    <p><strong>常见错误：</strong></p>
+                    <div class="step">
+                        1. 忽略函数连续性条件<br>
+                        2. 错误确定\(\xi\)的取值范围<br>
+                        3. 混淆中值定理的不同形式
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        连续性是积分中值定理的必要条件<br>
+                        \(\xi\)的存在性是结论，一般不需求出具体值
+                    </div>
                 </div>
                 
                 <h3>5. 比较判别法的使用</h3>
-                <div class="example">
-                    选择合适的比较函数\(g(x)\)很重要<br>
-                    要注意比较的合理性
+                <button class="toggle-button" onclick="toggleContent('comparison-test-usage')">展开详细内容</button>
+                <div id="comparison-test-usage" class="collapsible-content">
+                    <div class="example">
+                        选择合适的比较函数\(g(x)\)很重要<br>
+                        要注意比较的合理性
+                    </div>
+                    <p><strong>常见错误：</strong></p>
+                    <div class="step">
+                        1. 选择不合适的比较函数<br>
+                        2. 忽略比较函数的收敛性<br>
+                        3. 错误应用极限比较判别法
+                    </div>
+                    <div class="tip">
+                        <strong>💡 学习小贴士：</strong><br>
+                        常用的比较函数是\(p\)-积分和指数函数<br>
+                        极限比较判别法适用于难以直接比较的情况
+                    </div>
                 </div>
             </div>
             
             <div class="section">
-                <h2>五、重要公式汇总</h2>
+                <h2>六、重要公式汇总</h2>
+                
+                <!-- 公式选择流程图 -->
+                <div class="flowchart-container">
+                    <div class="flowchart">
+                        <div class="flowchart-step">
+                            <div class="flowchart-box">观察问题类型</div>
+                            <div class="flowchart-arrow">→</div>
+                        </div>
+                        <div class="flowchart-step">
+                            <div class="flowchart-box">判断函数性质</div>
+                            <div class="flowchart-arrow">→</div>
+                        </div>
+                        <div class="flowchart-step">
+                            <div class="flowchart-box">选择计算方法</div>
+                            <div class="flowchart-arrow">→</div>
+                        </div>
+                        <div class="flowchart-step">
+                            <div class="flowchart-box">按步骤计算</div>
+                        </div>
+                    </div>
+                </div>
                 
                 <div class="formula">
                     1. 变限积分求导：<br>
@@ -570,6 +1152,107 @@
                 
                 <div class="highlight">
                     以上是第8讲"一元函数积分学的概念与性质"的核心知识要点和做题思路，掌握这些内容可有效解决积分学相关问题。
+                </div>
+            </div>
+            
+            <div class="section">
+                <h2>七、典型例题解析</h2>
+                
+                <!-- 例题费曼学习法 -->
+                <div class="feynman-guide">
+                    <h3>📚 费曼学习法：如何高效学习积分学例题</h3>
+                    <p>学习例题不能只看答案，要用费曼技巧深入理解解题思路：</p>
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>识别题型</strong>
+                            <p>先判断题目属于哪种积分学问题，确定解题方法</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>讲解过程</strong>
+                            <p>尝试向别人讲解每一步的原理，而不只是机械地抄写步骤</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>总结规律</strong>
+                            <p>归纳同类题目的解题套路和易错点</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>变式练习</strong>
+                            <p>自己改变题目条件，看解题方法是否仍然适用</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <h3>例1：变限积分求导问题</h3>
+                <p><strong>题目：</strong>设\(F(x) = \int_0^{x^2} e^{-t^2} dt\)，求\(F'(x)\)</p>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>识别题型：</strong>这是变限积分求导问题，上下限是\(x\)的函数
+                </div>
+                <div class="step">
+                    <strong>应用公式：</strong>设\(u(x) = 0\)，\(v(x) = x^2\)，则
+                    \[
+                    F'(x) = e^{-(x^2)^2} \cdot 2x - e^{-0^2} \cdot 0 = 2x e^{-x^4}
+                    \]
+                </div>
+                
+                <h3>例2：反常积分敛散性判断</h3>
+                <p><strong>题目：</strong>判断\(\int_1^{+\infty} \frac{1}{x(\ln x)^2} dx\)的敛散性</p>
+                <p><strong>解题思路：</strong></p>
+                <div class="step">
+                    <strong>换元法：</strong>令\(u = \ln x\)，则\(du = \frac{1}{x} dx\)，当\(x = 1\)时，\(u = 0\)；当\(x \to +\infty\)时，\(u \to +\infty\)
+                </div>
+                <div class="step">
+                    <strong>转换积分：</strong>
+                    \[
+                    \int_1^{+\infty} \frac{1}{x(\ln x)^2} dx = \int_0^{+\infty} \frac{1}{u^2} du
+                    \]
+                </div>
+                <div class="step">
+                    <strong>判断敛散性：</strong>因为\(\int_0^{+\infty} \frac{1}{u^2} du = \lim_{b \to +\infty} \int_0^b \frac{1}{u^2} du = \lim_{b \to +\infty} [-\frac{1}{u}]_0^b\)，当\(u \to 0^+\)时，\(-\frac{1}{u} \to -\infty\)，所以积分发散
+                </div>
+                
+                <!-- 复习计划指导 -->
+                <div class="feynman-guide">
+                    <h3>📅 积分学概念与性质复习计划与费曼学习法结合</h3>
+                    <p>制定合理的复习计划，结合费曼学习法，高效掌握积分学概念与性质：</p>
+                    
+                    <div class="feynman-steps">
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">1</span>
+                            <strong>第一轮：概念理解（2天）</strong>
+                            <p>使用费曼法理解原函数、定积分、变限积分和反常积分的概念，不急于做题</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">2</span>
+                            <strong>第二轮：定理掌握（2天）</strong>
+                            <p>学习重要定理与性质，每类至少讲解3个应用例子给"别人"听</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">3</span>
+                            <strong>第三轮：题型训练（3天）</strong>
+                            <p>按类型练习典型例题，重点突破易错点和难点</p>
+                        </div>
+                        <div class="feynman-step">
+                            <span class="feynman-step-number">4</span>
+                            <strong>第四轮：查漏补缺（1天）</strong>
+                            <p>回顾学习笔记和错题，用费曼法检验掌握程度</p>
+                        </div>
+                    </div>
+                    
+                    <div class="tip">
+                        <strong>🎯 学习建议：</strong><br>
+                        每天花2-3小时专门学习积分学概念与性质<br>
+                        定期回顾已学内容，防止遗忘<br>
+                        遇到难题不要急躁，分解问题逐步解决
+                    </div>
+                    
+                    <p style="text-align: center; margin-top: 20px;">
+                        <strong>记住：</strong>数学学习不是速成，而是理解和练习的结合！
+                    </p>
                 </div>
             </div>
         </div>

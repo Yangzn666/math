@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第7讲 常微分方程 题型分类练习</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 1024px) {
+            body {
+                padding: 15px;
+            }
+            
+            .container {
+                border-radius: 15px;
+            }
+            
+            header {
+                padding: 30px 15px;
+            }
+            
+            h1 {
+                font-size: 32px;
+            }
+            
+            .subtitle {
+                font-size: 18px;
+            }
+            
+            .intro {
+                padding: 15px;
+            }
+            
+            .highlight-section {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #2c3e50;
+            font-size: 26px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #3498db;
+            font-weight: bold;
+            position: relative;
+            padding-left: 40px;
+        }
+
+        h2:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+        h3 {
+            color: #3498db;
+            font-size: 22px;
+            margin: 20px 0 15px;
+            padding-left: 20px;
+            border-left: 4px solid #3498db;
+        }
+
+        .question {
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-left: 5px solid #3498db;
+        }
+
+        .question-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .question-content {
+            margin: 10px 0;
+        }
+
+        .toggle-button {
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .toggle-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .toggle-button:active {
+            transform: translateY(0);
+        }
+
+        .answer {
+            display: none;
+            padding: 20px;
+            background: #fff8e1;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 5px solid #e74c3c;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .answer.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .answer h4 {
+            color: #e74c3c;
+            margin: 10px 0;
+        }
+
+        .answer p {
+            margin: 8px 0;
+        }
+
+        .answer ul {
+            padding-left: 20px;
+            margin: 10px 0;
+        }
+
+        .answer li {
+            margin: 8px 0;
+        }
+
+        /* 知识点卡片样式 */
+        .knowledge-card {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-left: 5px solid #3498db;
+            z-index: 1000;
+            max-width: 800px;
+            width: 80%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .knowledge-card.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .knowledge-card h4 {
+            color: #2c3e50;
+            margin-top: 0;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .knowledge-card .formula {
+            text-align: center;
+            margin: 15px 0;
+            padding: 15px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 10px;
+            font-size: 16px;
+        }
+
+        .knowledge-card .tip {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffecb3 100%);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+            border-left: 4px solid #e74c3c;
+        }
+
+        .knowledge-card ul {
+            padding-left: 20px;
+        }
+
+        .knowledge-card li {
+            margin: 8px 0;
+        }
+
+        .knowledge-link {
+            color: #3498db;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: bold;
+        }
+
+        .knowledge-link:hover {
+            color: #e74c3c;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #e74c3c;
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .close-btn:hover {
+            background: #c0392b;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                padding: 20px;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            h2 {
+                font-size: 22px;
+            }
+            
+            h3 {
+                font-size: 20px;
+            }
+            
+            .question {
+                padding: 15px;
+            }
+            
+            .answer {
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 8px;
+            }
+            
+            header {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .section {
+                padding: 15px;
+            }
+            
+            h2 {
+                font-size: 20px;
+            }
+            
+            h3 {
+                font-size: 18px;
+            }
+            
+            .question {
+                padding: 10px;
+            }
+            
+            .answer {
+                padding: 10px;
+            }
+            
+            .footer {
+                padding: 15px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>第7讲 常微分方程</h1>
+            <div class="subtitle">题型分类练习 · 高等数学第七章</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>题型概览</h2>
+                <p>本讲主要涵盖常微分方程的基本概念、一阶微分方程、可降阶高阶方程、线性微分方程以及应用问题等内容，通过典型例题帮助同学们掌握解题方法与技巧。</p>
+                <p>相关知识点请参阅：<a href="第15讲 微分方程.html" target="_blank">第15讲 微分方程 讲义</a></p>
+            </div>
+
+            <!-- 一、基本概念题型 -->
+            <div class="section">
+                <h2>一、基本概念题型</h2>
+                
+                <!-- 1. 阶/解/通解/特解 -->
+                <h3 id="order-solution">1. 阶/解/通解/特解</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题1：</div>
+                    <div class="question-content">
+                        <p>确定微分方程 \(y''' + 3y'' + 3y' + y = e^x\) 的阶数，并验证 \(y = (C_1 + C_2x + C_3x^2)e^{-x} + \frac{1}{8}e^x\) 是该方程的通解。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('order-concept-card')">微分方程的阶</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer1')">查看详解</button>
+                    <div id="answer1" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>微分方程的阶是指方程中出现的最高阶导数的阶数。验证解需要将其代入原方程进行验证。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>在微分方程 \(y''' + 3y'' + 3y' + y = e^x\) 中，最高阶导数是 \(y'''\)，所以该方程是三阶微分方程。</p>
+                        
+                        <p>验证 \(y = (C_1 + C_2x + C_3x^2)e^{-x} + \frac{1}{8}e^x\) 是方程的解：</p>
+                        
+                        <p>首先计算各阶导数：</p>
+                        <p>设 \(y_1 = (C_1 + C_2x + C_3x^2)e^{-x}\)，\(y_2 = \frac{1}{8}e^x\)</p>
+                        <p>则 \(y = y_1 + y_2\)</p>
+                        
+                        <p>对于 \(y_2 = \frac{1}{8}e^x\)：</p>
+                        <p>\(y_2' = \frac{1}{8}e^x\)，\(y_2'' = \frac{1}{8}e^x\)，\(y_2''' = \frac{1}{8}e^x\)</p>
+                        
+                        <p>对于 \(y_1 = (C_1 + C_2x + C_3x^2)e^{-x}\)：</p>
+                        <p>使用乘积求导法则：</p>
+                        <p>\(y_1' = (C_2 + 2C_3x)e^{-x} - (C_1 + C_2x + C_3x^2)e^{-x}\)</p>
+                        <p>\(= [C_2 + 2C_3x - C_1 - C_2x - C_3x^2]e^{-x}\)</p>
+                        <p>\(= [C_2 - C_1 + (2C_3 - C_2)x - C_3x^2]e^{-x}\)</p>
+                        
+                        <p>\(y_1'' = [(2C_3 - C_2) - 2C_3x]e^{-x} - [C_2 - C_1 + (2C_3 - C_2)x - C_3x^2]e^{-x}\)</p>
+                        <p>\(= [(2C_3 - C_2) - 2C_3x - (C_2 - C_1) - (2C_3 - C_2)x + C_3x^2]e^{-x}\)</p>
+                        <p>\(= [2C_3 - C_2 - C_2 + C_1 + (-2C_3 - 2C_3 + C_2)x + C_3x^2]e^{-x}\)</p>
+                        <p>\(= [C_1 - 2C_2 + 2C_3 + (-4C_3 + C_2)x + C_3x^2]e^{-x}\)</p>
+                        
+                        <p>\(y_1''' = (-4C_3 + C_2 + 2C_3x)e^{-x} - [C_1 - 2C_2 + 2C_3 + (-4C_3 + C_2)x + C_3x^2]e^{-x}\)</p>
+                        <p>\(= [-4C_3 + C_2 + 2C_3x - C_1 + 2C_2 - 2C_3 - (-4C_3 + C_2)x - C_3x^2]e^{-x}\)</p>
+                        <p>\(= [-C_1 + 3C_2 - 6C_3 + (2C_3 + 4C_3 - C_2)x - C_3x^2]e^{-x}\)</p>
+                        <p>\(= [-C_1 + 3C_2 - 6C_3 + (6C_3 - C_2)x - C_3x^2]e^{-x}\)</p>
+                        
+                        <p>将各阶导数代入原方程：</p>
+                        <p>左侧 \(= y''' + 3y'' + 3y' + y\)</p>
+                        <p>\(= (y_1''' + y_2''') + 3(y_1'' + y_2'') + 3(y_1' + y_2') + (y_1 + y_2)\)</p>
+                        
+                        <p>其中 \(y_2\) 相关项：</p>
+                        <p>\(y_2''' + 3y_2'' + 3y_2' + y_2 = \frac{1}{8}e^x + 3 \cdot \frac{1}{8}e^x + 3 \cdot \frac{1}{8}e^x + \frac{1}{8}e^x = \frac{8}{8}e^x = e^x\)</p>
+                        
+                        <p>其中 \(y_1\) 相关项：</p>
+                        <p>由于 \(y_1\) 是齐次方程 \(y''' + 3y'' + 3y' + y = 0\) 的解，所以：</p>
+                        <p>\(y_1''' + 3y_1'' + 3y_1' + y_1 = 0\)</p>
+                        
+                        <p>因此：</p>
+                        <p>左侧 \(= 0 + e^x = e^x =\) 右侧</p>
+                        
+                        <p>所以 \(y = (C_1 + C_2x + C_3x^2)e^{-x} + \frac{1}{8}e^x\) 是原方程的解。</p>
+                        
+                        <p>由于解中含有三个独立的任意常数 \(C_1, C_2, C_3\)，所以这是三阶微分方程的通解。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y''' + 3y'' + 3y' + y = e^x\) 是三阶微分方程，\(y = (C_1 + C_2x + C_3x^2)e^{-x} + \frac{1}{8}e^x\) 是该方程的通解。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 初始条件 -->
+                <h3 id="initial-condition">2. 初始条件</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题2：</div>
+                    <div class="question-content">
+                        <p>求微分方程 \(y' = 2x\) 满足初始条件 \(y(0) = 1\) 的特解。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('initial-value-card')">初始条件与特解</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer2')">查看详解</button>
+                    <div id="answer2" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个一阶微分方程，可以通过直接积分求解，然后利用初始条件确定任意常数。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>对微分方程 \(y' = 2x\) 两边积分：</p>
+                        <p>\(\int y' dx = \int 2x dx\)</p>
+                        <p>\(y = x^2 + C\)</p>
+                        
+                        <p>利用初始条件 \(y(0) = 1\) 确定常数 \(C\)：</p>
+                        <p>将 \(x = 0\)，\(y = 1\) 代入通解：</p>
+                        <p>\(1 = 0^2 + C\)</p>
+                        <p>\(C = 1\)</p>
+                        
+                        <p>因此满足初始条件的特解为：</p>
+                        <p>\(y = x^2 + 1\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y' = 2x\) 满足初始条件 \(y(0) = 1\) 的特解为 \(y = x^2 + 1\)。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 二、一阶微分方程题型 -->
+            <div class="section">
+                <h2>二、一阶微分方程题型</h2>
+                
+                <!-- 1. 可分离变量方程 -->
+                <h3 id="separable-equation">1. 可分离变量方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题3：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(\frac{dy}{dx} = \frac{1+y^2}{1+x^2}\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('separable-method-card')">可分离变量法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer3')">查看详解</button>
+                    <div id="answer3" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个可分离变量的微分方程，可以将含 \(x\) 的项和含 \(y\) 的项分别移到等号两边，然后积分求解。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将方程改写为：</p>
+                        <p>\(\frac{dy}{1+y^2} = \frac{dx}{1+x^2}\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\int \frac{dy}{1+y^2} = \int \frac{dx}{1+x^2}\)</p>
+                        
+                        <p>利用基本积分公式 \(\int \frac{du}{1+u^2} = \arctan u + C\)：</p>
+                        <p>\(\arctan y = \arctan x + C\)</p>
+                        
+                        <p>解出 \(y\)：</p>
+                        <p>\(y = \tan(\arctan x + C)\)</p>
+                        
+                        <p>利用两角和的正切公式：</p>
+                        <p>\(\tan(\arctan x + C) = \frac{\tan(\arctan x) + \tan C}{1 - \tan(\arctan x) \tan C} = \frac{x + \tan C}{1 - x \tan C}\)</p>
+                        
+                        <p>记 \(\tan C = C_1\)（\(C_1\) 为任意常数）：</p>
+                        <p>\(y = \frac{x + C_1}{1 - C_1 x}\)</p>
+                        
+                        <p>另外，当 \(1 - C_1 x = 0\) 时，即 \(x = \frac{1}{C_1}\) 时，解无意义，但 \(x = \frac{1}{C_1}\) 不在原方程定义域内。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(\frac{dy}{dx} = \frac{1+y^2}{1+x^2}\) 的通解为 \(y = \frac{x + C}{1 - Cx}\)，其中 \(C\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 齐次方程 -->
+                <h3 id="homogeneous-equation">2. 齐次方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题4：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \((x^2+y^2)dx - xydy = 0\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('homogeneous-method-card')">齐次方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer4')">查看详解</button>
+                    <div id="answer4" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个齐次方程，可以通过变量替换 \(y = ux\) 转化为可分离变量的方程。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>首先将方程改写为：</p>
+                        <p>\(\frac{dy}{dx} = \frac{x^2+y^2}{xy} = \frac{x}{y} + \frac{y}{x}\)</p>
+                        
+                        <p>令 \(u = \frac{y}{x}\)，即 \(y = ux\)，则：</p>
+                        <p>\(\frac{dy}{dx} = u + x\frac{du}{dx}\)</p>
+                        
+                        <p>代入原方程：</p>
+                        <p>\(u + x\frac{du}{dx} = \frac{1}{u} + u\)</p>
+                        
+                        <p>化简得：</p>
+                        <p>\(x\frac{du}{dx} = \frac{1}{u}\)</p>
+                        
+                        <p>分离变量：</p>
+                        <p>\(u du = \frac{dx}{x}\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\int u du = \int \frac{dx}{x}\)</p>
+                        <p>\(\frac{u^2}{2} = \ln|x| + C\)</p>
+                        
+                        <p>代回 \(u = \frac{y}{x}\)：</p>
+                        <p>\(\frac{y^2}{2x^2} = \ln|x| + C\)</p>
+                        <p>\(y^2 = 2x^2(\ln|x| + C)\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \((x^2+y^2)dx - xydy = 0\) 的通解为 \(y^2 = 2x^2(\ln|x| + C)\)，其中 \(C\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 一阶线性方程 -->
+                <h3 id="linear-equation">3. 一阶线性方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题5：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(y' - \frac{2y}{x} = x^3\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('linear-method-card')">一阶线性方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer5')">查看详解</button>
+                    <div id="answer5" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个一阶线性微分方程，可以使用积分因子法求解。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将方程写成标准形式：</p>
+                        <p>\(y' - \frac{2}{x}y = x^3\)</p>
+                        
+                        <p>其中 \(p(x) = -\frac{2}{x}\)，\(q(x) = x^3\)。</p>
+                        
+                        <p>计算积分因子：</p>
+                        <p>\(\mu(x) = e^{\int p(x)dx} = e^{\int -\frac{2}{x}dx} = e^{-2\ln|x|} = e^{\ln|x|^{-2}} = \frac{1}{x^2}\)</p>
+                        
+                        <p>将方程两边同乘积分因子 \(\frac{1}{x^2}\)：</p>
+                        <p>\(\frac{1}{x^2}y' - \frac{2}{x^3}y = x\)</p>
+                        
+                        <p>左边可以写成 \(\frac{d}{dx}[\frac{1}{x^2}y]\)：</p>
+                        <p>\(\frac{d}{dx}[\frac{1}{x^2}y] = x\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\frac{1}{x^2}y = \int x dx = \frac{x^2}{2} + C\)</p>
+                        
+                        <p>解出 \(y\)：</p>
+                        <p>\(y = x^2(\frac{x^2}{2} + C) = \frac{x^4}{2} + Cx^2\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y' - \frac{2y}{x} = x^3\) 的通解为 \(y = \frac{x^4}{2} + Cx^2\)，其中 \(C\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 伯努利方程 -->
+                <h3 id="bernoulli-equation">4. 伯努利方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题6：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(y' + y = xy^3\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('bernoulli-method-card')">伯努利方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer6')">查看详解</button>
+                    <div id="answer6" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个伯努利方程，可以通过变量替换转化为线性方程。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将方程写成标准形式：</p>
+                        <p>\(y' + y = xy^3\)</p>
+                        
+                        <p>这是 \(n = 3\) 的伯努利方程。</p>
+                        
+                        <p>令 \(z = y^{1-n} = y^{1-3} = y^{-2}\)，即 \(y = z^{-\frac{1}{2}}\)</p>
+                        
+                        <p>对 \(x\) 求导：</p>
+                        <p>\(\frac{dy}{dx} = -\frac{1}{2}z^{-\frac{3}{2}}\frac{dz}{dx}\)</p>
+                        
+                        <p>代入原方程：</p>
+                        <p>\(-\frac{1}{2}z^{-\frac{3}{2}}\frac{dz}{dx} + z^{-\frac{1}{2}} = x(z^{-\frac{1}{2}})^3\)</p>
+                        <p>\(-\frac{1}{2}z^{-\frac{3}{2}}\frac{dz}{dx} + z^{-\frac{1}{2}} = xz^{-\frac{3}{2}}\)</p>
+                        
+                        <p>两边同乘 \(z^{\frac{3}{2}}\)：</p>
+                        <p>\(-\frac{1}{2}\frac{dz}{dx} + z = x\)</p>
+                        
+                        <p>整理得：</p>
+                        <p>\(\frac{dz}{dx} - 2z = -2x\)</p>
+                        
+                        <p>这是一阶线性方程，其中 \(p(x) = -2\)，\(q(x) = -2x\)。</p>
+                        
+                        <p>计算积分因子：</p>
+                        <p>\(\mu(x) = e^{\int -2 dx} = e^{-2x}\)</p>
+                        
+                        <p>将方程两边同乘积分因子：</p>
+                        <p>\(e^{-2x}\frac{dz}{dx} - 2e^{-2x}z = -2xe^{-2x}\)</p>
+                        <p>\(\frac{d}{dx}[e^{-2x}z] = -2xe^{-2x}\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(e^{-2x}z = \int -2xe^{-2x} dx\)</p>
+                        
+                        <p>使用分部积分法计算右边积分：</p>
+                        <p>设 \(u = x\)，\(dv = -2e^{-2x}dx\)，则 \(du = dx\)，\(v = e^{-2x}\)</p>
+                        <p>\(\int -2xe^{-2x} dx = xe^{-2x} - \int e^{-2x} dx = xe^{-2x} - (-\frac{1}{2}e^{-2x}) = xe^{-2x} + \frac{1}{2}e^{-2x}\)</p>
+                        <p>\(= e^{-2x}(x + \frac{1}{2})\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(e^{-2x}z = e^{-2x}(x + \frac{1}{2}) + C\)</p>
+                        <p>\(z = x + \frac{1}{2} + Ce^{2x}\)</p>
+                        
+                        <p>代回 \(y = z^{-\frac{1}{2}}\)：</p>
+                        <p>\(y^{-2} = x + \frac{1}{2} + Ce^{2x}\)</p>
+                        <p>\(y^2 = \frac{1}{x + \frac{1}{2} + Ce^{2x}}\)</p>
+                        <p>\(y = \pm\frac{1}{\sqrt{x + \frac{1}{2} + Ce^{2x}}}\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y' + y = xy^3\) 的通解为 \(y = \pm\frac{1}{\sqrt{x + \frac{1}{2} + Ce^{2x}}}\)，其中 \(C\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 5. 全微分方程 -->
+                <h3 id="exact-equation">5. 全微分方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题7：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \((2xy+3x^2)dx + (x^2-2y)dy = 0\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('exact-method-card')">全微分方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer7')">查看详解</button>
+                    <div id="answer7" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>首先验证是否为全微分方程，若是则通过积分求出势函数。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>将方程写成 \(P(x,y)dx + Q(x,y)dy = 0\) 的形式：</p>
+                        <p>\(P(x,y) = 2xy + 3x^2\)，\(Q(x,y) = x^2 - 2y\)</p>
+                        
+                        <p>检验是否满足全微分条件 \(\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}\)：</p>
+                        <p>\(\frac{\partial P}{\partial y} = \frac{\partial}{\partial y}(2xy + 3x^2) = 2x\)</p>
+                        <p>\(\frac{\partial Q}{\partial x} = \frac{\partial}{\partial x}(x^2 - 2y) = 2x\)</p>
+                        
+                        <p>因为 \(\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}\)，所以这是全微分方程。</p>
+                        
+                        <p>存在函数 \(U(x,y)\) 使得：</p>
+                        <p>\(\frac{\partial U}{\partial x} = P(x,y) = 2xy + 3x^2\)</p>
+                        <p>\(\frac{\partial U}{\partial y} = Q(x,y) = x^2 - 2y\)</p>
+                        
+                        <p>由第一个方程积分得：</p>
+                        <p>\(U(x,y) = \int (2xy + 3x^2) dx = x^2y + x^3 + \varphi(y)\)</p>
+                        
+                        <p>其中 \(\varphi(y)\) 是仅与 \(y\) 有关的函数。</p>
+                        
+                        <p>将此式对 \(y\) 求偏导数并与 \(Q(x,y)\) 比较：</p>
+                        <p>\(\frac{\partial U}{\partial y} = x^2 + \varphi'(y) = x^2 - 2y\)</p>
+                        
+                        <p>所以：</p>
+                        <p>\(\varphi'(y) = -2y\)</p>
+                        <p>\(\varphi(y) = \int -2y dy = -y^2 + C\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(U(x,y) = x^2y + x^3 - y^2 + C\)</p>
+                        
+                        <p>通解为：</p>
+                        <p>\(x^2y + x^3 - y^2 = C\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \((2xy+3x^2)dx + (x^2-2y)dy = 0\) 的通解为 \(x^2y + x^3 - y^2 = C\)，其中 \(C\) 为任意常数。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 三、可降阶高阶方程题型 -->
+            <div class="section">
+                <h2>三、可降阶高阶方程题型</h2>
+                
+                <!-- 1. 缺y型 -->
+                <h3 id="missing-y">1. 缺y型</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题8：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(y'' + 2y' = 0\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('missing-y-card')">缺y型方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer8')">查看详解</button>
+                    <div id="answer8" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个缺 \(y\) 型的二阶微分方程，可以通过令 \(p = y'\) 降阶为一阶方程。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>令 \(p = y'\)，则 \(y'' = \frac{dp}{dx}\)，原方程变为：</p>
+                        <p>\(\frac{dp}{dx} + 2p = 0\)</p>
+                        
+                        <p>这是一阶线性齐次方程，分离变量：</p>
+                        <p>\(\frac{dp}{p} = -2dx\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\ln|p| = -2x + C_1\)</p>
+                        <p>\(p = C_1'e^{-2x}\) （其中 \(C_1' = \pm e^{C_1}\)）</p>
+                        
+                        <p>即：</p>
+                        <p>\(y' = C_1'e^{-2x}\)</p>
+                        
+                        <p>再积分一次：</p>
+                        <p>\(y = \int C_1'e^{-2x} dx = C_1' \cdot (-\frac{1}{2}e^{-2x}) + C_2 = -\frac{C_1'}{2}e^{-2x} + C_2\)</p>
+                        
+                        <p>记 \(C_1 = -\frac{C_1'}{2}\)，则：</p>
+                        <p>\(y = C_1e^{-2x} + C_2\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y'' + 2y' = 0\) 的通解为 \(y = C_1e^{-2x} + C_2\)，其中 \(C_1, C_2\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 缺x型 -->
+                <h3 id="missing-x">2. 缺x型</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题9：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(yy'' + (y')^2 = 0\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('missing-x-card')">缺x型方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer9')">查看详解</button>
+                    <div id="answer9" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个缺 \(x\) 型的二阶微分方程，可以通过令 \(p = y'\)，\(y'' = p\frac{dp}{dy}\) 降阶。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>令 \(p = y'\)，则 \(y'' = \frac{dp}{dx} = \frac{dp}{dy} \cdot \frac{dy}{dx} = p\frac{dp}{dy}\)</p>
+                        
+                        <p>代入原方程：</p>
+                        <p>\(y \cdot p\frac{dp}{dy} + p^2 = 0\)</p>
+                        
+                        <p>当 \(p \neq 0\) 时，两边同除以 \(p\)：</p>
+                        <p>\(y\frac{dp}{dy} + p = 0\)</p>
+                        
+                        <p>分离变量：</p>
+                        <p>\(\frac{dp}{p} = -\frac{dy}{y}\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\ln|p| = -\ln|y| + C_1 = \ln\left|\frac{1}{y}\right| + C_1\)</p>
+                        <p>\(p = C_1' \cdot \frac{1}{y}\) （其中 \(C_1' = \pm e^{C_1}\)）</p>
+                        
+                        <p>即：</p>
+                        <p>\(y' = \frac{C_1'}{y}\)</p>
+                        
+                        <p>分离变量：</p>
+                        <p>\(y dy = C_1' dx\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\frac{y^2}{2} = C_1'x + C_2\)</p>
+                        <p>\(y^2 = 2C_1'x + 2C_2\)</p>
+                        
+                        <p>记 \(C_1'' = 2C_1'\)，\(C_2' = 2C_2\)，则：</p>
+                        <p>\(y^2 = C_1''x + C_2'\)</p>
+                        <p>\(y = \pm\sqrt{C_1''x + C_2'}\)</p>
+                        
+                        <p>此外，当 \(p = 0\) 时，即 \(y' = 0\)，得 \(y = C\)（常数）。</p>
+                        <p>将其代入原方程：\(y \cdot 0 + 0^2 = 0\)，满足。</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(yy'' + (y')^2 = 0\) 的通解为 \(y^2 = C_1x + C_2\) 和 \(y = C\)，其中 \(C_1, C_2, C\) 为任意常数。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 四、线性微分方程题型 -->
+            <div class="section">
+                <h2>四、线性微分方程题型</h2>
+                
+                <!-- 1. 线性方程解的结构 -->
+                <h3 id="structure">1. 线性方程解的结构</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题10：</div>
+                    <div class="question-content">
+                        <p>已知 \(y_1 = e^x\) 和 \(y_2 = e^{2x}\) 是二阶齐次线性微分方程 \(y'' + ay' + by = 0\) 的两个解，求 \(a, b\) 的值。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('structure-card')">线性方程解的结构</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer10')">查看详解</button>
+                    <div id="answer10" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>由于 \(y_1 = e^x\) 和 \(y_2 = e^{2x}\) 是方程的解，它们都应满足方程。利用这个条件可以求出 \(a, b\)。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>因为 \(y_1 = e^x\) 是方程的解，所以：</p>
+                        <p>\(y_1' = e^x\)，\(y_1'' = e^x\)</p>
+                        <p>代入方程 \(y'' + ay' + by = 0\)：</p>
+                        <p>\(e^x + ae^x + be^x = 0\)</p>
+                        <p>\(e^x(1 + a + b) = 0\)</p>
+                        
+                        <p>由于 \(e^x \neq 0\)，所以：</p>
+                        <p>\(1 + a + b = 0\) —— (1)</p>
+                        
+                        <p>因为 \(y_2 = e^{2x}\) 是方程的解，所以：</p>
+                        <p>\(y_2' = 2e^{2x}\)，\(y_2'' = 4e^{2x}\)</p>
+                        <p>代入方程 \(y'' + ay' + by = 0\)：</p>
+                        <p>\(4e^{2x} + 2ae^{2x} + be^{2x} = 0\)</p>
+                        <p>\(e^{2x}(4 + 2a + b) = 0\)</p>
+                        
+                        <p>由于 \(e^{2x} \neq 0\)，所以：</p>
+                        <p>\(4 + 2a + b = 0\) —— (2)</p>
+                        
+                        <p>联立方程 (1) 和 (2)：</p>
+                        <p>\(\begin{cases}
+1 + a + b = 0 \\
+4 + 2a + b = 0
+\end{cases}\)</p>
+                        
+                        <p>第二个方程减去第一个方程：</p>
+                        <p>\((4 + 2a + b) - (1 + a + b) = 0 - 0\)</p>
+                        <p>\(3 + a = 0\)</p>
+                        <p>\(a = -3\)</p>
+                        
+                        <p>将 \(a = -3\) 代入第一个方程：</p>
+                        <p>\(1 + (-3) + b = 0\)</p>
+                        <p>\(b = 2\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>\(a = -3\)，\(b = 2\)。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 常系数齐次线性方程 -->
+                <h3 id="constant-homogeneous">2. 常系数齐次线性方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题11：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(y''' + 3y'' + 3y' + y = 0\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('constant-homogeneous-card')">常系数齐次线性方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer11')">查看详解</button>
+                    <div id="answer11" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个三阶常系数齐次线性微分方程，可以通过特征方程法求解。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>写出特征方程：</p>
+                        <p>\(r^3 + 3r^2 + 3r + 1 = 0\)</p>
+                        
+                        <p>观察系数，发现这是 \((r+1)^3 = 0\) 的展开式：</p>
+                        <p>\((r+1)^3 = r^3 + 3r^2 + 3r + 1\)</p>
+                        
+                        <p>所以特征方程为：</p>
+                        <p>\((r+1)^3 = 0\)</p>
+                        
+                        <p>特征根为：\(r = -1\)（三重根）</p>
+                        
+                        <p>根据常系数齐次线性微分方程解的结构：</p>
+                        <p>当特征方程有 \(k\) 重根 \(r\) 时，对应的解为 \(e^{rx}, xe^{rx}, x^2e^{rx}, \ldots, x^{k-1}e^{rx}\)</p>
+                        
+                        <p>因此，该方程的通解为：</p>
+                        <p>\(y = (C_1 + C_2x + C_3x^2)e^{-x}\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y''' + 3y'' + 3y' + y = 0\) 的通解为 \(y = (C_1 + C_2x + C_3x^2)e^{-x}\)，其中 \(C_1, C_2, C_3\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 常系数非齐次线性方程 -->
+                <h3 id="constant-nonhomogeneous">3. 常系数非齐次线性方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题12：</div>
+                    <div class="question-content">
+                        <p>求解微分方程 \(y'' - 3y' + 2y = xe^x\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('constant-nonhomogeneous-card')">常系数非齐次线性方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer12')">查看详解</button>
+                    <div id="answer12" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个二阶常系数非齐次线性微分方程，通解等于对应齐次方程的通解加上非齐次方程的一个特解。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>第一步：求对应齐次方程 \(y'' - 3y' + 2y = 0\) 的通解。</p>
+                        
+                        <p>写出特征方程：</p>
+                        <p>\(r^2 - 3r + 2 = 0\)</p>
+                        <p>\((r-1)(r-2) = 0\)</p>
+                        
+                        <p>特征根为：\(r_1 = 1\)，\(r_2 = 2\)</p>
+                        
+                        <p>齐次方程的通解为：</p>
+                        <p>\(y_h = C_1e^x + C_2e^{2x}\)</p>
+                        
+                        <p>第二步：求非齐次方程的一个特解。</p>
+                        
+                        <p>非齐次项 \(f(x) = xe^x\)，属于 \(e^{\alpha x}P_m(x)\) 类型，其中 \(\alpha = 1\)，\(P_m(x) = x\)（一次多项式）。</p>
+                        
+                        <p>由于 \(\alpha = 1\) 是特征方程的单根，所以特解设为：</p>
+                        <p>\(y_p = x(Ax + B)e^x = (Ax^2 + Bx)e^x\)</p>
+                        
+                        <p>求导：</p>
+                        <p>\(y_p' = (2Ax + B)e^x + (Ax^2 + Bx)e^x = [Ax^2 + (2A+B)x + B]e^x\)</p>
+                        <p>\(y_p'' = [2Ax + (2A+B)]e^x + [Ax^2 + (2A+B)x + B]e^x\)</p>
+                        <p>\(= [Ax^2 + (2A+2A+B)x + (2A+B+B)]e^x\)</p>
+                        <p>\(= [Ax^2 + (4A+B)x + (2A+2B)]e^x\)</p>
+                        
+                        <p>代入原方程：</p>
+                        <p>\(y_p'' - 3y_p' + 2y_p = xe^x\)</p>
+                        <p>\([Ax^2 + (4A+B)x + (2A+2B)]e^x - 3[Ax^2 + (2A+B)x + B]e^x + 2[Ax^2 + Bx]e^x = xe^x\)</p>
+                        
+                        <p>比较等式两端 \(e^x\) 的系数：</p>
+                        <p>\(x^2\) 的系数：\(A - 3A + 2A = 0\) ✓</p>
+                        <p>\(x\) 的系数：\((4A+B) - 3(2A+B) + 2B = (4A+B) - (6A+3B) + 2B = -2A = 1\)</p>
+                        <p>常数项系数：\((2A+2B) - 3B = 2A - B = 0\)</p>
+                        
+                        <p>解方程组：</p>
+                        <p>\(\begin{cases}
+-2A = 1 \\
+2A - B = 0
+\end{cases}\)</p>
+                        
+                        <p>从第一个方程得：\(A = -\frac{1}{2}\)</p>
+                        <p>代入第二个方程：\(2(-\frac{1}{2}) - B = 0\)，所以 \(B = -1\)</p>
+                        
+                        <p>因此特解为：</p>
+                        <p>\(y_p = (-\frac{1}{2}x^2 - x)e^x = -\frac{1}{2}x(x + 2)e^x\)</p>
+                        
+                        <p>第三步：写出通解。</p>
+                        <p>\(y = y_h + y_p = C_1e^x + C_2e^{2x} - \frac{1}{2}x(x + 2)e^x\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>微分方程 \(y'' - 3y' + 2y = xe^x\) 的通解为 \(y = C_1e^x + C_2e^{2x} - \frac{1}{2}x(x + 2)e^x\)，其中 \(C_1, C_2\) 为任意常数。</p>
+                    </div>
+                </div>
+                
+                <!-- 4. 欧拉方程 -->
+                <h3 id="euler-equation">4. 欧拉方程</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题13：</div>
+                    <div class="question-content">
+                        <p>求解欧拉方程 \(x^2y'' + xy' - y = 0\)（\(x > 0\)）。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('euler-card')">欧拉方程解法</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer13')">查看详解</button>
+                    <div id="answer13" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个欧拉方程，可以通过变量替换 \(x = e^t\) 转化为常系数线性微分方程。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>令 \(x = e^t\)（即 \(t = \ln x\)），将方程转化为关于 \(t\) 的方程。</p>
+                        
+                        <p>利用链式法则进行变量替换：</p>
+                        <p>\(\frac{dy}{dx} = \frac{dy}{dt} \cdot \frac{dt}{dx} = \frac{dy}{dt} \cdot \frac{1}{x} = \frac{1}{x}\frac{dy}{dt}\)</p>
+                        
+                        <p>\(\frac{d^2y}{dx^2} = \frac{d}{dx}\left(\frac{1}{x}\frac{dy}{dt}\right) = -\frac{1}{x^2}\frac{dy}{dt} + \frac{1}{x}\frac{d}{dx}\left(\frac{dy}{dt}\right)\)</p>
+                        <p>\(= -\frac{1}{x^2}\frac{dy}{dt} + \frac{1}{x}\frac{d^2y}{dt^2}\frac{dt}{dx} = -\frac{1}{x^2}\frac{dy}{dt} + \frac{1}{x}\frac{d^2y}{dt^2}\frac{1}{x}\)</p>
+                        <p>\(= \frac{1}{x^2}\left(\frac{d^2y}{dt^2} - \frac{dy}{dt}\right)\)</p>
+                        
+                        <p>将这些表达式代入原方程 \(x^2y'' + xy' - y = 0\)：</p>
+                        <p>\(x^2 \cdot \frac{1}{x^2}\left(\frac{d^2y}{dt^2} - \frac{dy}{dt}\right) + x \cdot \frac{1}{x}\frac{dy}{dt} - y = 0\)</p>
+                        <p>\(\frac{d^2y}{dt^2} - \frac{dy}{dt} + \frac{dy}{dt} - y = 0\)</p>
+                        <p>\(\frac{d^2y}{dt^2} - y = 0\)</p>
+                        
+                        <p>这是关于 \(t\) 的二阶常系数齐次线性微分方程。</p>
+                        
+                        <p>写出特征方程：</p>
+                        <p>\(r^2 - 1 = 0\)</p>
+                        <p>\(r = \pm 1\)</p>
+                        
+                        <p>方程的通解为：</p>
+                        <p>\(y = C_1e^t + C_2e^{-t}\)</p>
+                        
+                        <p>代回 \(t = \ln x\)：</p>
+                        <p>\(y = C_1e^{\ln x} + C_2e^{-\ln x} = C_1x + C_2x^{-1} = C_1x + \frac{C_2}{x}\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>欧拉方程 \(x^2y'' + xy' - y = 0\)（\(x > 0\)）的通解为 \(y = C_1x + \frac{C_2}{x}\)，其中 \(C_1, C_2\) 为任意常数。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 五、应用问题题型 -->
+            <div class="section">
+                <h2>五、应用问题题型</h2>
+                
+                <!-- 1. 几何应用 -->
+                <h3 id="geometric-application">1. 几何应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题14：</div>
+                    <div class="question-content">
+                        <p>求满足曲线上任一点的切线在 \(x\) 轴上的截距等于该点横坐标一半的曲线方程，且曲线过点 \((1, 1)\)。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('geometric-app-card')">微分方程几何应用</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer14')">查看详解</button>
+                    <div id="answer14" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>根据几何条件建立微分方程，然后求解满足初始条件的特解。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设所求曲线方程为 \(y = y(x)\)，曲线上任一点 \((x, y)\) 处的切线斜率为 \(y'\)。</p>
+                        
+                        <p>切线方程为：</p>
+                        <p>\(Y - y = y'(X - x)\)</p>
+                        
+                        <p>切线与 \(x\) 轴的交点满足 \(Y = 0\)：</p>
+                        <p>\(0 - y = y'(X - x)\)</p>
+                        <p>\(X = x - \frac{y}{y'}\)</p>
+                        
+                        <p>根据题意，切线在 \(x\) 轴上的截距等于该点横坐标的一半：</p>
+                        <p>\(x - \frac{y}{y'} = \frac{x}{2}\)</p>
+                        
+                        <p>整理得：</p>
+                        <p>\(x - \frac{x}{2} = \frac{y}{y'}\)</p>
+                        <p>\(\frac{x}{2} = \frac{y}{y'}\)</p>
+                        <p>\(y' = \frac{2y}{x}\)</p>
+                        
+                        <p>这是可分离变量的微分方程。</p>
+                        <p>分离变量：</p>
+                        <p>\(\frac{dy}{y} = \frac{2dx}{x}\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\ln|y| = 2\ln|x| + C_1 = \ln|x^2| + C_1\)</p>
+                        <p>\(|y| = |x^2| \cdot e^{C_1} = C|x^2|\)</p>
+                        
+                        <p>去掉绝对值符号（考虑到 \(x = 1 > 0\)，\(y = 1 > 0\)）：</p>
+                        <p>\(y = Cx^2\)</p>
+                        
+                        <p>利用初始条件 \(y(1) = 1\) 确定常数 \(C\)：</p>
+                        <p>\(1 = C \cdot 1^2\)</p>
+                        <p>\(C = 1\)</p>
+                        
+                        <p>因此所求曲线方程为：</p>
+                        <p>\(y = x^2\)</p>
+                        
+                        <h4>答案：</h4>
+                        <p>满足条件的曲线方程为 \(y = x^2\)。</p>
+                    </div>
+                </div>
+                
+                <!-- 2. 物理应用 -->
+                <h3 id="physical-application">2. 物理应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题15：</div>
+                    <div class="question-content">
+                        <p>质点 \(P\) 沿抛物线 \(x = y^2\)（\(y > 0\)）移动，\(P\) 的横坐标 \(x\) 的变化速度为 5 cm/s。当 \(x = 9\) 时，求点 \(P\) 到原点 \(O\) 的距离变化速度。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('physical-app-card')">微分方程物理应用</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer15')">查看详解</button>
+                    <div id="answer15" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>这是一个相关变化率问题，通过对距离函数求导来计算变化速度。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设点 \(P\) 的坐标为 \((x, y)\)，满足 \(x = y^2\)（\(y > 0\)）。</p>
+                        
+                        <p>点 \(P\) 到原点 \(O\) 的距离为：</p>
+                        <p>\(s = \sqrt{x^2 + y^2}\)</p>
+                        
+                        <p>将 \(x = y^2\) 代入：</p>
+                        <p>\(s = \sqrt{(y^2)^2 + y^2} = \sqrt{y^4 + y^2} = y\sqrt{y^2 + 1}\)</p>
+                        
+                        <p>对时间 \(t\) 求导，得到距离变化速度：</p>
+                        <p>\(\frac{ds}{dt} = \frac{d}{dt}[y\sqrt{y^2 + 1}]\)</p>
+                        <p>\(= \frac{dy}{dt}\sqrt{y^2 + 1} + y \cdot \frac{1}{2\sqrt{y^2 + 1}} \cdot 2y \frac{dy}{dt}\)</p>
+                        <p>\(= \frac{dy}{dt}\sqrt{y^2 + 1} + \frac{y^2}{\sqrt{y^2 + 1}}\frac{dy}{dt}\)</p>
+                        <p>\(= \frac{dy}{dt}\left(\sqrt{y^2 + 1} + \frac{y^2}{\sqrt{y^2 + 1}}\right)\)</p>
+                        <p>\(= \frac{dy}{dt}\left(\frac{y^2 + 1 + y^2}{\sqrt{y^2 + 1}}\right)\)</p>
+                        <p>\(= \frac{dy}{dt}\left(\frac{2y^2 + 1}{\sqrt{y^2 + 1}}\right)\)</p>
+                        
+                        <p>现在需要求出当 \(x = 9\) 时的 \(\frac{dy}{dt}\)。</p>
+                        
+                        <p>由 \(x = y^2\)，得 \(\frac{dx}{dt} = 2y\frac{dy}{dt}\)</p>
+                        
+                        <p>已知 \(\frac{dx}{dt} = 5\) cm/s，当 \(x = 9\) 时，\(y = \sqrt{9} = 3\)。</p>
+                        
+                        <p>代入上式：</p>
+                        <p>\(5 = 2 \cdot 3 \cdot \frac{dy}{dt}\)</p>
+                        <p>\(\frac{dy}{dt} = \frac{5}{6}\) cm/s</p>
+                        
+                        <p>因此，当 \(x = 9\)（即 \(y = 3\)）时，距离变化速度为：</p>
+                        <p>\(\frac{ds}{dt} = \frac{5}{6} \cdot \frac{2 \cdot 3^2 + 1}{\sqrt{3^2 + 1}} = \frac{5}{6} \cdot \frac{18 + 1}{\sqrt{9 + 1}} = \frac{5}{6} \cdot \frac{19}{\sqrt{10}}\)</p>
+                        <p>\(= \frac{5 \cdot 19}{6\sqrt{10}} = \frac{95}{6\sqrt{10}} = \frac{95\sqrt{10}}{60} = \frac{19\sqrt{10}}{12}\) cm/s</p>
+                        
+                        <h4>答案：</h4>
+                        <p>当 \(x = 9\) 时，点 \(P\) 到原点 \(O\) 的距离变化速度为 \(\frac{19\sqrt{10}}{12}\) cm/s。</p>
+                    </div>
+                </div>
+                
+                <!-- 3. 生物/化学应用 -->
+                <h3 id="biochemical-application">3. 生物/化学应用</h3>
+                
+                <div class="question">
+                    <div class="question-title">例题16：</div>
+                    <div class="question-content">
+                        <p>某放射性元素的衰变速度与现存质量成正比，已知其半衰期为 1590 年，求 1000 克该元素经过 2000 年后剩余的质量。</p>
+                        <p>相关知识点：<span class="knowledge-link" onclick="showKnowledgeCard('biochemical-app-card')">微分方程生化应用</span></p>
+                    </div>
+                    <button class="toggle-button" onclick="toggleAnswer('answer16')">查看详解</button>
+                    <div id="answer16" class="answer">
+                        <h4>解题分析：</h4>
+                        <p>根据放射性衰变规律建立微分方程模型，利用半衰期条件确定参数，然后计算特定时刻的质量。</p>
+                        
+                        <h4>解题过程：</h4>
+                        <p>设 \(m(t)\) 表示时刻 \(t\) 时放射性元素的质量，其中 \(t\) 的单位为年。</p>
+                        
+                        <p>根据题意，衰变速度与现存质量成正比：</p>
+                        <p>\(\frac{dm}{dt} = -km\)（负号表示质量减少）</p>
+                        
+                        <p>其中 \(k > 0\) 是比例常数。</p>
+                        
+                        <p>这是可分离变量的微分方程：</p>
+                        <p>\(\frac{dm}{m} = -k dt\)</p>
+                        
+                        <p>两边积分：</p>
+                        <p>\(\ln|m| = -kt + C\)</p>
+                        <p>\(m = Ce^{-kt}\)</p>
+                        
+                        <p>设初始时刻 \(t = 0\) 时质量为 \(m_0\)，则：</p>
+                        <p>\(m(0) = Ce^0 = C = m_0\)</p>
+                        
+                        <p>所以通解为：</p>
+                        <p>\(m(t) = m_0e^{-kt}\)</p>
+                        
+                        <p>利用半衰期条件确定 \(k\)：</p>
+                        <p>半衰期为 1590 年，意味着当 \(t = 1590\) 时，\(m(1590) = \frac{m_0}{2}\)。</p>
+                        <p>\(\frac{m_0}{2} = m_0e^{-1590k}\)</p>
+                        <p>\(\frac{1}{2} = e^{-1590k}\)</p>
+                        <p>\(\ln\frac{1}{2} = -1590k\)</p>
+                        <p>\(-\ln 2 = -1590k\)</p>
+                        <p>\(k = \frac{\ln 2}{1590}\)</p>
+                        
+                        <p>因此质量随时间变化的函数为：</p>
+                        <p>\(m(t) = m_0e^{-\frac{\ln 2}{1590}t}\)</p>
+                        
+                        <p>对于本题，\(m_0 = 1000\) 克，\(t = 2000\) 年：</p>
+                        <p>\(m(2000) = 1000e^{-\frac{\ln 2}{1590} \cdot 2000}\)</p>
+                        <p>\(= 1000e^{-\frac{2000\ln 2}{1590}}\)</p>
+                        <p>\(= 1000e^{-\frac{2000}{1590}\ln 2}\)</p>
+                        <p>\(= 1000 \cdot 2^{-\frac{2000}{1590}}\)</p>
+                        <p>\(= 1000 \cdot 2^{-\frac{200}{159}}\)</p>
+                        
+                        <p>计算指数部分：</p>
+                        <p>\(\frac{200}{159} \approx 1.2579\)</p>
+                        <p>\(2^{-1.2579} \approx 0.4182\)</p>
+                        
+                        <p>因此：</p>
+                        <p>\(m(2000) \approx 1000 \times 0.4182 = 418.2\) 克</p>
+                        
+                        <h4>答案：</h4>
+                        <p>1000 克该放射性元素经过 2000 年后剩余约 418.2 克。</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 知识点卡片 -->
+            <div id="order-concept-card" class="knowledge-card">
+                <h4>微分方程的阶</h4>
+                <div class="formula">
+                    微分方程的阶是指方程中出现的最高阶导数的阶数
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. n阶微分方程的通解含有n个独立的任意常数<br>
+                    2. 验证解的正确性需要将其代入原方程<br>
+                    3. 特解是通过初始条件或边界条件确定常数后的解
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('order-concept-card')">×</button>
+            </div>
+            
+            <div id="initial-value-card" class="knowledge-card">
+                <h4>初始条件与特解</h4>
+                <div class="formula">
+                    n阶微分方程需要n个初始条件来确定特解<br>
+                    如：\(y(x_0) = y_0, y'(x_0) = y_1, \ldots, y^{(n-1)}(x_0) = y_{n-1}\)
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 初始条件给出的是同一个点处的函数值和各阶导数值<br>
+                    2. 边值条件给出的是不同点处的函数值<br>
+                    3. 通过初始条件可将通解中的任意常数完全确定
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('initial-value-card')">×</button>
+            </div>
+            
+            <div id="separable-method-card" class="knowledge-card">
+                <h4>可分离变量法</h4>
+                <div class="formula">
+                    形如 \(\frac{dy}{dx} = f(x)g(y)\) 的方程<br>
+                    可分离为 \(\frac{dy}{g(y)} = f(x)dx\)，然后两边积分
+                </div>
+                <div class="tip">
+                    <strong>解题步骤：</strong><br>
+                    1. 分离变量到等号两边<br>
+                    2. 两边同时积分<br>
+                    3. 整理得到通解（显式或隐式）<br>
+                    4. 注意特殊情况（如使分母为零的解）
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('separable-method-card')">×</button>
+            </div>
+            
+            <div id="homogeneous-method-card" class="knowledge-card">
+                <h4>齐次方程解法</h4>
+                <div class="formula">
+                    形如 \(\frac{dy}{dx} = f(\frac{y}{x})\) 的方程<br>
+                    令 \(u = \frac{y}{x}\)，即 \(y = ux\)，则 \(\frac{dy}{dx} = u + x\frac{du}{dx}\)
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 齐次函数的判定：\(f(tx, ty) = t^n f(x, y)\)<br>
+                    2. 变量替换后转化为可分离变量方程<br>
+                    3. 求解后再代回原变量
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('homogeneous-method-card')">×</button>
+            </div>
+            
+            <div id="linear-method-card" class="knowledge-card">
+                <h4>一阶线性方程解法</h4>
+                <div class="formula">
+                    标准形式：\(y' + p(x)y = q(x)\)<br>
+                    通解：\(y = e^{-\int p(x)dx}[\int q(x)e^{\int p(x)dx}dx + C]\)<br>
+                    积分因子：\(\mu(x) = e^{\int p(x)dx}\)
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 必须先化为标准形式<br>
+                    2. 正确确定 \(p(x)\) 和 \(q(x)\)<br>
+                    3. 积分因子法是通用解法<br>
+                    4. 常数变易法也是一种有效的解法
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('linear-method-card')">×</button>
+            </div>
+            
+            <div id="bernoulli-method-card" class="knowledge-card">
+                <h4>伯努利方程解法</h4>
+                <div class="formula">
+                    标准形式：\(y' + p(x)y = q(x)y^n\)（\(n \neq 0, 1\)）<br>
+                    令 \(z = y^{1-n}\)，转化为线性方程：\(z' + (1-n)p(x)z = (1-n)q(x)\)
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 确认方程是伯努利方程形式<br>
+                    2. 正确进行变量替换<br>
+                    3. 转化为线性方程后按线性方程方法求解<br>
+                    4. 最后要代回原变量
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('bernoulli-method-card')">×</button>
+            </div>
+            
+            <div id="exact-method-card" class="knowledge-card">
+                <h4>全微分方程解法</h4>
+                <div class="formula">
+                    形如 \(P(x,y)dx + Q(x,y)dy = 0\)<br>
+                    全微分条件：\(\frac{\partial P}{\partial y} = \frac{\partial Q}{\partial x}\)<br>
+                    存在势函数 \(U(x,y)\) 使得 \(dU = Pdx + Qdy\)
+                </div>
+                <div class="tip">
+                    <strong>解题步骤：</strong><br>
+                    1. 验证全微分条件<br>
+                    2. 通过积分求势函数 \(U(x,y)\)<br>
+                    3. 通解为 \(U(x,y) = C\)
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('exact-method-card')">×</button>
+            </div>
+            
+            <div id="missing-y-card" class="knowledge-card">
+                <h4>缺y型方程解法</h4>
+                <div class="formula">
+                    形如 \(F(x, y', y'') = 0\)（不含 \(y\)）<br>
+                    令 \(p = y'\)，则 \(y'' = \frac{dp}{dx}\)，降阶为 \(F(x, p, \frac{dp}{dx}) = 0\)
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 通过换元降低方程阶数<br>
+                    2. 求解降阶后的方程<br>
+                    3. 连续积分得到原方程的解
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('missing-y-card')">×</button>
+            </div>
+            
+            <div id="missing-x-card" class="knowledge-card">
+                <h4>缺x型方程解法</h4>
+                <div class="formula">
+                    形如 \(F(y, y', y'') = 0\)（不含 \(x\)）<br>
+                    令 \(p = y'\)，则 \(y'' = p\frac{dp}{dy}\)，降阶为 \(F(y, p, p\frac{dp}{dy}) = 0\)
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 这种类型通过 \(y'' = \frac{dp}{dx} = \frac{dp}{dy} \cdot \frac{dy}{dx} = p\frac{dp}{dy}\) 进行换元<br>
+                    2. 注意可能出现的 \(p = 0\) 的特殊情况<br>
+                    3. 求解后要正确还原变量
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('missing-x-card')">×</button>
+            </div>
+            
+            <div id="structure-card" class="knowledge-card">
+                <h4>线性方程解的结构</h4>
+                <div class="formula">
+                    齐次线性方程：\(y'' + p(x)y' + q(x)y = 0\)<br>
+                    非齐次线性方程：\(y'' + p(x)y' + q(x)y = f(x)\)<br>
+                    通解 = 齐次方程通解 + 非齐次方程特解
+                </div>
+                <div class="tip">
+                    <strong>要点：</strong><br>
+                    1. 齐次方程的任意线性组合仍是解<br>
+                    2. 非齐次方程的通解等于对应齐次方程通解与自身一个特解之和<br>
+                    3. 线性无关解的个数等于方程的阶数
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('structure-card')">×</button>
+            </div>
+            
+            <div id="constant-homogeneous-card" class="knowledge-card">
+                <h4>常系数齐次线性方程解法</h4>
+                <div class="formula">
+                    \(y^{(n)} + a_1y^{(n-1)} + \cdots + a_{n-1}y' + a_ny = 0\)<br>
+                    特征方程：\(r^n + a_1r^{n-1} + \cdots + a_{n-1}r + a_n = 0\)<br>
+                    根据特征根类型写出对应的解
+                </div>
+                <div class="tip">
+                    <strong>不同类型根对应的解：</strong><br>
+                    1. 单实根 \(r\)：\(e^{rx}\)<br>
+                    2. \(k\) 重实根 \(r\)：\(e^{rx}, xe^{rx}, \ldots, x^{k-1}e^{rx}\)<br>
+                    3. 一对单复根 \(r = \alpha \pm \beta i\)：\(e^{\alpha x}\cos\beta x, e^{\alpha x}\sin\beta x\)<br>
+                    4. \(k\) 重复数根 \(r = \alpha \pm \beta i\)：上述解乘以 \(1, x, \ldots, x^{k-1}\)
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('constant-homogeneous-card')">×</button>
+            </div>
+            
+            <div id="constant-nonhomogeneous-card" class="knowledge-card">
+                <h4>常系数非齐次线性方程解法</h4>
+                <div class="formula">
+                    \(y'' + py' + qy = f(x)\)<br>
+                    通解 = 齐次通解 + 非齐次特解<br>
+                    特解常用待定系数法求得
+                </div>
+                <div class="tip">
+                    <strong>待定系数法：</strong><br>
+                    1. \(f(x) = e^{\alpha x}P_m(x)\)：特解设为 \(x^k e^{\alpha x}Q_m(x)\)<br>
+                    2. \(f(x) = e^{\alpha x}[P_l(x)\cos\beta x + Q_m(x)\sin\beta x]\)：特解设为 \(x^k e^{\alpha x}[R^{(1)}(x)\cos\beta x + R^{(2)}(x)\sin\beta x]\)<br>
+                    3. \(k\) 为 \(\alpha\)（或 \(\alpha \pm \beta i\)）作为特征根的重数
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('constant-nonhomogeneous-card')">×</button>
+            </div>
+            
+            <div id="euler-card" class="knowledge-card">
+                <h4>欧拉方程解法</h4>
+                <div class="formula">
+                    \(x^n y^{(n)} + a_1 x^{n-1} y^{(n-1)} + \cdots + a_{n-1} x y' + a_n y = 0\)<br>
+                    令 \(x = e^t\)（即 \(t = \ln x\)），转化为常系数线性方程
+                </div>
+                <div class="tip">
+                    <strong>变换公式：</strong><br>
+                    1. \(\frac{dy}{dx} = \frac{1}{x}\frac{dy}{dt}\)<br>
+                    2. \(\frac{d^2y}{dx^2} = \frac{1}{x^2}(\frac{d^2y}{dt^2} - \frac{dy}{dt})\)<br>
+                    3. 求解常系数方程后再代回 \(t = \ln x\)
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('euler-card')">×</button>
+            </div>
+            
+            <div id="geometric-app-card" class="knowledge-card">
+                <h4>微分方程几何应用</h4>
+                <div class="formula">
+                    根据几何条件建立微分方程<br>
+                    常见几何量：切线斜率、曲率、截距、弧长等
+                </div>
+                <div class="tip">
+                    <strong>建模要点：</strong><br>
+                    1. 正确理解几何条件的含义<br>
+                    2. 将几何条件转化为数学表达式<br>
+                    3. 建立微分方程并求解<br>
+                    4. 利用初始条件确定特解
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('geometric-app-card')">×</button>
+            </div>
+            
+            <div id="physical-app-card" class="knowledge-card">
+                <h4>微分方程物理应用</h4>
+                <div class="formula">
+                    根据物理定律建立微分方程<br>
+                    常见物理模型：运动学、动力学、电路、热传导等
+                </div>
+                <div class="tip">
+                    <strong>建模要点：</strong><br>
+                    1. 确定研究对象和相关物理量<br>
+                    2. 应用物理定律建立关系式<br>
+                    3. 导出微分方程<br>
+                    4. 结合初始条件求解
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('physical-app-card')">×</button>
+            </div>
+            
+            <div id="biochemical-app-card" class="knowledge-card">
+                <h4>微分方程生化应用</h4>
+                <div class="formula">
+                    生物/化学变化率通常与当前状态成正比<br>
+                    如：\(\frac{dx}{dt} = kx\)（指数增长/衰减）
+                </div>
+                <div class="tip">
+                    <strong>常见模型：</strong><br>
+                    1. 人口增长模型<br>
+                    2. 放射性衰变<br>
+                    3. 化学反应速率<br>
+                    4. 药物代谢动力学
+                </div>
+                <button class="close-btn" onclick="closeKnowledgeCard('biochemical-app-card')">×</button>
+            </div>
+            
+            <div class="footer">
+                <p>© 2025 高等数学学习笔记 | 第7讲：常微分方程 题型分类练习</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 展开/收起答案
+        function toggleAnswer(id) {
+            var answer = document.getElementById(id);
+            var button = answer.previousElementSibling;
+            answer.classList.toggle('active');
+            
+            if (answer.classList.contains('active')) {
+                button.textContent = '收起详解';
+            } else {
+                button.textContent = '查看详解';
+            }
+        }
+        
+        // 显示知识点卡片
+        function showKnowledgeCard(id) {
+            document.getElementById(id).classList.add('active');
+        }
+        
+        // 关闭知识点卡片
+        function closeKnowledgeCard(id) {
+            document.getElementById(id).classList.remove('active');
+        }
+        
+        // 点击卡片外部关闭
+        window.onclick = function(event) {
+            var cards = document.getElementsByClassName('knowledge-card');
+            for (var i = 0; i < cards.length; i++) {
+                if (event.target == cards[i]) {
+                    cards[i].classList.remove('active');
+                }
+            }
+        }
+    </script>
+</body>
+</html>

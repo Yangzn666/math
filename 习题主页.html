@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高等数学习题主页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", 微软雅黑, sans-serif;
+            line-height: 1.8;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .chapter-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        header {
+            background: linear-gradient(120deg, #2c3e50, #4a6491);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd 0%, #f8f9fa 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .chapter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .chapter-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+        }
+
+        .chapter-card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eee;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .chapter-card h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+
+        .chapter-card p {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        .practice-link {
+            display: inline-block;
+            background: linear-gradient(120deg, #3498db, #2c3e50);
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .practice-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        .practice-link:active {
+            transform: translateY(0);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #7f8c8d;
+            font-size: 14px;
+            border-top: 1px solid #eee;
+            background: #f8f9fa;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+            
+            .container {
+                border-radius: 10px;
+            }
+            
+            header {
+                padding: 20px 10px;
+            }
+            
+            h1 {
+                font-size: 24px;
+            }
+            
+            .subtitle {
+                font-size: 14px;
+            }
+            
+            .content {
+                padding: 15px;
+            }
+            
+            .chapter-card {
+                padding: 15px;
+            }
+            
+            .chapter-card h3 {
+                font-size: 18px;
+            }
+            
+            .chapter-card p {
+                font-size: 14px;
+            }
+            
+            .practice-link {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            .footer {
+                padding: 20px 10px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>高等数学习题主页</h1>
+            <div class="subtitle">各章节题型分类练习</div>
+        </header>
+        
+        <div class="content">
+            <div class="intro">
+                <h2>习题目录</h2>
+                <p>本页面收录了高等数学各章节的题型分类练习，帮助你巩固知识点并提升解题能力</p>
+            </div>
+
+            <div class="chapter-grid">
+                <div class="chapter-card">
+                    <h3>第一章</h3>
+                    <p>函数、极限、连续</p>
+                    <a href="第1讲 函数、极限与连续 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第二章</h3>
+                    <p>导数与微分、中值定理</p>
+                    <a href="第2讲 导数与微分、中值定理 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第三章</h3>
+                    <p>一元函数积分学</p>
+                    <a href="第3讲 一元函数积分学 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第四章</h3>
+                    <p>多元函数微分学</p>
+                    <a href="第4讲 多元函数微分学 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第五章</h3>
+                    <p>多元函数积分学</p>
+                    <a href="第5讲 多元函数积分学 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第六章</h3>
+                    <p>无穷级数</p>
+                    <a href="第6讲 无穷级数 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+                
+                <div class="chapter-card">
+                    <h3>第七章</h3>
+                    <p>常微分方程</p>
+                    <a href="常微分方程 题型分类练习.html" class="practice-link" target="_blank">开始练习</a>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 高等数学学习笔记 | 习题主页</p>
+        </div>
+    </div>
+</body>
+</html>
